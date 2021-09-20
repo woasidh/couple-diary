@@ -1,0 +1,15 @@
+body, html, #root {
+  height: 100%;
+  margin : 0;
+}
+
+button {
+  border: none;
+  cursor : pointer;
+  background-color: inherit;
+  margin: 0;
+}
+
+input[type = "text"] {
+  outline: none;
+}

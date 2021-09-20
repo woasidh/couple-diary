@@ -1,0 +1,22 @@
+/* css properties util */
+@mixin flex_set_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex_set_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* color */
+$light_gray: #BDBDBD;
+$primary_pink: #FFAB91;
+
+/* box-shadow */
+@mixin box_shadow_up {
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
