@@ -12,6 +12,7 @@
     @include flex_set_column;
     background-color: white;
     padding : 50px;
+    border-radius: 15px;
     @include box_shadow_up;
 
     .content {
