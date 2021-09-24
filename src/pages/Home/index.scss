@@ -1,0 +1,96 @@
+@import 'src/variables.scss';
+
+.home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  header.main_header {
+    width: 100%;
+    height: 70px;
+    padding: 0 30px;
+    @include flex_set_space_between;
+
+    img {
+      height: 60%;
+    }
+
+    .right_menu_container{
+      @include flex_set_center;
+      column-gap: 15px;
+
+      .item_container {
+        @include box_up;
+
+        width: 50px;
+        height: 50px;
+        @include flex_set_center;
+
+        img {
+          height: 50%;
+        }
+      }
+    }
+  }
+
+  section.function_menu {
+    width: 100%;
+    height: 90px;
+    padding: 10px 30px;
+
+    .button_container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      button {
+        width: 100px;
+        height: 70%;
+        @include box_up;
+      }
+    }
+  }
+
+  section.main_container {
+    width: 100%;
+    padding:  15px 30px;
+    flex: auto;
+
+    .calendar {
+      width: 100%;
+      height: 100%;
+      @include box_up;
+      display: flex;
+      flex-direction: column;
+
+      .weekdayRow {
+        height: 40px;
+        border-bottom: 1px solid #00000020;
+        display: flex;
+
+        .weekDayCell {
+          flex: auto;
+          border-right: 1px solid #00000020;
+        }
+      }
+
+      .weekRows {
+        flex: auto;
+        display: flex;
+        flex-direction: column;
+
+        .weekRow {
+          flex: auto;
+          border-bottom: 1px solid #00000020;
+          display: flex;
+
+          .dayCell {
+            flex: auto;
+            border-right: 1px solid #00000020;
+          }
+        }
+      }
+    }
+  }
+}
