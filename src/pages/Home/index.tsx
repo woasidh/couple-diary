@@ -2,6 +2,7 @@ import React, {ReactElement} from 'react';
 import './index.scss';
 import Logo from '../../resource/images/logo.png';
 import List from '../../resource/images/list.png';
+import Calendar from "./Calendar/Calendar";
 
 const Index = (): ReactElement => {
 
@@ -28,80 +29,14 @@ const Index = (): ReactElement => {
             {renderHeader()}
             <section className = "function_menu">
                 <div className="button_container">
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                    <button></button>
                 </div>
             </section>
             <section className = "main_container">
-                <div className = "calendar">
-                    <div className = "weekdayRow">
-                        <div className="weekDayCell"/>
-                        <div className="weekDayCell"/>
-                        <div className="weekDayCell"/>
-                        <div className="weekDayCell"/>
-                        <div className="weekDayCell"/>
-                        <div className="weekDayCell"/>
-                        <div className="weekDayCell"/>
-                    </div>
-                    <div className = "weekRows">
-                        <div className="weekRow">
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                        </div>
-                        <div className="weekRow">
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                        </div>
-                        <div className="weekRow">
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                        </div>
-                        <div className="weekRow">
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                        </div>
-                        <div className="weekRow">
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                        </div>
-                        <div className="weekRow">
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                            <div className="dayCell"/>
-                        </div>
-                    </div>
-                </div>
+                <Calendar/>
             </section>
         </div>
     )
