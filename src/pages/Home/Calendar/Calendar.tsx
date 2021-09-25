@@ -1,4 +1,5 @@
 import React, {ReactElement} from 'react';
+import DayCell from "./DayCell/DayCell";
 
 const Calendar = () => {
 
@@ -7,9 +8,23 @@ const Calendar = () => {
         return (
             <div className="weekdayRow">
                 {weekdays.map((weekday, index) => (
-                    <div className="weekDayCell" key = {index}>{weekday}</div>
+                    <div className="weekDayCell" key={index}>{weekday}</div>
                 ))}
             </div>
+        );
+    }
+
+    function renderWeekRow(): ReactElement {
+        return (
+            <div className="weekRow">
+                {[0, 1, 2, 3, 4, 5, 6].map(() => (<DayCell/>))}
+            </div>
+        );
+    }
+
+    function renderWeekRows(): Array<ReactElement> {
+        return (
+            [0, 1, 2, 3, 4].map(() => renderWeekRow())
         );
     }
 
@@ -17,63 +32,7 @@ const Calendar = () => {
         <div className="calendar">
             <div className="weekRows">
                 {renderWeekdayRow()}
-                <div className="weekRow">
-                    <div className="dayCell">
-                        <div className = "dayWrapper">1</div>
-                        <div className = "eventWrapper">dadsf</div>
-                    </div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                </div>
-                <div className="weekRow">
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                </div>
-                <div className="weekRow">
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                </div>
-                <div className="weekRow">
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                </div>
-                <div className="weekRow">
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                </div>
-                <div className="weekRow">
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                    <div className="dayCell"></div>
-                </div>
+                {renderWeekRows()}
             </div>
         </div>
     );
