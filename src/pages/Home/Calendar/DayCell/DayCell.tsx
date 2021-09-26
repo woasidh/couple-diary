@@ -1,9 +1,13 @@
 import React from 'react';
 
-const DayCell = () => {
+interface DayCellProps {
+    day: number | null
+}
+
+const DayCell = ({day}: DayCellProps) => {
     return (
         <div className="dayCell">
-            <div className="dayWrapper">1</div>
+            <div className="dayWrapper">{day}</div>
             <div className="eventWrapper"/>
         </div>
     );

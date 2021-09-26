@@ -57,7 +57,7 @@
           @include flex_set_center;
 
           img {
-            width: 60%;
+            width: 40%;
           }
         }
       }
@@ -108,7 +108,7 @@
         flex-direction: column;
 
         .weekRow {
-          flex: auto;
+          flex: 1;
           border-bottom: 1px solid #00000020;
           display: flex;
 
