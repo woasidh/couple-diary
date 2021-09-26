@@ -14,17 +14,17 @@ const Calendar = () => {
         );
     }
 
-    function renderWeekRow(): ReactElement {
+    function renderWeekRow(rowNum: number = 0): ReactElement {
         return (
-            <div className="weekRow">
-                {[0, 1, 2, 3, 4, 5, 6].map(() => (<DayCell/>))}
+            <div className="weekRow" key = {rowNum}>
+                {[0, 1, 2, 3, 4, 5, 6].map((num, idx) => (<DayCell key = {idx}/>))}
             </div>
         );
     }
 
     function renderWeekRows(): Array<ReactElement> {
         return (
-            [0, 1, 2, 3, 4].map(() => renderWeekRow())
+            [0, 1, 2, 3, 4, 5].map((num, idx) => renderWeekRow(num))
         );
     }
 
