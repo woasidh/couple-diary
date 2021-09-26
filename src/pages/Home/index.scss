@@ -39,15 +39,36 @@
     height: 90px;
     padding: 10px 30px;
 
-    .button_container {
+    .calendar_submenu {
       height: 100%;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 30px;
-      button {
+
+      .calendar_controller {
+        height: 70%;
+        @include flex_set_center;
+        column-gap: 20px;
+
+        button {
+          width: 50px;
+          height: 100%;
+          @include box_up;
+          @include flex_set_center;
+
+          img {
+            width: 40%;
+          }
+        }
+      }
+
+      .date_shower {
+        @include box_up;
         width: 100px;
         height: 70%;
-        @include box_up;
+        @include flex_set_center;
+        text-align: center;
+        font-size: 20px;
       }
     }
   }
@@ -68,10 +89,16 @@
         height: 40px;
         border-bottom: 1px solid #00000020;
         display: flex;
-
         .weekDayCell {
           flex: auto;
           border-right: 1px solid #00000020;
+          line-height: 40px;
+          text-align: right;
+          padding-right: 10px;
+          font-weight: 500;
+          &:nth-child(1) {
+            color: red;
+          }
         }
       }
 
@@ -81,13 +108,25 @@
         flex-direction: column;
 
         .weekRow {
-          flex: auto;
+          flex: 1;
           border-bottom: 1px solid #00000020;
           display: flex;
 
           .dayCell {
-            flex: auto;
+            flex: 1;
             border-right: 1px solid #00000020;
+            padding:  5px 10px;
+            display: flex;
+            flex-direction: column;
+
+            .dayWrapper {
+              flex: 1;
+              text-align: right;
+            }
+
+            .eventWrapper {
+              flex: 7;
+            }
           }
         }
       }
