@@ -1,12 +1,18 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import './index.scss';
 import Logo from '../../resource/images/logo.png';
 import List from '../../resource/images/list.png';
 import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
 import Calendar from "./Calendar/Calendar";
+import axios from 'axios';
 
 const Index = (): ReactElement => {
+
+    useEffect(() => {
+        axios.get('http://54.180.99.216:5000/users').then((result) => console.log(result.data));
+    }, []);
+
 
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth());
