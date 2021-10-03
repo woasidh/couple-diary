@@ -3,6 +3,7 @@ import './index.scss';
 import LogoHeader from "../../components/LogoHeader/LogoHeader";
 import Input from '../../components/Input/Input';
 import logoUrl from '../../resource/images/logo.png';
+import axios from 'axios';
 
 interface LoginSubmitForm {
     email: string
@@ -59,7 +60,10 @@ const Index = (): ReactElement => {
     }
 
     function submitLoginForm(): void {
-        console.log('submit Data: ', submitContent);
+        //console.log('submit Data: ', submitContent);
+        axios.post('http://localhost:5000/users/login', submitContent).then((res) => {
+            console.log(res);
+        })
     }
 
     return (
