@@ -1,7 +1,7 @@
-import React, {ReactElement, useRef, useState} from 'react';
+import React, {ReactElement, useState} from 'react';
 import './index.scss';
 import LogoHeader from "../../components/LogoHeader/LogoHeader";
-import EmailInput from './EmailInput/EmailInput';
+import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
 import logoUrl from '../../resource/images/logo.png';
 import axios from 'axios';
 import PasswordInput from "./PasswordInput/PasswordInput";
@@ -18,17 +18,21 @@ const Index = (): ReactElement => {
         email: '',
         password: ''
     });
-    const [isValidEmail, setIsValidEmail] = useState(false);
-    const emailInputMessage = useRef<HTMLSpanElement>(null);
+    const [emailInputStatus, setEmailInputStatus] = useState<EmailInputStatus>({
+        isValid: false,
+        inputStateMsg: ''
+    });
 
     function renderContent(): ReactElement {
         return (
             <div className="content">
-                <EmailInput inputMsgRef={emailInputMessage} type="email" text="이메일" onChangeContent={onEmailInputChange}/>
+                <EmailInput inputStatus={emailInputStatus} type="email" text="이메일"
+                            onChangeContent={onEmailInputChange}/>
                 <PasswordInput type="password" text="비밀번호" onChangeContent={onPasswordInputChange}/>
-                <button onClick={submitLoginForm} disabled={!isValidEmail} style = {{
-                    backgroundColor: isValidEmail ? variables.colors.primaryPink : '#E6E6EA'
-                }}>로그인</button>
+                <button onClick={submitLoginForm} disabled={!emailInputStatus.isValid} style={{
+                    backgroundColor: emailInputStatus.isValid ? variables.colors.primaryPink : '#E6E6EA'
+                }}>로그인
+                </button>
                 <div className="login_keep">
                     <input type="checkbox" id="keep_login"/>
                     <label htmlFor="keep_login" id="custom_checkbox">로그인 상태 유지할래요</label>
@@ -55,7 +59,10 @@ const Index = (): ReactElement => {
             ...submitContent,
             email: email
         });
-        setIsValidEmail(isEmailValid);
+        setEmailInputStatus({
+            isValid: isEmailValid,
+            inputStateMsg: isEmailValid ? '유효한 이메일입니다' : '@를 포함한 이메일 형식으로 입력해주세요'
+        });
     }
 
     function onPasswordInputChange(password: string): void {
@@ -75,11 +82,10 @@ const Index = (): ReactElement => {
                     if (data.errMsg === 'PASSWORD_MISMATCH') { // 비밀번호 불일치일 떄
                         console.log('password mismatch')
                     } else if (data.errMsg === 'NO_MATCH_ID') { // ID가 없을 때
-                        const current = emailInputMessage.current;
-                        if (!!current) {
-                            current.innerText = '일치하는 ID가 없습니다';
-                            current.style.color = '#FE4A49';
-                        }
+                        setEmailInputStatus({
+                            isValid: false,
+                            inputStateMsg: 'id가 존재하지 않습니다'
+                        });
                     }
                 } else {
                     console.log('login success');
@@ -90,6 +96,7 @@ const Index = (): ReactElement => {
              * 여기서 잘못되었다고 표시
              * TODO 팝업 만들기
              */
+            console.error(e);
         });
     }
 
