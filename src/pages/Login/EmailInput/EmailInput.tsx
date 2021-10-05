@@ -6,14 +6,14 @@ export interface EmailInputStatus {
     inputStateMsg: string
 }
 
-interface InputProps {
+interface EmailInputProps {
     type: string
     text: string
     inputStatus: EmailInputStatus
     onChangeContent: (e: string, isValidEmail: boolean) => void
 }
 
-const EmailInput = (props: InputProps): ReactElement => {
+const EmailInput = (props: EmailInputProps): ReactElement => {
 
     function onContentChange(e: React.ChangeEvent<HTMLInputElement>) {
         const content = e.currentTarget.value;

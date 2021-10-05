@@ -4,7 +4,7 @@ import LogoHeader from "../../components/LogoHeader/LogoHeader";
 import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
 import logoUrl from '../../resource/images/logo.png';
 import axios from 'axios';
-import PasswordInput from "./PasswordInput/PasswordInput";
+import PasswordInput, { PasswordStatus } from "./PasswordInput/PasswordInput";
 import variables from '../../variables';
 
 interface LoginSubmitForm {
@@ -22,13 +22,14 @@ const Index = (): ReactElement => {
         isValid: false,
         inputStateMsg: ''
     });
+    const [passwordInputStatus, setPasswordInputStatus] = useState<PasswordStatus>(PasswordStatus.UNKNOWN);
 
     function renderContent(): ReactElement {
         return (
             <div className="content">
                 <EmailInput inputStatus={emailInputStatus} type="email" text="이메일"
                             onChangeContent={onEmailInputChange}/>
-                <PasswordInput type="password" text="비밀번호" onChangeContent={onPasswordInputChange}/>
+                <PasswordInput inputStatus = {passwordInputStatus} type="password" text="비밀번호" onChangeContent={onPasswordInputChange}/>
                 <button onClick={submitLoginForm} disabled={!emailInputStatus.isValid} style={{
                     backgroundColor: emailInputStatus.isValid ? variables.colors.primaryPink : '#E6E6EA'
                 }}>로그인
@@ -70,6 +71,7 @@ const Index = (): ReactElement => {
             ...submitContent,
             password: password
         });
+        setPasswordInputStatus(PasswordStatus.UNKNOWN);
     }
 
     function submitLoginForm(): void {
@@ -80,7 +82,7 @@ const Index = (): ReactElement => {
                 const data = res.data;
                 if (!data.success) {
                     if (data.errMsg === 'PASSWORD_MISMATCH') { // 비밀번호 불일치일 떄
-                        console.log('password mismatch')
+                        setPasswordInputStatus(PasswordStatus.WRONG);
                     } else if (data.errMsg === 'NO_MATCH_ID') { // ID가 없을 때
                         setEmailInputStatus({
                             isValid: false,
