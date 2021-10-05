@@ -6,6 +6,8 @@ import logoUrl from '../../resource/images/logo.png';
 import axios from 'axios';
 import PasswordInput, { PasswordStatus } from "./PasswordInput/PasswordInput";
 import variables from '../../variables';
+import People from '../../resource/images/social.png';
+import {useHistory} from 'react-router-dom';
 
 interface LoginSubmitForm {
     email: string
@@ -23,6 +25,8 @@ const Index = (): ReactElement => {
         inputStateMsg: ''
     });
     const [passwordInputStatus, setPasswordInputStatus] = useState<PasswordStatus>(PasswordStatus.UNKNOWN);
+
+    const history = useHistory();
 
     function renderContent(): ReactElement {
         return (
@@ -90,7 +94,7 @@ const Index = (): ReactElement => {
                         });
                     }
                 } else {
-                    console.log('login success');
+                    history.push('/home');
                 }
             }
         }).catch(e => {
@@ -104,10 +108,17 @@ const Index = (): ReactElement => {
 
     return (
         <div className="login">
-            <div className="loginform_container">
-                <LogoHeader imageUrl={logoUrl} text="로그인"/>
-                {renderContent()}
-                {renderFooter()}
+            <div className = "login_wrap">
+                <div className="loginform_container">
+                    <LogoHeader imageUrl={logoUrl} text="로그인"/>
+                    {renderContent()}
+                    {renderFooter()}
+                </div>
+                <div className = "login_rightSection">
+                    <div className = "title">어서오세요</div>
+                    <div className = "subTitle">연인, 친구, 직장 동료들과 같이 일정을 공유해보세요!</div>
+                    <img src = {People} alt = "people_image"/>
+                </div>
             </div>
         </div>
     );

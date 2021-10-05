@@ -5,93 +5,136 @@
   font-weight: bold;
   width: 100%;
   height: 100%;
-  @include flex_set_center;
+  background-image: url('../../resource/images/loginpage_background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
 
-  .loginform_container {
-    @include flex_set_column;
+  .login_wrap {
     background-color: white;
-    padding : 50px;
+    transform: translateX(150px);
+    display: flex;
+    width: 60vw;
+    height: 60vh;
     border-radius: 15px;
     @include box_shadow_up;
 
-    .content {
+    .loginform_container {
+      width: 40%;
       @include flex_set_column;
-      width: 370px;
-      padding: 25px 0 35px 0;
-      font-size: 18px;
+      padding: 50px;
 
-      button {
-        width : 100%;
-        height : 40px;
-        background-color: $primary_pink;
-        border-radius: 15px;
-        margin: 20px 0;
-        color: white;
-        font-weight: bold;
+      .content {
+        @include flex_set_column;
+        width: 90%;
+        padding: 25px 0 35px 0;
         font-size: 18px;
-      }
 
-      .login_keep {
-        color: $light_gray;
-        @include flex_set_center;
-        font-size: 16px;
+        button {
+          width: 100%;
+          height: 40px;
+          background-color: $primary_pink;
+          border-radius: 15px;
+          margin: 20px 0;
+          color: white;
+          font-weight: bold;
+          font-size: 18px;
+        }
 
-        input[type = "checkbox"] {
-          display: none;
-          &:checked ~ #custom_checkbox  {
-            color: $primary_pink;
+        .login_keep {
+          color: $light_gray;
+          @include flex_set_center;
+          font-size: 16px;
+
+          input[type = "checkbox"] {
+            display: none;
+
+            &:checked ~ #custom_checkbox {
+              color: $primary_pink;
+
+              &:before {
+                content: '\2713';
+                color: white;
+                background-color: $primary_pink;
+                border-color: white;
+              }
+            }
+          }
+
+          #custom_checkbox {
+            cursor: pointer;
+            @include flex_set_center;
+
             &:before {
-              content: '\2713';
-              color: white;
-              background-color: $primary_pink;
-              border-color: white;
+              content: '';
+              display: inline-block;
+              width: 18px;
+              height: 18px;
+              line-height: 18px;
+              text-align: center;
+              border: 1px solid $light_gray;
+              margin-right: 10px;
+              border-radius: 3px;
             }
           }
         }
+      }
 
-        #custom_checkbox {
-          cursor: pointer;
-          @include flex_set_center;
-          &:before {
-            content: '';
-            display: inline-block;
-            width : 18px;
-            height : 18px;
-            line-height: 18px;
-            text-align: center;
-            border: 1px solid $light_gray;
-            margin-right: 10px;
-            border-radius: 3px;
+      .footer {
+        @include flex_set_column;
+        color: $light_gray;
+        font-weight: bold;
+
+        .lost_pwd {
+          color: $light_gray;
+          margin-bottom: 15px;
+          font-size: 16px;
+
+          &:hover {
+            color: $primary_pink;
+            text-decoration: underline;
+          }
+        }
+
+        .signup {
+          font-size: 17px;
+
+          button {
+            color: $primary_pink;
+            font-weight: bold;
+            font-size: 17px;
+
+            &:hover {
+              text-decoration: underline;
+            }
           }
         }
       }
     }
 
-    .footer {
-      @include flex_set_column;
-      color: $light_gray;
-      font-weight: bold;
+    .login_rightSection {
+      width: 60%;
+      background-color: #FFCDD266;
+      border-radius: 0 15px 15px 0;
+      text-align: center;
 
-      .lost_pwd {
-        color: $light_gray;
-        margin-bottom: 15px;
-        font-size: 16px;
-        &:hover {
-          color: $primary_pink;
-          text-decoration: underline;
-        }
+      .title {
+        margin-top: 120px;
+        color: white;
+        font-size: 70px;
       }
 
-      .signup {
-        font-size: 17px;
-        button {
-          color: $primary_pink;
-          font-weight: bold;
-          font-size: 17px;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+      .subTitle {
+        margin-top: 10px;
+        font-size: 20px;
+        color: #939393;
+      }
+
+      img {
+        margin-top: 10px;
+        width: 90%;
       }
     }
   }

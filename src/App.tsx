@@ -5,7 +5,7 @@ import {
     Switch,
     Route
 } from 'react-router-dom';
-import Home from './pages/Home/index';
+import Home from './pages/Calendar/index';
 import Login from './pages/Login/index';
 import Signup from "./pages/Signup/Index";
 

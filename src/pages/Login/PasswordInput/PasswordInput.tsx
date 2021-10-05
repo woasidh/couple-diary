@@ -1,5 +1,10 @@
 import React, {ReactElement} from 'react';
 
+export enum PasswordStatus {
+    UNKNOWN,
+    WRONG
+}
+
 interface PasswordInputProps {
     type: string
     text: string
@@ -21,11 +26,6 @@ const PasswordInput = (props: PasswordInputProps): ReactElement => {
             <span className = "input_result_info">{props.inputStatus === PasswordStatus.WRONG && '비밀번호가 일치하지 않습니다'}</span>
         </div>
     );
-}
-
-export enum PasswordStatus {
-    UNKNOWN,
-    WRONG
 }
 
 export default PasswordInput;
