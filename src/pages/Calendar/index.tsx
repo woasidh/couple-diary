@@ -1,39 +1,14 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {ReactElement, useState} from 'react';
 import './index.scss';
-import Logo from '../../resource/images/logo.png';
-import List from '../../resource/images/list.png';
 import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
 import Calendar from "./Calendar/Calendar";
-import axios from 'axios';
+import Topbar from "../../components/Topbar/Topbar";
 
 const Index = (): ReactElement => {
 
-    useEffect(() => {
-        axios.get('http://54.180.99.216:5000/users').then((result) => console.log(result.data));
-    }, []);
-
-
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth());
-
-    function renderHeader(): ReactElement {
-        const srcList = [List, List, List];
-        const altList = ["list", "list", "list"];
-        const buttons = srcList.map((src, index) => (
-            <button className="item_container" key = {index}>
-                <img src={src} alt={altList[index]}/>
-            </button>
-        ));
-        return (
-            <header className="main_header">
-                <img src={Logo} alt="logo"/>
-                <div className="right_menu_container">
-                    {buttons}
-                </div>
-            </header>
-        );
-    }
 
     function subtractMonth(): void {
         if (month === 0) {
@@ -55,7 +30,7 @@ const Index = (): ReactElement => {
 
     return (
         <div className="home">
-            {renderHeader()}
+            <Topbar/>
             <section className = "function_menu">
                 <div className="calendar_submenu">
                     <div className = "calendar_controller">

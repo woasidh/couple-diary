@@ -8,6 +8,7 @@ import PasswordInput, { PasswordStatus } from "./PasswordInput/PasswordInput";
 import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
 import {useHistory} from 'react-router-dom';
+import Topbar from "../../components/Topbar/Topbar";
 
 interface LoginSubmitForm {
     email: string
@@ -108,6 +109,7 @@ const Index = (): ReactElement => {
 
     return (
         <div className="login">
+            <Topbar/>
             <div className = "login_wrap">
                 <div className="loginform_container">
                     <LogoHeader imageUrl={logoUrl} text="로그인"/>
