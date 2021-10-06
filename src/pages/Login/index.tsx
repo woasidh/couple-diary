@@ -6,7 +6,7 @@ import logoUrl from '../../resource/images/logo.png';
 import axios from 'axios';
 import PasswordInput, { PasswordStatus } from "./PasswordInput/PasswordInput";
 import variables from '../../variables';
-import People from '../../resource/images/social.png';
+import People from '../../resource/images/social_illust.jpg';
 import {useHistory} from 'react-router-dom';
 
 interface LoginSubmitForm {
@@ -114,11 +114,7 @@ const Index = (): ReactElement => {
                     {renderContent()}
                     {renderFooter()}
                 </div>
-                <div className = "login_rightSection">
-                    <div className = "title">어서오세요</div>
-                    <div className = "subTitle">연인, 친구, 직장 동료들과 같이 일정을 공유해보세요!</div>
-                    <img src = {People} alt = "people_image"/>
-                </div>
+                <img src = {People} alt = "people_image"/>
             </div>
         </div>
     );

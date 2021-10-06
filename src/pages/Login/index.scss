@@ -10,15 +10,14 @@
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
-  align-items: center;
+  @include flex_set_center;
 
   .login_wrap {
     background-color: white;
-    transform: translateX(150px);
-    display: flex;
-    width: 60vw;
-    height: 60vh;
+    width: 1400px;
+    height: 896px;
     border-radius: 15px;
+    display: flex;
     @include box_shadow_up;
 
     .loginform_container {
@@ -27,6 +26,7 @@
       padding: 50px;
 
       .content {
+        margin-top: 10px;
         @include flex_set_column;
         width: 90%;
         padding: 25px 0 35px 0;
@@ -113,29 +113,9 @@
         }
       }
     }
-
-    .login_rightSection {
-      width: 60%;
-      background-color: #FFCDD266;
+    img {
       border-radius: 0 15px 15px 0;
-      text-align: center;
-
-      .title {
-        margin-top: 120px;
-        color: white;
-        font-size: 70px;
-      }
-
-      .subTitle {
-        margin-top: 10px;
-        font-size: 20px;
-        color: #939393;
-      }
-
-      img {
-        margin-top: 10px;
-        width: 90%;
-      }
+      width: 60%;
     }
   }
 }
