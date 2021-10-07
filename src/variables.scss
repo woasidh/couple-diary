@@ -24,6 +24,19 @@
     3px 3px 5px #aeaec040;
 }
 
+@mixin background-cover {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@mixin exclude_topbar {
+  width: 100%;
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+}
+
 /* color */
 $light_gray: #BDBDBD;
 $primary_pink: #FFAB91;
@@ -32,6 +45,9 @@ $primary_pink: #FFAB91;
 @mixin box_shadow_up {
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 10px;
 }
+
+/* sizes */
+$topbar_height: 70px;
 
 /* export */
 :export {

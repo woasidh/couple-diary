@@ -4,7 +4,7 @@ import LogoHeader from "../../components/LogoHeader/LogoHeader";
 import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
 import logoUrl from '../../resource/images/logo.png';
 import axios from 'axios';
-import PasswordInput, { PasswordStatus } from "./PasswordInput/PasswordInput";
+import PasswordInput, {PasswordStatus} from "./PasswordInput/PasswordInput";
 import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
 import {useHistory} from 'react-router-dom';
@@ -35,7 +35,8 @@ const Index = (): ReactElement => {
             <div className="content">
                 <EmailInput inputStatus={emailInputStatus} type="email" text="이메일"
                             onChangeContent={onEmailInputChange}/>
-                <PasswordInput inputStatus = {passwordInputStatus} type="password" text="비밀번호" onChangeContent={onPasswordInputChange}/>
+                <PasswordInput inputStatus={passwordInputStatus} type="password" text="비밀번호"
+                               onChangeContent={onPasswordInputChange}/>
                 <button onClick={submitLoginForm} disabled={!emailInputStatus.isValid} style={{
                     backgroundColor: emailInputStatus.isValid ? variables.colors.primaryPink : '#E6E6EA'
                 }}>로그인
@@ -108,15 +109,16 @@ const Index = (): ReactElement => {
     }
 
     return (
-        <div className="login">
-            <Topbar/>
-            <div className = "login_wrap">
-                <div className="loginform_container">
-                    <LogoHeader imageUrl={logoUrl} text="로그인"/>
-                    {renderContent()}
-                    {renderFooter()}
+        <div className="login_root">
+            <div className = 'under_topbar'>
+                <div className="login_wrap">
+                    <div className="loginform_container">
+                        <LogoHeader imageUrl={logoUrl} text="로그인"/>
+                        {renderContent()}
+                        {renderFooter()}
+                    </div>
+                    <img src={People} alt="people_image"/>
                 </div>
-                <img src = {People} alt = "people_image"/>
             </div>
         </div>
     );

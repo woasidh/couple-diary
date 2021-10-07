@@ -1,0 +1,5 @@
+@import 'src/variables.scss';
+
+.workspace_root {
+  @include exclude_topbar;
+}

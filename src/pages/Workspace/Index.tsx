@@ -1,9 +1,11 @@
 import React from 'react';
+import './Index.scss';
+import Topbar from "../../components/Topbar/Topbar";
 
 const Workspace = () => {
     return (
-        <div>
-            this is a workspace!
+        <div className = 'workspace_root'>
+
         </div>
     );
 }
