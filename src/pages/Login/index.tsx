@@ -9,6 +9,7 @@ import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
 import {useHistory} from 'react-router-dom';
 import Topbar from "../../components/Topbar/Topbar";
+import {serverUrl} from "../../config";
 
 interface LoginSubmitForm {
     email: string
@@ -80,7 +81,7 @@ const Index = (): ReactElement => {
     }
 
     function submitLoginForm(): void {
-        axios.post('http://localhost:5000/users/login', submitContent).then((res) => {
+        axios.post(`${serverUrl}/users/login`, submitContent).then((res) => {
             if (res.status !== 200) { // 서버 통신 잘 안되었을 때
                 console.log('not valid');
             } else { // 서버 통신 잘되었을 때
@@ -95,12 +96,11 @@ const Index = (): ReactElement => {
                         });
                     }
                 } else {
-                    history.push('/home');
+                    history.push('/workspace');
                 }
             }
         }).catch(e => {
             /**
-             * 여기서 잘못되었다고 표시
              * TODO 팝업 만들기
              */
             console.error(e);

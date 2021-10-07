@@ -7,15 +7,19 @@ import {
 } from 'react-router-dom';
 import Home from './pages/Calendar/index';
 import Login from './pages/Login/index';
-import Signup from "./pages/Signup/Index";
+import Signup from './pages/Signup/Index';
+import Workspace from './pages/Workspace/Index';
+import Fallback from "./pages/Fallback/Index";
 
 function App() {
   return (
       <Router>
           <Switch>
               <Route exact path = '/'><Login/></Route>
-              <Route exact path = '/Home'><Home/></Route>
+              <Route exact path = '/workspace'><Workspace/></Route>
+              <Route exact path = '/calendar'><Home/></Route>
               <Route exact path = '/signup'><Signup/></Route>
+              <Route path = '*'><Fallback/></Route>
           </Switch>
       </Router>
   );
