@@ -2,4 +2,31 @@
 
 .workspace_root {
   @include exclude_topbar;
+  @include flex_set_center;
+
+  .single_info_container {
+
+    @include flex_set_column;
+
+    img {
+      width: 230px;
+      margin-bottom: 20px;
+    }
+
+    .solo_desc {
+      font-weight: bold;
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .link_connect {
+      font-size: 23px;
+      width: 250px;
+      height: 50px;
+      border-radius: 10px;
+      color: white;
+      background-color: $primary_pink;
+
+    }
+  }
 }

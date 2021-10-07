@@ -1,11 +1,20 @@
 import React from 'react';
 import './Index.scss';
-import Topbar from "../../components/Topbar/Topbar";
+import Ago_sad from '../../resource/images/ago_sad.png';
 
 const Workspace = () => {
+
+    function onClickConnectCouple(): void {
+        console.log('커플 연결하러 가기');
+    }
+
     return (
         <div className = 'workspace_root'>
-
+            <div className = 'single_info_container'>
+                <img src = {Ago_sad} alt = 'ago_sad'/>
+                <div className = 'solo_desc'>아직 커플이 아니에요...</div>
+                <button onClick={onClickConnectCouple} className = "link_connect">연결하러 가기</button>
+            </div>
         </div>
     );
 }

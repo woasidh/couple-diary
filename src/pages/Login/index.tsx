@@ -8,7 +8,6 @@ import PasswordInput, {PasswordStatus} from "./PasswordInput/PasswordInput";
 import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
 import {useHistory} from 'react-router-dom';
-import Topbar from "../../components/Topbar/Topbar";
 import {serverUrl} from "../../config";
 
 interface LoginSubmitForm {
