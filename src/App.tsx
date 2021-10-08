@@ -11,6 +11,7 @@ import Signup from './pages/Signup/Index';
 import Workspace from './pages/Workspace/Index';
 import Fallback from "./pages/Fallback/Index";
 import Topbar from "./components/Topbar/Topbar";
+import Connect from "./pages/Connect/Index";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route exact path='/workspace'><Workspace/></Route>
                     <Route exact path='/calendar'><Home/></Route>
                     <Route exact path='/signup'><Signup/></Route>
+                    <Route exact path='/connect'><Connect/></Route>
                     <Route path='*'><Fallback/></Route>
                 </Switch>
             </Router>
