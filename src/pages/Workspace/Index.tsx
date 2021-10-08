@@ -1,11 +1,14 @@
 import React from 'react';
 import './Index.scss';
 import Ago_sad from '../../resource/images/ago_sad.png';
+import {useHistory} from "react-router-dom";
 
 const Workspace = () => {
 
+    const history = useHistory();
+
     function onClickConnectCouple(): void {
-        console.log('커플 연결하러 가기');
+        history.push('connect');
     }
 
     return (
