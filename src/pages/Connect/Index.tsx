@@ -1,32 +1,8 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import './Index.scss';
-import Heart from '../../resource/images/heart.png';
-import {Point} from "../../util/Point";
+import RandomHeart from './RandomHeart/RandomHeart';
 
 const Connect = () => {
-
-    const imgSize = useRef<number>(50);
-    const container = useRef<HTMLDivElement>(null);
-
-    function makeHeart(): void {
-        console.log('하트 그려짐');
-    }
-
-    function deleteHeart(): void {
-        console.log('하트 지워짐');
-    }
-
-    function getRandomCoordinate(): Point {
-        const validWidth = window.innerWidth - imgSize.current;
-        const validHeight = window.innerHeight - imgSize.current;
-
-        console.log(window.innerWidth, window.innerHeight, Math.random() * validWidth, Math.random() * validHeight);
-
-        return ({
-            x: Math.random() * validWidth,
-            y: Math.random() * validHeight,
-        });
-    }
 
     // setInterval(() => {
     //     const img = document.createElement('img');
@@ -39,7 +15,7 @@ const Connect = () => {
 
     return (
         <div className = 'connect_root'>
-            <div ref = {container} className = 'heart_image_wrap'/>
+            <RandomHeart/>
         </div>
     );
 }
