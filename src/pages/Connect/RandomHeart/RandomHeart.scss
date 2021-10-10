@@ -3,9 +3,9 @@
     top: 0;
     bottom: 0;
     width: 100%;
-
-
-    &.showAnim {
+    // display: grid;
+    // grid-template-columns: repeat(3, 1fr);
+    // grid-template-rows: repeat(3, 1fr);
         .a {
             // TODO 애니메이션 구현
             position: absolute;
@@ -13,7 +13,6 @@
             animation-name: showSlowly;
             animation-iteration-count: infinite;
         }
-    }
   }
 
   @keyframes showSlowly {

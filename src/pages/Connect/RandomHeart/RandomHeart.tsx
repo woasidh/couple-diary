@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, ReactElement } from 'react'
 import ReactDOM from 'react-dom';
 import { getOrderedArray } from '../../../util/ArrayUtil';
 import { Point } from '../../../util/Point';
@@ -6,11 +6,6 @@ import Heart from './Heart';
 import './RandomHeart.scss';
 
 const RandomHeart = () => {
-
-    /**
-     * heart image 로직
-     * 
-     */
 
     // 하트 이미지 사이즈 (브라우저 랜덤 좌표 구할 때 필요)
     const imgSize = useRef<number>(50);
@@ -20,6 +15,8 @@ const RandomHeart = () => {
     const imgCount = useRef<number>(9);
     // 4초에 한번 렌더링
     const intervalTime = useRef<number>(4000);
+
+    const [coordinates, setCoordinates] = useState<Array<Point>>([]);
 
     /**
      * --- 랜덤 하트 이미지 logic ---
@@ -31,52 +28,55 @@ const RandomHeart = () => {
      */
 
     useEffect(() => {
+        console.log('useeffect');
+        setCoordinateRandomly();
         setInterval(() => {
-            
+            setCoordinateRandomly();
         }, intervalTime.current);
     }, [])
 
 
-    function changeCoordinates(): void {
-        console.log('위치 바뀜!');
+    // 좌표 배열 정보 바꾸기
+    function setCoordinateRandomly(): void {
+        console.log('위치 조정');
+        const coordinateArray = [];
+        for (let i = 0; i < imgCount.current; i++) {
+            coordinateArray.push(getRandomCoordinate(i));
+        }
+        setCoordinates(coordinateArray);
     }
 
-    function createHeartImage(): void {
-        container.current?.classList.remove('showAnim');
-        container.current?.classList.add('showAnim');
-        const heartImages =
-            <>
-                {getOrderedArray(imgCount.current).map((key) => (
-                    <Heart width={imgSize.current}
-                        left={getRandomCoordinate().x}
-                        top={getRandomCoordinate().y}
-                        key={key} />
-                ))}
-            </>
-        ReactDOM.render(heartImages, container.current);
-    }
+    function getRandomCoordinate(section: number): Point {
 
-    function getRandomCoordinate(): Point {
-        const validWidth = window.innerWidth - imgSize.current;
-        const validHeight = window.innerHeight - imgSize.current;
+        const top = Math.floor(section / 3);
+        const left = section % 3;
 
+        // TODO useref 유효성 체크 어떻게 해야 하는건지...?
+        if (container.current) {
+
+            const rowUnit = (container.current?.getBoundingClientRect().width) / 3;
+            const columnUnit = (container.current?.getBoundingClientRect().height) / 3;
+
+            return ({
+                x: (rowUnit * left) + (Math.random() * (rowUnit - imgSize.current)),
+                y: (columnUnit * top) + (Math.random() * (columnUnit - imgSize.current)),
+            });
+        }
         return ({
-            x: Math.random() * validWidth,
-            y: Math.random() * validHeight,
-        });
+            x: 0,
+            y: 0
+        })
+    }
+
+    function renderHearts(): Array<ReactElement> {
+        return getOrderedArray(imgCount.current).map(key => (
+            <Heart width={imgSize.current} left={coordinates[key].x} top={coordinates[key].y} key={key} />
+        ));
     }
 
     return (
         <div ref={container} className='heart_image_wrap'>
-            <button onClick={() => {
-                console.log(!container.current?.classList.contains('showAnim'));
-                container.current?.classList.toggle('showAnim',
-                    !container.current?.classList.contains('showAnim'))
-            }}>click me</button>
-            <Heart width={imgSize.current}
-                left={getRandomCoordinate().x}
-                top={getRandomCoordinate().y}
-                />
+            {coordinates.length > 0 && renderHearts()}
         </div>
     )
 }
