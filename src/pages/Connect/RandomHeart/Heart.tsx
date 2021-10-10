@@ -8,14 +8,14 @@ interface HeartProps {
 }
 
 const Heart = (props: HeartProps) => (
-<img
-className = "a"
-src = {HeartImgSrc}
-width = {props.width}
-style = {{
-    left: props.left,
-    top: props.top
-}}/>
+    <img
+        className="a"
+        src={HeartImgSrc}
+        width={props.width}
+        style={{
+            left: props.left,
+            top: props.top
+        }} />
 )
 
 export default Heart;

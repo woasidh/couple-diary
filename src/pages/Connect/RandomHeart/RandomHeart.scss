@@ -4,8 +4,29 @@
     bottom: 0;
     width: 100%;
 
-    .a{
-        // TODO 애니메이션 구현
-        position: absolute;
+
+    &.showAnim {
+        .a {
+            // TODO 애니메이션 구현
+            position: absolute;
+            animation-duration: 4s;
+            animation-name: showSlowly;
+            animation-iteration-count: infinite;
+        }
     }
   }
+
+  @keyframes showSlowly {
+      0% {
+          opacity: 0;
+      }
+
+      50% {
+          opacity: 1;
+      }
+
+      100% {
+          opacity: 0;
+      }
+  }
+
