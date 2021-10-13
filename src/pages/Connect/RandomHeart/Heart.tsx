@@ -15,7 +15,8 @@ const Heart = (props: HeartProps) => (
         style={{
             left: props.left,
             top: props.top
-        }} />
+        }}
+        alt = 'heartImg' />
 )
 
 export default Heart;
