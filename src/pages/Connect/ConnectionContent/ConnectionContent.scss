@@ -30,9 +30,21 @@
         margin-top: 15px;
         font-size: 22px;
         color: #00000080;
+        @include flex_set_center;
 
         .counter {
+            position: relative;
             margin-left: 30px;
+            width: 130px;
+
+            .counter_status {
+                font-size: 17px;
+                height: 100%;
+                position: absolute;
+                right: 0;
+                color: green;
+                font-weight: bold;
+            }
         }
     }
 

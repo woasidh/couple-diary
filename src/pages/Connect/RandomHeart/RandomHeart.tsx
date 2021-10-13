@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, ReactElement } from 'react'
-import { getOrderedArray } from '../../../util/ArrayUtil';
+import {ArrayUtil} from '../../../util/ArrayUtil';
 import { Point } from '../../../util/Point';
 import Heart from './Heart';
 import './RandomHeart.scss';
@@ -68,7 +68,7 @@ const RandomHeart = () => {
     }
 
     function renderHearts(): Array<ReactElement> {
-        return getOrderedArray(imgCount.current).map(key => (
+        return ArrayUtil.getOrderedArray(imgCount.current).map(key => (
             <Heart width={imgSize.current} left={coordinates[key].x} top={coordinates[key].y} key={key} />
         ));
     }
