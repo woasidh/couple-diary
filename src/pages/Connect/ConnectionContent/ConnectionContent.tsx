@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {BaseSyntheticEvent, KeyboardEventHandler, ReactElement, useEffect, useRef, useState} from 'react';
 import './ConnectionContent.scss';
 import Ago_comehere from '../../../resource/images/ago_comehere.png';
 import {ArrayUtil} from "../../../util/ArrayUtil";
@@ -19,8 +19,8 @@ const ConnectionContent = () => {
 const MyInvitationCode = () => {
 
     function renderCodeItems(): Array<ReactElement> {
-        return ArrayUtil.getRandomNumberArray(6).map((key) => (
-            <div className="codeItem" key = {key}>{key}</div>
+        return ArrayUtil.getRandomNumberArray(6).map((key, idx) => (
+            <div className="codeItem" key = {idx}>{key}</div>
         ));
     }
 
@@ -45,34 +45,17 @@ const InvitationGuide = () => {
 
 const Counter = (props: CounterProps) => {
 
-    /**
-     * Counter 로직
-     *
-     */
-
     const [remainingSecond, setRemainingSecond] = useState<number>(props.second);
     const [counterStatus, setCounterStatus] = useState<CounterState>(CounterState.RUNNING);
-    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         let timerID = setTimeout(() => {
             remainingSecond > 0 ? setRemainingSecond(remainingSecond - 1) : setCounterStatus(CounterState.FINISHED);
-        }, 20); // TODO 타이머 시간 바꾸기
+        }, 20);
         return (() => {
             clearTimeout(timerID);
         });
-    }, [remainingSecond,refresh]);
-
-    // useEffect(() => {
-    //     let a = setTimeout(() => {
-    //        console.log('1');
-    //     }, 1000);
-    //     return (() => {
-    //         clearTimeout(a);
-    //     });
-    // }, []);
-
-
+    }, [remainingSecond]);
 
     function parseTime(seconds: number): string {
         let minute: number | string = Math.floor(seconds / 60);
@@ -108,14 +91,32 @@ enum CounterState {
 
 const CodeInput = () => {
 
+    const [currentIdx, setCurrentIdx] = useState<number>(0);
+    const inputContainerRef = useRef<HTMLDivElement>(null);
+
+    function onInputFocus(e: any): void {
+        if (inputContainerRef.current) {
+            const inputIdx: number = parseInt(e.target.id);
+            const inputElements = inputContainerRef.current.children;
+            for (let i = inputIdx; i < 6 ; i++) {
+                // TODO element, typescript 정리하기
+                const inputElement = inputElements[i] as HTMLInputElement;
+                inputElement.value = '';
+            }
+        }
+    }
+
+    function onInputKeyDown(e: any): void {
+    }
+
     function codeInputItems(): Array<ReactElement> {
-        return [1, 2, 3, 4, 5, 6].map((key) => (
-            <div className="codeInputItem" key = {key}/>
+        return [0, 1, 2, 3, 4, 5].map((key) => (
+            <input className="codeInputItem" maxLength={1} id = {key.toString()} key = {key} onKeyDown={onInputKeyDown} onFocus={onInputFocus}/>
         ));
     }
 
     return (
-        <div className="codeInputContainer">
+        <div className="codeInputContainer" ref = {inputContainerRef}>
             {codeInputItems()}
         </div>
     );
