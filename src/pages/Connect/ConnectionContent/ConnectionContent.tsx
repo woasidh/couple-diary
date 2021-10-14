@@ -1,4 +1,4 @@
-import React, {BaseSyntheticEvent, KeyboardEventHandler, ReactElement, useEffect, useRef, useState} from 'react';
+import React, {ReactElement, useEffect, useRef, useState} from 'react';
 import './ConnectionContent.scss';
 import Ago_comehere from '../../../resource/images/ago_comehere.png';
 import {ArrayUtil} from "../../../util/ArrayUtil";
@@ -43,6 +43,15 @@ const InvitationGuide = () => {
     );
 }
 
+interface CounterProps {
+    second: number;
+}
+
+enum CounterState {
+    RUNNING,
+    FINISHED
+}
+
 const Counter = (props: CounterProps) => {
 
     const [remainingSecond, setRemainingSecond] = useState<number>(props.second);
@@ -80,18 +89,8 @@ const Counter = (props: CounterProps) => {
     );
 }
 
-interface CounterProps {
-    second: number;
-}
-
-enum CounterState {
-    RUNNING,
-    FINISHED
-}
-
 const CodeInput = () => {
 
-    const [currentIdx, setCurrentIdx] = useState<number>(0);
     const inputContainerRef = useRef<HTMLDivElement>(null);
 
     function onInputFocus(e: any): void {
@@ -107,10 +106,20 @@ const CodeInput = () => {
     }
 
     function onInputKeyDown(e: any): void {
+        e.preventDefault();
+        const isKeyDownNumber: boolean = e.keyCode >= 48 && e.keyCode <= 57;
+        if (!isKeyDownNumber) {
+            return;
+        }else if(inputContainerRef.current) {
+            e.target.value = e.key;
+            const nextTargetInput = inputContainerRef.current?.children[parseInt(e.target.id) + 1] as HTMLInputElement;
+            nextTargetInput?.focus();
+        }
+
     }
 
     function codeInputItems(): Array<ReactElement> {
-        return [0, 1, 2, 3, 4, 5].map((key) => (
+        return ArrayUtil.getOrderedArray(6).map((key) => (
             <input className="codeInputItem" maxLength={1} id = {key.toString()} key = {key} onKeyDown={onInputKeyDown} onFocus={onInputFocus}/>
         ));
     }
