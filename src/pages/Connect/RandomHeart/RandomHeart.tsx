@@ -28,21 +28,21 @@ const RandomHeart = () => {
     const [coordinates, setCoordinates] = useState<Array<Point>>([]);
 
     useEffect(() => {
+        // TODO 옮기긴했는데 흠,,, 알아보기
+        // 좌표 배열 정보 바꾸기
+        function setCoordinateRandomly(): void {
+            const coordinateArray = [];
+            for (let i = 0; i < imgCount.current; i++) {
+                coordinateArray.push(getRandomCoordinate(i));
+            }
+            setCoordinates(coordinateArray);
+        }
+
         setCoordinateRandomly();
         setInterval(() => {
             setCoordinateRandomly();
         }, intervalTime.current);
     }, [])
-
-
-    // 좌표 배열 정보 바꾸기
-    function setCoordinateRandomly(): void {
-        const coordinateArray = [];
-        for (let i = 0; i < imgCount.current; i++) {
-            coordinateArray.push(getRandomCoordinate(i));
-        }
-        setCoordinates(coordinateArray);
-    }
 
     function getRandomCoordinate(section: number): Point {
 
