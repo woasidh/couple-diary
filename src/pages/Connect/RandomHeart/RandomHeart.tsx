@@ -12,27 +12,30 @@ import './RandomHeart.scss';
     * 하트 이미지 참조는 어떻게 할 지??
     * -> 하트 이미지 참조 안해도 되고 위치만 state로 관리하면 될 듯???
 */
-const RandomHeart = () => {
 
-    // 하트 이미지 사이즈 (브라우저 랜덤 좌표 구할 때 필요)
-    const imgSize = useRef<number>(40);
+interface RandomHeartProps {
+    intervalTime: number;
+    imgSize: number;
+    imgCount: number;
+}
+
+const RandomHeart = (props: RandomHeartProps) => {
+    
     // 하트 이미지 wrapper DOM
     const container = useRef<HTMLDivElement>(null);
-    // 하트 이미지 갯수
-    const imgCount = useRef<number>(9);
-    // 4초에 한번 렌더링
-    const intervalTime = useRef<number>(4000);
     
     // 하트 좌표 배열
-    // setInterval로 4초마다 업데이트
     const [coordinates, setCoordinates] = useState<Array<Point>>([]);
 
     useEffect(() => {
+
+        console.log('좌표 설정 중');
+
         // TODO 옮기긴했는데 흠,,, 알아보기
         // 좌표 배열 정보 바꾸기
         function setCoordinateRandomly(): void {
             const coordinateArray = [];
-            for (let i = 0; i < imgCount.current; i++) {
+            for (let i = 0; i < props.imgCount; i++) {
                 coordinateArray.push(getRandomCoordinate(i));
             }
             setCoordinates(coordinateArray);
@@ -41,12 +44,12 @@ const RandomHeart = () => {
         setCoordinateRandomly();
         setInterval(() => {
             setCoordinateRandomly();
-        }, intervalTime.current);
+        }, props.intervalTime);
     }, [])
 
     function getRandomCoordinate(section: number): Point {
 
-        const unit = Math.sqrt(imgCount.current);
+        const unit = Math.sqrt(props.imgCount);
         const top = Math.floor(section / unit);
         const left = section % unit;
 
@@ -57,8 +60,8 @@ const RandomHeart = () => {
             const columnUnit = (container.current?.getBoundingClientRect().height) / unit;
 
             return ({
-                x: (rowUnit * left) + (Math.random() * (rowUnit - imgSize.current)),
-                y: (columnUnit * top) + (Math.random() * (columnUnit - imgSize.current)),
+                x: (rowUnit * left) + (Math.random() * (rowUnit - props.imgSize)),
+                y: (columnUnit * top) + (Math.random() * (columnUnit - props.imgSize)),
             });
         }
         return ({
@@ -68,8 +71,8 @@ const RandomHeart = () => {
     }
 
     function renderHearts(): Array<ReactElement> {
-        return ArrayUtil.getOrderedArray(imgCount.current).map(key => (
-            <Heart width={imgSize.current} left={coordinates[key].x} top={coordinates[key].y} key={key} />
+        return ArrayUtil.getOrderedArray(props.imgCount).map(key => (
+            <Heart width={props.imgSize} left={coordinates[key].x} top={coordinates[key].y} key={key} />
         ));
     }
 
@@ -80,4 +83,4 @@ const RandomHeart = () => {
     )
 }
 
-export default RandomHeart
+export default RandomHeart;
