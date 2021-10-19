@@ -9,9 +9,9 @@ import Home from './pages/Calendar/index';
 import Login from './pages/Login/index';
 import Signup from './pages/Signup/Index';
 import Workspace from './pages/Workspace/Index';
-import Fallback from "./pages/Fallback/Index";
-import Topbar from "./components/Topbar/Topbar";
-import Connect from "./pages/Connect/Index";
+import Fallback from './pages/Fallback/Index';
+import Topbar from './components/Topbar/Topbar';
+import Connect from './pages/Connect/Index';
 
 function App() {
     return (

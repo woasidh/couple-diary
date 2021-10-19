@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from "../../resource/images/logo.png";
+import Logo from '../../resource/images/logo.png';
 import './Topbar.scss';
 
 const Topbar = () => {

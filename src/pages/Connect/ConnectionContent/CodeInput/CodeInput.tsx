@@ -1,6 +1,6 @@
-import { ReactElement, useRef, useState } from "react";
-import { ArrayUtil } from "../../../../util/ArrayUtil";
-import { StringUtil } from "../../../../util/StringUtil";
+import { ReactElement, useRef, useState } from 'react';
+import { ArrayUtil } from '../../../../util/ArrayUtil';
+import { StringUtil } from '../../../../util/StringUtil';
 
 const CodeInput = () => {
 

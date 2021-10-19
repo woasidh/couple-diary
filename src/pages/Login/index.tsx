@@ -1,14 +1,14 @@
 import React, {ReactElement, useState} from 'react';
 import './index.scss';
-import LogoHeader from "../../components/LogoHeader/LogoHeader";
+import LogoHeader from '../../components/LogoHeader/LogoHeader';
 import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
 import logoUrl from '../../resource/images/logo.png';
 import axios from 'axios';
-import PasswordInput, {PasswordStatus} from "./PasswordInput/PasswordInput";
+import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
 import {useHistory} from 'react-router-dom';
-import {serverUrl} from "../../config";
+import {serverUrl} from '../../config';
 
 interface LoginSubmitForm {
     email: string
@@ -33,9 +33,9 @@ const Index = (): ReactElement => {
         return (
             <div className="content">
                 <EmailInput inputStatus={emailInputStatus} type="email" text="이메일"
-                            onChangeContent={onEmailInputChange}/>
+                    onChangeContent={onEmailInputChange}/>
                 <PasswordInput inputStatus={passwordInputStatus} type="password" text="비밀번호"
-                               onChangeContent={onPasswordInputChange}/>
+                    onChangeContent={onPasswordInputChange}/>
                 <button onClick={submitLoginForm} disabled={!emailInputStatus.isValid} style={{
                     backgroundColor: emailInputStatus.isValid ? variables.colors.primaryPink : '#E6E6EA'
                 }}>로그인

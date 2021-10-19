@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import DayCell from "./DayCell/DayCell";
+import DayCell from './DayCell/DayCell';
 
 interface CalendarProps {
     year: number
@@ -28,7 +28,7 @@ const Calendar = ({year, month}: CalendarProps) => {
         let shouldCount: boolean = false;
 
         return (
-            [0, 1, 2, 3, 4, 5].map((row, idx) => {
+            [0, 1, 2, 3, 4, 5].map((row) => {
                 return (
                     <div className="weekRow" key={row}>
                         {[0, 1, 2, 3, 4, 5, 6].map((column, idx) => {

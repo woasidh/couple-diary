@@ -2,8 +2,8 @@ import React, {ReactElement, useState} from 'react';
 import './index.scss';
 import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
-import Calendar from "./Calendar/Calendar";
-import Topbar from "../../components/Topbar/Topbar";
+import Calendar from './Calendar/Calendar';
+import Topbar from '../../components/Topbar/Topbar';
 
 const Index = (): ReactElement => {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Index.scss';
 import Ago_sad from '../../resource/images/ago_sad.png';
-import {useHistory} from "react-router-dom";
+import {useHistory} from 'react-router-dom';
 
 const Workspace = () => {
 

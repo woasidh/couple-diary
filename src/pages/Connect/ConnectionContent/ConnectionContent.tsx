@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import './ConnectionContent.scss';
 import Ago_comehere from '../../../resource/images/ago_comehere.png';
-import { ArrayUtil } from "../../../util/ArrayUtil";
+import { ArrayUtil } from '../../../util/ArrayUtil';
 import Counter from './Counter/Counter';
 import CodeInput from './CodeInput/CodeInput';
 
