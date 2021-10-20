@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import './LogoHeader.scss';
 
 interface LogoHeaderProps {
@@ -6,12 +6,10 @@ interface LogoHeaderProps {
     text: string
 }
 
-const LogoHeader = (props: LogoHeaderProps) => {
-    return (
-        <div className = "logo_header">
-            <div>{props.text}</div>
-        </div>
-    );
-}
+const LogoHeader = (props: LogoHeaderProps): ReactElement => (
+  <div className="logo_header">
+    <div>{props.text}</div>
+  </div>
+);
 
 export default LogoHeader;

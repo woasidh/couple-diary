@@ -1,5 +1,7 @@
-import React, { useRef, useState, useEffect, ReactElement } from 'react'
-import {ArrayUtil} from '../../../util/ArrayUtil';
+import React, {
+  useRef, useState, useEffect, ReactElement,
+} from 'react';
+import { ArrayUtil } from '../../../util/ArrayUtil';
 import { Point } from '../../../util/Point';
 import Heart from './Heart';
 import './RandomHeart.scss';
@@ -20,65 +22,60 @@ interface RandomHeartProps {
 }
 
 const RandomHeart = React.memo((props: RandomHeartProps) => {
-    
-    // 하트 이미지 wrapper DOM
-    const container = useRef<HTMLDivElement>(null);
-    
-    // 하트 좌표 배열
-    const [coordinates, setCoordinates] = useState<Array<Point>>([]);
+  // 하트 이미지 wrapper DOM
+  const container = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+  // 하트 좌표 배열
+  const [coordinates, setCoordinates] = useState<Array<Point>>([]);
 
-        function getRandomCoordinate(section: number): Point {
+  useEffect(() => {
+    function getRandomCoordinate(section: number): Point {
+      const unit = Math.sqrt(props.imgCount);
+      const top = Math.floor(section / unit);
+      const left = section % unit;
 
-            const unit = Math.sqrt(props.imgCount);
-            const top = Math.floor(section / unit);
-            const left = section % unit;
-    
-            // TODO useref 유효성 체크 어떻게 해야 하는건지...?
-            if (container.current) {
-    
-                const rowUnit = (container.current?.getBoundingClientRect().width) / unit;
-                const columnUnit = (container.current?.getBoundingClientRect().height) / unit;
-    
-                return ({
-                    x: (rowUnit * left) + (Math.random() * (rowUnit - props.imgSize)),
-                    y: (columnUnit * top) + (Math.random() * (columnUnit - props.imgSize)),
-                });
-            }
-            return ({
-                x: 0,
-                y: 0
-            })
-        }
+      // TODO useref 유효성 체크 어떻게 해야 하는건지...?
+      if (container.current) {
+        const rowUnit = (container.current?.getBoundingClientRect().width) / unit;
+        const columnUnit = (container.current?.getBoundingClientRect().height) / unit;
 
-        // TODO 옮기긴했는데 흠,,, 알아보기
-        // 좌표 배열 정보 바꾸기
-        function setCoordinateRandomly(): void {
-            const coordinateArray = [];
-            for (let i = 0; i < props.imgCount; i++) {
-                coordinateArray.push(getRandomCoordinate(i));
-            }
-            setCoordinates(coordinateArray);
-        }
-
-        setCoordinateRandomly();
-        setInterval(() => {
-            setCoordinateRandomly();
-        }, props.intervalTime);
-    }, [props])
-
-    function renderHearts(): Array<ReactElement> {
-        return ArrayUtil.getOrderedArray(props.imgCount).map(key => (
-            <Heart width={props.imgSize} left={coordinates[key].x} top={coordinates[key].y} key={key} />
-        ));
+        return ({
+          x: (rowUnit * left) + (Math.random() * (rowUnit - props.imgSize)),
+          y: (columnUnit * top) + (Math.random() * (columnUnit - props.imgSize)),
+        });
+      }
+      return ({
+        x: 0, y: 0,
+      });
     }
 
-    return (
-        <div ref={container} className='heart_image_wrap'>
-            {coordinates.length > 0 && renderHearts()}
-        </div>
-    )
+    // TODO 옮기긴했는데 흠,,, 알아보기
+    // 좌표 배열 정보 바꾸기
+    function setCoordinateRandomly(): void {
+      const coordinateArray = [];
+      for (let i = 0; i < props.imgCount; i++) {
+        coordinateArray.push(getRandomCoordinate(i));
+      }
+      setCoordinates(coordinateArray);
+    }
+
+    setCoordinateRandomly();
+    setInterval(() => {
+      setCoordinateRandomly();
+    }, props.intervalTime);
+  }, [props]);
+
+  function renderHearts(): Array<ReactElement> {
+    return ArrayUtil.getOrderedArray(props.imgCount).map((key) => (
+      <Heart width={props.imgSize} left={coordinates[key].x} top={coordinates[key].y} key={key} />
+    ));
+  }
+
+  return (
+    <div ref={container} className="heart_image_wrap">
+      {coordinates.length > 0 && renderHearts()}
+    </div>
+  );
 });
 
 export default RandomHeart;

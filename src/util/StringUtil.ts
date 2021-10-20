@@ -1,5 +1,5 @@
 export namespace StringUtil {
-    export function isKeyCodeOneDigitNumber(keyCode: string) {
-        return parseInt(keyCode) >= 48 && parseInt(keyCode) <= 57;
+    export function isKeyCodeOneDigitNumber(keyCode: string): boolean {
+      return parseInt(keyCode, 10) >= 48 && parseInt(keyCode, 10) <= 57;
     }
 }

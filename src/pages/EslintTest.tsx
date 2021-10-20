@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-const EslintTest = () => {
-
-    return (
-        <div>this is a eslint component</div>
-    );
-}
+const EslintTest = (): ReactElement => (
+  <div>this is a eslint component</div>
+);
 
 export default EslintTest;
