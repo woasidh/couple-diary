@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-const Fallback = () => {
-    return (
-      <div>this is a fallback page</div>
-    );
-}
+const Fallback = (): ReactElement => (
+  <div>this is a fallback page</div>
+);
 
 export default Fallback;

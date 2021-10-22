@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import HeartImgSrc from '../../../resource/images/heart.png';
 
 interface HeartProps {
@@ -7,16 +7,17 @@ interface HeartProps {
     top: number
 }
 
-const Heart = (props: HeartProps) => (
-    <img
-        className="a"
-        src={HeartImgSrc}
-        width={props.width}
-        style={{
-            left: props.left,
-            top: props.top
-        }}
-        alt = 'heartImg' />
-)
+const Heart = (props: HeartProps): ReactElement => (
+  <img
+    className="a"
+    src={HeartImgSrc}
+    width={props.width}
+    style={{
+      left: props.left,
+      top: props.top,
+    }}
+    alt="heartImg"
+  />
+);
 
 export default Heart;
