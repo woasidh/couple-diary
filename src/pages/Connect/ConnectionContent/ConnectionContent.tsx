@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react';
 import './ConnectionContent.scss';
-import Ago_comehere from '../../../resource/images/ago_comehere.png';
+import AgoComehere from '../../../resource/images/ago_comehere.png';
 import { ArrayUtil } from '../../../util/ArrayUtil';
 import Counter from './Counter/Counter';
 import CodeInput from './CodeInput/CodeInput';
 
 const ConnectionContent = (): ReactElement => (
   <div className="ConnectionContentContainer">
-    <img src={Ago_comehere} width={200} alt="ago_comehere" />
+    <img src={AgoComehere} width={200} alt="ago_comehere" />
     <MyInvitationCode />
     <InvitationGuide />
     <CodeInput />

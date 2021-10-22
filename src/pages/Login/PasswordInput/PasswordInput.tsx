@@ -13,7 +13,8 @@ interface PasswordInputProps {
 }
 
 const PasswordInput = (props: PasswordInputProps): ReactElement => {
-  function onContentChange(e: React.ChangeEvent<HTMLInputElement>) {
+
+  function onContentChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const content = e.currentTarget.value;
     props.onChangeContent(content);
   }
