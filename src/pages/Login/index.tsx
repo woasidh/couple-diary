@@ -1,18 +1,17 @@
-import React, { ReactElement, useState } from 'react';
+import React, {ReactElement, useState} from 'react';
 import './index.scss';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import LogoHeader from '../../components/LogoHeader/LogoHeader';
-import EmailInput, { EmailInputStatus } from './EmailInput/EmailInput';
+import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
 import logoUrl from '../../resource/images/logo.png';
-import PasswordInput, { PasswordStatus } from './PasswordInput/PasswordInput';
+import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
-import { serverUrl } from '../../config';
 
 interface LoginSubmitForm {
-    email: string
-    password: string
+  email: string
+  password: string
 }
 
 const Index = (): ReactElement => {
@@ -48,11 +47,11 @@ const Index = (): ReactElement => {
   }
 
   function submitLoginForm(): void {
-    axios.post(`${serverUrl}/users/login`, submitContent).then((res) => {
+    axios.post('/api/users/login', submitContent).then((res) => {
       if (res.status !== 200) { // 서버 통신 잘 안되었을 때
         console.log('not valid');
       } else { // 서버 통신 잘되었을 때
-        const { data } = res;
+        const {data} = res;
         if (!data.success) {
           if (data.errMsg === 'PASSWORD_MISMATCH') { // 비밀번호 불일치일 떄
             setPasswordInputStatus(PasswordStatus.WRONG);
@@ -99,7 +98,7 @@ const Index = (): ReactElement => {
           로그인
         </button>
         <div className="login_keep">
-          <input type="checkbox" id="keep_login" />
+          <input type="checkbox" id="keep_login"/>
           <label htmlFor="keep_login" id="custom_checkbox">로그인 상태 유지할래요</label>
         </div>
       </div>
@@ -123,11 +122,11 @@ const Index = (): ReactElement => {
       <div className="under_topbar">
         <div className="login_wrap">
           <div className="loginform_container">
-            <LogoHeader imageUrl={logoUrl} text="로그인" />
+            <LogoHeader imageUrl={logoUrl} text="로그인"/>
             {renderContent()}
             {renderFooter()}
           </div>
-          <img src={People} alt="people_image" />
+          <img src={People} alt="people_image"/>
         </div>
       </div>
     </div>
