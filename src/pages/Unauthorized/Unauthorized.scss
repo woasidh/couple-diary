@@ -1,0 +1,24 @@
+@import '/src/variables.scss';
+
+.unauthorized_root {
+    @include exclude_topbar;
+    @include flex_set_center;
+
+    .content_wrapper {
+        @include flex_set_column;
+        font-size: 24px;
+
+        div {
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 13px;
+            font-size: 18px;
+            background-color: $primary_pink;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 10px;
+        }
+    }
+}
