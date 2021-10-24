@@ -3,4 +3,6 @@
 .connect_root {
   @include exclude_topbar;
   @include flex_set_center;
+
+  background-color: black;
 }
