@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.redux_root {
+  @include exclude_topbar;
+  font-size: 50px;
+  @include flex_set_center;
+
+  div {
+    button {
+      font-size: 50px;
+      display: block;
+    }
+  }
+}
