@@ -4,12 +4,14 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
-import {applyMiddleware, createStore} from 'redux';
+import {applyMiddleware, compose, createStore} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {rootReducer} from './redux_module';
 import ReduxThunk from 'redux-thunk';
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const store = createStore(rootReducer, composeWithDevTools(
+  applyMiddleware(ReduxThunk)
+));
 
 ReactDOM.render(
   <Provider store = {store}>

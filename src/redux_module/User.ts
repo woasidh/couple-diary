@@ -4,53 +4,40 @@ import axios from 'axios';
  * actions
  */
 
-const SUCCESSLOGIN = 'user/SUCCESSLOGIN' as const;
-const FAILLOGIN = 'user/FAILLOGIN' as const;
+const LOGIN_SUCCESS = 'user/LOGIN_SUCCESS' as const;
+const LOGOUT_SUCCESS = 'user/LOGOUT_SUCCESS' as const;
 
 /**
  * action 생성 함수
  */
 
-const successLogin = (email: string): any => {
+export const loginSuccess = (userData: UserData): any => {
   return {
-    type: SUCCESSLOGIN,
-    payload: email
+    type: LOGIN_SUCCESS,
+    payload: userData
   }
 };
 
-const failLogin = (): any => {
+export const logoutSuccess = (): any => {
   return {
-    type: FAILLOGIN
+    type: LOGOUT_SUCCESS
   }
-}
-
-export const requestLogin = (): any => (dispatch: any): any => {
-  axios.get('/api/users/login/chec11k').then(res => {
-    dispatch(successLogin(res.data.email));
-  })
-    .catch(e => {
-      dispatch(failLogin());
-    });
 }
 
 /**
  * reducer
  */
 
-const userReducer  = (state: UserState = initialState, action: UserAction): UserAction => {
+const userReducer  = (state: UserState | null = null, action: UserAction): UserAction => {
   switch(action.type) {
-    case SUCCESSLOGIN:
+    case LOGIN_SUCCESS:
       return {
         ...state,
-        email: action.payload
+        name: action.payload.name
       }
-    case FAILLOGIN:
-      return {
-        ...state,
-        status: false
-      }
+    case LOGOUT_SUCCESS:
+      return null;
     default:
-      console.log(action);
       return state;
   }
 }
@@ -58,18 +45,16 @@ const userReducer  = (state: UserState = initialState, action: UserAction): User
 /**
  * type 정의
  */
-type UserState = {
-  email: string
-  status: boolean
+type UserData = {
+  name: string
 }
 
-const initialState: UserState = {
-  email: '',
-  status: true
+type UserState = {
+  name: string
 }
 
 type UserAction =
-  | ReturnType<typeof successLogin>
-  | ReturnType<typeof failLogin>;
+  | ReturnType<typeof loginSuccess>
+  | ReturnType<typeof logoutSuccess>;
 
 export default userReducer;

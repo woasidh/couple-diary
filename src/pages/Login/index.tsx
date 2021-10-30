@@ -8,6 +8,8 @@ import logoUrl from '../../resource/images/logo.png';
 import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../redux_module/User';
 
 interface LoginSubmitForm {
   email: string
@@ -26,6 +28,7 @@ const Index = (): ReactElement => {
   const [passwordInputStatus, setPasswordInputStatus] = useState<PasswordStatus>(PasswordStatus.UNKNOWN);
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   function onEmailInputChange(email: string, isEmailValid: boolean): void {
     setSubmitContent({
@@ -63,6 +66,9 @@ const Index = (): ReactElement => {
             });
           }
         } else {
+          // 로그인 성공
+          // redux state 변경
+          dispatch(loginSuccess({name: res.data.userData}));
           history.push('/workspace');
         }
       }
