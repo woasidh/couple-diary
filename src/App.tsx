@@ -18,8 +18,8 @@ import ReduxTest from './pages/Test/ReduxTest';
 function App(): ReactElement {
   return (
     <>
-      <Topbar />
       <Router>
+      <Topbar />
         <Switch>
           <Route exact path="/" component = {HOC.checkAuth(Login, AuthOption.NO_AUTH_ONLY)}/>
           <Route exact path="/workspace" component = {HOC.checkAuth(Workspace, AuthOption.AUTH_ONLY)}/>
