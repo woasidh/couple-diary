@@ -2,7 +2,8 @@ import React, { ReactElement, useEffect } from 'react';
 import './Index.scss';
 
 export enum PopupMessageType {
-    API_ERROR = 'api error'
+    API_ERROR = 'api error',
+    NOTIFICATION = '알림'
 }
 
 interface PopupProps {

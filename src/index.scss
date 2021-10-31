@@ -28,6 +28,11 @@ input {
   outline: none;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
