@@ -75,9 +75,7 @@ const Index = (): ReactElement => {
         }
       }
     }).catch((e) => {
-      PopupUtil.showNotificationPopup(
-        PopupMessageType.API_ERROR, e.toString()
-      );
+      PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
     });
   }
 

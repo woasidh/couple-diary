@@ -2,8 +2,10 @@ import axios from 'axios';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { PopupMessageType } from '../components/Popup/Index';
 import Login from '../pages/Login';
 import { loginSuccess, logoutSuccess } from '../redux_module/User';
+import { PopupUtil } from './PopupUtil';
 
 export enum AuthOption {
   AUTH_ONLY,
@@ -43,7 +45,7 @@ export namespace HOC {
           // 나머지는 그대로
           setIsLoading(false);
         }).catch(e => {
-          alert(e);
+          PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
           setIsApiError(true);
         });
       }, []);

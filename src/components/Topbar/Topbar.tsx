@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from '../../redux_module';
 import { logoutSuccess } from '../../redux_module/User';
 import Logo from '../../resource/images/logo.png';
+import { PopupUtil } from '../../util/PopupUtil';
+import { PopupMessageType } from '../Popup/Index';
 import './Topbar.scss';
 
 const Topbar = (): ReactElement => {
@@ -21,7 +23,7 @@ const Topbar = (): ReactElement => {
         history.push('/');
       }
     }).catch(e => {
-      alert(e);
+      PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
     });
   }
 

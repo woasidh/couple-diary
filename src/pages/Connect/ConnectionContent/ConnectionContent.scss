@@ -7,7 +7,7 @@
     .myInvitationContainer {
         margin-top: 20px;
         @include flex_set_center;
-        font-size: 30px;
+        font-size: 23px;
 
         .myInvitationCode {
             margin-left: 15px;
@@ -16,19 +16,19 @@
 
             .codeItem {
                 border: 1px solid black;
-                width: 40px;
-                height: 40px;
+                width: 35px;
+                height: 35px;
                 border-radius: 5px;
                 background-color: white;
                 text-align: center;
-                line-height: 40px;
+                line-height: 35px;
             }
         }
     }
 
     .invitationGuide {
         margin-top: 15px;
-        font-size: 22px;
+        font-size: 20px;
         color: #00000080;
         @include flex_set_center;
 
@@ -54,13 +54,13 @@
         column-gap: 20px;
 
         .codeInputItem {
-            width: 55px;
-            height: 55px;
+            width: 47px;
+            height: 47px;
             border: 1px solid #00000020;
             border-radius: 5px;
             background-color: white;
             text-align: center;
-            font-size: 27px;
+            font-size: 22px;
             &:focus {
                 box-shadow: 0 0 10px $primary_pink;
             }
