@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import Login from '../pages/Login';
 import { loginSuccess, logoutSuccess } from '../redux_module/User';
 
 export enum AuthOption {
@@ -18,6 +19,7 @@ export namespace HOC {
     const NewComponent = (): ReactElement => {
 
       const [isLoading, setIsLoading] = useState<boolean>(true);
+      const [isApiError, setIsApiError] = useState<boolean>(false);
 
       const history = useHistory();
       const dispatch = useDispatch();
@@ -40,12 +42,16 @@ export namespace HOC {
           }
           // 나머지는 그대로
           setIsLoading(false);
+        }).catch(e => {
+          alert(e);
+          setIsApiError(true);
         });
       }, []);
 
       return (
         <>
         {!isLoading && <Component />}
+        {isApiError && <Login/>}
         </>
       );
     };

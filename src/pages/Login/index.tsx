@@ -10,6 +10,8 @@ import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux_module/User';
+import { PopupUtil } from '../../util/PopupUtil';
+import { PopupMessageType } from '../../components/Popup/Index';
 
 interface LoginSubmitForm {
   email: string
@@ -73,10 +75,9 @@ const Index = (): ReactElement => {
         }
       }
     }).catch((e) => {
-      /**
-       * TODO 팝업 만들기
-       */
-      console.error(e);
+      PopupUtil.showNotificationPopup(
+        PopupMessageType.API_ERROR, e.toString()
+      );
     });
   }
 

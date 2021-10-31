@@ -20,7 +20,9 @@ const Topbar = (): ReactElement => {
         dispatch(logoutSuccess());
         history.push('/');
       }
-    })
+    }).catch(e => {
+      alert(e);
+    });
   }
 
   return (

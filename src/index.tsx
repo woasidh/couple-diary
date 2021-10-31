@@ -8,6 +8,7 @@ import {applyMiddleware, compose, createStore} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {rootReducer} from './redux_module';
 import ReduxThunk from 'redux-thunk';
+import Popup from './components/Popup/Index';
 
 const store = createStore(rootReducer, composeWithDevTools(
   applyMiddleware(ReduxThunk)

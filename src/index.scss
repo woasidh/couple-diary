@@ -10,6 +10,10 @@ body, html, #root {
   margin : 0;
 }
 
+body {
+  position: relative;
+}
+
 button {
   border: none;
   cursor : pointer;
