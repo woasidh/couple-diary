@@ -25,11 +25,13 @@ const Topbar = (): ReactElement => {
 
   return (
     <header className="topbar">
-      <img src={Logo} alt="logo" />
+      <div className='left_section'>
+        <img src={Logo} alt="logo" />
+      </div>
       <div className="right_section">
         <span>Github</span>
         <span>About</span>
-        {userData && <span onClick = {onLogoutBtnClick}>Logout</span>}
+        {userData && <span onClick={onLogoutBtnClick}>Logout</span>}
       </div>
     </header>
   );

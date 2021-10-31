@@ -10,21 +10,31 @@ header.topbar {
   align-items: center;
   padding: 0 50px 0 40px;
   z-index: 1;
-  img {
-    height: 70%;
+
+  .left_section {
+    height: 100%;
+    @include flex_set_center;
+    img {
+      height: 70%;
+    }
+
+    span {
+      color: $primary_pink;
+      margin-left: 15px;
+    }
   }
 
   .right_section {
     display: flex;
     column-gap: 35px;
-    font-size: 23px;
+    font-size: 16px;
     font-weight: normal;
     color: #939393;
 
     span {
       cursor: pointer;
       &:hover {
-        color: white;
+        color: $primary_pink;
       }
     }
   }
