@@ -1,9 +1,5 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {ReactElement} from 'react';
 import './ReduxTest.scss';
-import {useDispatch, useSelector} from 'react-redux';
-import {increaseCounter} from '../../redux_module/Counter';
-import {RootState} from '../../redux_module';
-import axios from 'axios';
 
 const ReduxTest = (): ReactElement => {
 

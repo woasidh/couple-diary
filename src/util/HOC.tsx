@@ -1,11 +1,11 @@
 import axios from 'axios';
-import React, { ReactElement, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { PopupMessageType } from '../components/Popup/Index';
+import React, {ReactElement, useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router';
+import {PopupMessageType} from '../components/Popup';
 import Login from '../pages/Login';
-import { loginSuccess, logoutSuccess } from '../redux_module/User';
-import { PopupUtil } from './PopupUtil';
+import {loginSuccess, logoutSuccess} from '../redux_module/User';
+import {PopupUtil} from './PopupUtil';
 
 export enum AuthOption {
   AUTH_ONLY,
@@ -18,7 +18,7 @@ export namespace HOC {
     Component: () => ReactElement,
     option: AuthOption): () => ReactElement {
 
-    const NewComponent = (): ReactElement => {
+    return (): ReactElement => {
 
       const [isLoading, setIsLoading] = useState<boolean>(true);
       const [isApiError, setIsApiError] = useState<boolean>(false);
@@ -52,12 +52,10 @@ export namespace HOC {
 
       return (
         <>
-        {!isLoading && <Component />}
-        {isApiError && <Login/>}
+          {!isLoading && <Component/>}
+          {isApiError && <Login/>}
         </>
       );
     };
-
-    return NewComponent;
   }
 }

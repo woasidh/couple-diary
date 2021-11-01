@@ -2,6 +2,7 @@ import { ReactElement, useEffect, useState } from 'react';
 
 interface CounterProps {
     second: number;
+    onRefreshBtnClick: () => void;
 }
 
 enum CounterState {
@@ -15,7 +16,12 @@ const Counter = (props: CounterProps): ReactElement => {
 
   useEffect(() => {
     const timerID = setTimeout(() => {
-      remainingSecond > 0 ? setRemainingSecond(remainingSecond - 1) : setCounterStatus(CounterState.FINISHED);
+      if (remainingSecond > 0) {
+        setRemainingSecond(remainingSecond - 1);
+        setCounterStatus(CounterState.RUNNING);
+      } else {
+        setCounterStatus(CounterState.FINISHED);
+      }
     }, 1000);
     return ((): void => {
       clearTimeout(timerID);
@@ -32,15 +38,18 @@ const Counter = (props: CounterProps): ReactElement => {
     return `${minute}:${second}`;
   }
 
-  function showCounterState(): string {
-    return counterStatus === CounterState.RUNNING
-      ? '' : '새로고침';
+  const onRefreshBtnClick = (): void => {
+    props.onRefreshBtnClick();
+    setRemainingSecond(props.second);
   }
 
   return (
     <div className="counter">
       <span className="counter_time">{parseTime(remainingSecond)}</span>
-      <button className="counter_status">{showCounterState()}</button>
+      { counterStatus === CounterState.FINISHED &&
+      <button className="counter_status" onClick = {onRefreshBtnClick}>
+        새로고침
+      </button> }
     </div>
   );
 };

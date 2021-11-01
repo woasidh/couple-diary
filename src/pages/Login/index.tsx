@@ -11,7 +11,7 @@ import People from '../../resource/images/social_illust.jpg';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux_module/User';
 import { PopupUtil } from '../../util/PopupUtil';
-import { PopupMessageType } from '../../components/Popup/Index';
+import { PopupMessageType } from '../../components/Popup';
 
 interface LoginSubmitForm {
   email: string

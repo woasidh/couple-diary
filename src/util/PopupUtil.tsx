@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react'
-import Popup, { PopupMessageType } from '../components/Popup/Index';
+import Popup, { PopupMessageType } from '../components/Popup';
 
 export namespace PopupUtil {
     export function showNotificationPopup(type: PopupMessageType, popupMsg: string): any {

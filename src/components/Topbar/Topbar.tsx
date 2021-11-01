@@ -6,7 +6,7 @@ import {RootState} from '../../redux_module';
 import {logoutSuccess} from '../../redux_module/User';
 import Logo from '../../resource/images/logo.png';
 import {PopupUtil} from '../../util/PopupUtil';
-import {PopupMessageType} from '../Popup/Index';
+import {PopupMessageType} from '../Popup';
 import './Topbar.scss';
 
 const Topbar = (): ReactElement => {

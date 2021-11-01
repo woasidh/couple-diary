@@ -1,8 +1,9 @@
-import React, { ReactElement, useEffect } from 'react';
-import './Index.scss';
+import React, { ReactElement } from 'react';
+import './style.scss';
 
 export enum PopupMessageType {
     API_ERROR = 'api error',
+    API_FAILURE = 'api failure',
     NOTIFICATION = '알림'
 }
 
