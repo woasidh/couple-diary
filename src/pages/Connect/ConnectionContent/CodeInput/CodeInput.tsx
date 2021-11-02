@@ -1,13 +1,36 @@
-import { ReactElement, useRef, useState } from 'react';
-import { ArrayUtil } from '../../../../util/ArrayUtil';
-import { StringUtil } from '../../../../util/StringUtil';
+import {ReactElement, useEffect, useRef, useState} from 'react';
+import {ArrayUtil} from '../../../../util/ArrayUtil';
+import {StringUtil} from '../../../../util/StringUtil';
+import axios from 'axios';
+import {PopupUtil} from '../../../../util/PopupUtil';
+import {PopupMessageType} from '../../../../components/Popup';
+
+enum CodeStatus {
+  NOT_FULL,
+  FULL,
+  NO_VALID_CODE
+}
 
 const CodeInput = (): ReactElement => {
   const inputContainerRef = useRef<HTMLDivElement>(null);
   const [code, setCode] = useState<Array<number>>(Array(6).fill(-1));
+  const [status, setStatus] = useState<CodeStatus>(CodeStatus.NOT_FULL);
+
+  useEffect(() => {
+    code.filter((val) => val !== -1).length === 6
+      ? setStatus(CodeStatus.FULL) : setStatus(CodeStatus.NOT_FULL)
+  }, [code]);
 
   function onClickSubmitBtn(): void {
-    console.log(code, '제출 됨');
+    axios.post('/api/connection/connect', {code}).then(res => {
+      if (res.status !== 200) {
+        PopupUtil.showNotificationPopup(PopupMessageType.API_FAILURE, res.data.toString());
+      } else if (res.status === 200 && res.data.success === true) {
+        PopupUtil.showNotificationPopup(PopupMessageType.NOTIFICATION, '축하합니다 연결되었어요!');
+      }
+    }).catch(e => {
+      PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
+    })
   }
 
   function onInputFocus(e: any): void {
@@ -64,10 +87,25 @@ const CodeInput = (): ReactElement => {
     ));
   }
 
+  function renderStatusString(): string {
+    switch (status){
+      case CodeStatus.NOT_FULL:
+        return '6자리를 입력해주세요';
+      case CodeStatus.FULL:
+        return '6자리가 입력되었습니다';
+      case CodeStatus.NO_VALID_CODE:
+        return '일치하는 코드가 없습니다';
+      default:
+        return '';
+    }
+  }
+
   return (
     <>
       <div className="codeInputContainer" ref={inputContainerRef}>{codeInputItems()}</div>
-      <div className="invitationCodeStatus">6자리를 모두 채워주세요</div>
+      <div className="invitationCodeStatus" style = {{
+        color: status === CodeStatus.FULL ? 'green' : 'red'
+      }}>{renderStatusString()}</div>
       <button className="codeSubmitBtn" onClick={onClickSubmitBtn}>확인</button>
     </>
   );

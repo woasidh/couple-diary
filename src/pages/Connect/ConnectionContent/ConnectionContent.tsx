@@ -17,10 +17,9 @@ const ConnectionContent = (): ReactElement => {
 
     const randomCode = ArrayUtil.getRandomNumberArray(6);
 
-    axios.post('/api/connection', {
+    axios.post('/api/connection/create', {
       code: randomCode
     }).then(res => {
-      console.log(res.data, '/connection api 결과');
       if (res.data.success === false) {
         PopupUtil.showNotificationPopup(PopupMessageType.API_FAILURE, res.data.err.toString());
       } else {

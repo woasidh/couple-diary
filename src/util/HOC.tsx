@@ -28,7 +28,6 @@ export namespace HOC {
 
       useEffect(() => {
         axios.get('/api/users/login/check').then((res) => {
-          console.log(res);
           if (!res.data.isLoggedIn) { // 로그인유저만 출입가능 - 로그인 안되어있을 떄 -> 로그인으로
             dispatch(logoutSuccess());
             if (option === AuthOption.AUTH_ONLY) {

@@ -10,14 +10,17 @@ export enum PopupMessageType {
 interface PopupProps {
     type: PopupMessageType;
     msg: string;
-    onCloseBtnClick: () => void;
+    onCloseBtnClick: (e: any) => void;
 } 
 
 const Popup = (props: PopupProps): ReactElement => {
 
     return (
         <div onClick = {props.onCloseBtnClick} className = 'popupBackground'>
-            <div className = 'popupContainer'>
+            <div onClick = {(e): void =>{
+                e.preventDefault();
+                e.stopPropagation();
+            }} className = 'popupContainer'>
                 <div className = 'header'>
                     <span>{props.type}</span>
                 </div>
