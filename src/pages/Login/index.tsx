@@ -70,7 +70,7 @@ const Index = (): ReactElement => {
         } else {
           // 로그인 성공
           // redux state 변경
-          dispatch(loginSuccess({name: res.data.userData}));
+          dispatch(loginSuccess(res.data.userData));
           history.push('/workspace');
         }
       }

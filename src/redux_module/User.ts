@@ -27,11 +27,13 @@ export const logoutSuccess = (): any => {
  */
 
 const userReducer  = (state: UserState | null = null, action: UserAction): UserAction => {
+  console.log(action);
   switch(action.type) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        name: action.payload.name
+        name: action.payload.name,
+        isCouple: action.payload.isCouple
       }
     case LOGOUT_SUCCESS:
       return null;
@@ -49,6 +51,7 @@ type UserData = {
 
 type UserState = {
   name: string
+  isCouple: boolean
 }
 
 type UserAction =

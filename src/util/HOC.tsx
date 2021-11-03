@@ -36,15 +36,14 @@ export namespace HOC {
 
       useEffect(() => {
         axios.get('/api/users/login/check').then((res) => {
+          console.log(res.data);
           if (!res.data.isLoggedIn) { // 로그인유저만 출입가능 - 로그인 안되어있을 떄 -> 로그인으로
             dispatch(logoutSuccess());
             if (option === AuthOption.AUTH_ONLY) {
               history.push('/');
             }
           } else if (res.data.isLoggedIn) { // 로그인안된 유저만 출입가능 - 로그인 되어있을 때 -> workspace로 (현재는 loginPage만 적용)
-            dispatch(loginSuccess({
-              name: res.data.userData.name
-            }))
+            dispatch(loginSuccess(res.data.userData));
             if (option === AuthOption.NO_AUTH_ONLY) {
               history.push('/workspace');
             }
