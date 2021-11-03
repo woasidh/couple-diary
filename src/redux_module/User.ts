@@ -4,6 +4,7 @@
 
 const LOGIN_SUCCESS = 'user/LOGIN_SUCCESS' as const;
 const LOGOUT_SUCCESS = 'user/LOGOUT_SUCCESS' as const;
+const COUPLE_STATUS_UPDATE = 'user/COUPLE_STATUS_UPDATE' as const;
 
 /**
  * action 생성 함수
@@ -22,6 +23,12 @@ export const logoutSuccess = (): any => {
   }
 }
 
+export const updateCoupleStatus = (): any => {
+  return {
+    type: COUPLE_STATUS_UPDATE
+  }
+}
+
 /**
  * reducer
  */
@@ -37,6 +44,11 @@ const userReducer  = (state: UserState | null = null, action: UserAction): UserA
       }
     case LOGOUT_SUCCESS:
       return null;
+    case COUPLE_STATUS_UPDATE:
+      return {
+        ...state,
+        isCouple: true
+      }
     default:
       return state;
   }
@@ -56,6 +68,7 @@ type UserState = {
 
 type UserAction =
   | ReturnType<typeof loginSuccess>
-  | ReturnType<typeof logoutSuccess>;
+  | ReturnType<typeof logoutSuccess>
+  | ReturnType<typeof updateCoupleStatus>;
 
 export default userReducer;

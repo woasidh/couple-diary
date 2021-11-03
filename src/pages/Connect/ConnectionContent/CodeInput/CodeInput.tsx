@@ -34,7 +34,7 @@ const CodeInput = (): ReactElement => {
         }
         if (res.data.success === true) {
           PopupUtil.showNotificationPopup(PopupMessageType.NOTIFICATION, `축하합니다 ${res.data.name}님과 연결되었어요!`);
-          history.push('/');
+          history.push('/workspace');
         }
       }
     }).catch(e => {
