@@ -20,6 +20,14 @@ export namespace HOC {
 
     return (): ReactElement => {
 
+      // history.push 되고 나서 unmount된 컴포넌트 state 조절 못하니까 clean up
+      useEffect(() => {
+        return ((): void => {
+          setIsLoading(false);
+        })
+      }, []);
+
+
       const [isLoading, setIsLoading] = useState<boolean>(true);
       const [isApiError, setIsApiError] = useState<boolean>(false);
 

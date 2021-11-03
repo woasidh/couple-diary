@@ -4,6 +4,7 @@ import {StringUtil} from '../../../../util/StringUtil';
 import axios from 'axios';
 import {PopupUtil} from '../../../../util/PopupUtil';
 import {PopupMessageType} from '../../../../components/Popup';
+import {useHistory} from 'react-router-dom';
 
 enum CodeStatus {
   NOT_FULL,
@@ -16,6 +17,8 @@ const CodeInput = (): ReactElement => {
   const [code, setCode] = useState<Array<number>>(Array(6).fill(-1));
   const [status, setStatus] = useState<CodeStatus>(CodeStatus.NOT_FULL);
 
+  const history = useHistory();
+
   useEffect(() => {
     code.filter((val) => val !== -1).length === 6
       ? setStatus(CodeStatus.FULL) : setStatus(CodeStatus.NOT_FULL)
@@ -24,9 +27,15 @@ const CodeInput = (): ReactElement => {
   function onClickSubmitBtn(): void {
     axios.post('/api/connection/connect', {code}).then(res => {
       if (res.status !== 200) {
-        PopupUtil.showNotificationPopup(PopupMessageType.API_FAILURE, res.data.toString());
-      } else if (res.status === 200 && res.data.success === true) {
-        PopupUtil.showNotificationPopup(PopupMessageType.NOTIFICATION, '축하합니다 연결되었어요!');
+        PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, res.data.toString());
+      } else if (res.status === 200) {
+        if (res.data.success === false) {
+          PopupUtil.showNotificationPopup(PopupMessageType.API_FAILURE, res.data.err.toString());
+        }
+        if (res.data.success === true) {
+          PopupUtil.showNotificationPopup(PopupMessageType.NOTIFICATION, `축하합니다 ${res.data.name}님과 연결되었어요!`);
+          history.push('/');
+        }
       }
     }).catch(e => {
       PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());

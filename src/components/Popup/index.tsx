@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import './style.scss';
 
 export enum PopupMessageType {
-    API_ERROR = 'api error',
-    API_FAILURE = 'api failure',
+    API_ERROR = 'API 에러',
+    API_FAILURE = '실패',
     NOTIFICATION = '알림'
 }
 

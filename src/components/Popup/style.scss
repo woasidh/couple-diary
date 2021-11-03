@@ -39,6 +39,7 @@
         .footer {
             height: 90px;
             @include flex_set_center;
+            border-top: 1px solid rgba(0, 0, 0, 0.3);
             button {
                 color: white;
                 background-color: $primary_pink;
