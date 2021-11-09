@@ -15,22 +15,26 @@ const Workspace = (): ReactElement => {
 
   return (
     <>
-      <div className="workspace_root">
-        {
-          !isCouple &&
+      {
+        !isCouple &&
+        <div className="workspace_root class_flex_center">
           <div className="single_info_container">
             <img src={AgoSad} alt="ago_sad"/>
             <div className="solo_desc">아직 커플이 아니에요...</div>
             <button onClick={onClickConnectCouple} className="link_connect">연결하러 가기</button>
           </div>
-        }
-        {
-          isCouple &&
-          <div>
-            워크스페이스에 오신걸 환영합니다!
+        </div>
+      }
+      {
+        isCouple &&
+        <div className = "workspace_root">
+          <div className="item_container">
+            <div className="item">1</div>
+            <div className="item">2</div>
+            <div className="item">3</div>
           </div>
-        }
-      </div>
+        </div>
+      }
     </>
   );
 };

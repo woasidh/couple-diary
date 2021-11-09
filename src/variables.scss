@@ -37,6 +37,10 @@
   bottom: 0;
 }
 
+.class_flex_center {
+  @include flex_set_center;
+}
+
 /* color */
 $light_gray: #BDBDBD;
 $primary_pink: #FFAB91;

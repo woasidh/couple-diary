@@ -2,7 +2,6 @@
 
 .workspace_root {
   @include exclude_topbar;
-  @include flex_set_center;
 
   .single_info_container {
 
@@ -27,6 +26,16 @@
       color: white;
       background-color: $primary_pink;
 
+    }
+  }
+
+  .item_container {
+    @include flex_set_center;
+
+    .item {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
     }
   }
 }
