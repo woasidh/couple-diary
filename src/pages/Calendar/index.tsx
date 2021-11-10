@@ -28,8 +28,7 @@ const Index = (): ReactElement => {
   }
 
   return (
-    <div className="home">
-      <Topbar />
+    <div className="home root_page">
       <section className="function_menu">
         <div className="calendar_submenu">
           <div className="calendar_controller">

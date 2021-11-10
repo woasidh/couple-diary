@@ -63,12 +63,14 @@
       }
 
       .date_shower {
-        @include box_up;
-        width: 100px;
+        //@include box_up;
+        width: fit-content;
+        padding: 0 20px;
         height: 70%;
         @include flex_set_center;
         text-align: center;
-        font-size: 20px;
+        font-size: 17px;
+        box-shadow: 0px 0px 15px $primary_pink;
       }
     }
   }

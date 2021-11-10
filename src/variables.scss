@@ -41,6 +41,10 @@
   @include flex_set_center;
 }
 
+.root_page {
+  @include exclude_topbar;
+}
+
 /* color */
 $light_gray: #BDBDBD;
 $primary_pink: #FFAB91;
