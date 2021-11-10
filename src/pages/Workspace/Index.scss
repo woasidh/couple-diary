@@ -2,6 +2,7 @@
 
 .workspace_root {
   @include exclude_topbar;
+  padding: 20px;
 
   .single_info_container {
 
@@ -31,11 +32,21 @@
 
   .item_container {
     @include flex_set_center;
+    width: fit-content;
+    column-gap: 10px;
 
     .item {
-      width: 100px;
-      height: 100px;
-      border: 1px solid black;
+      width: 220px;
+      height: 80px;
+      border-radius: 10px;
+      background-color: $background_gray;
+      color: $font_gray;
+      @include flex_set_center;
+      cursor: pointer;
+      &:hover {
+        color: white;
+        background-color: $primary_pink;
+      }
     }
   }
 }
