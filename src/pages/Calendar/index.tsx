@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, {ReactElement, useState} from 'react';
 import './index.scss';
 import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
@@ -29,27 +29,29 @@ const Index = (): ReactElement => {
 
   return (
     <div className="home root_page">
-      <section className="function_menu">
-        <div className="calendar_submenu">
-          <div className="calendar_controller">
-            <button onClick={subtractMonth}>
-              <img src={Left} alt="left" />
-            </button>
-            <button onClick={addMonth}>
-              <img src={Right} alt="right" />
-            </button>
-          </div>
-          <div className="date_shower">
-            {year}
-            년
-            {' '}
-            {month + 1}
-            월
-          </div>
-        </div>
+      <section className = "section_member">
+
       </section>
-      <section className="main_container">
-        <Calendar year={year} month={month} />
+      <section className = "section_calendar">
+        <section className="function_menu">
+          <div className="calendar_submenu">
+            <div className="calendar_controller">
+              <button onClick={subtractMonth}>
+                <img src={Left} alt="left"/>
+              </button>
+              <button onClick={addMonth}>
+                <img src={Right} alt="right"/>
+              </button>
+            </div>
+            <div className="date_shower">{year}년 {month + 1}월</div>
+          </div>
+        </section>
+        <section className="main_container">
+          <Calendar year={year} month={month}/>
+        </section>
+      </section>
+      <section className = "section_detail">
+
       </section>
     </div>
   );

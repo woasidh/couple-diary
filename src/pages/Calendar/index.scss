@@ -2,9 +2,8 @@
 
 .home {
   width: 100%;
-  height: 100%;
+  @include exclude_topbar;
   display: flex;
-  flex-direction: column;
 
   header.main_header {
     width: 100%;
@@ -34,104 +33,121 @@
     }
   }
 
-  section.function_menu {
-    width: 100%;
-    height: 90px;
-    padding: 10px 30px;
-
-    .calendar_submenu {
-      height: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .calendar_controller {
-        height: 70%;
-        @include flex_set_center;
-        column-gap: 20px;
-
-        button {
-          width: 50px;
-          height: 100%;
-          @include box_up;
-          @include flex_set_center;
-
-          img {
-            width: 40%;
-          }
-        }
-      }
-
-      .date_shower {
-        //@include box_up;
-        width: fit-content;
-        padding: 0 20px;
-        height: 70%;
-        @include flex_set_center;
-        text-align: center;
-        font-size: 17px;
-        box-shadow: 0px 0px 15px $primary_pink;
-      }
-    }
+  .section_member {
+    width: 3%;
+    border-right: 1px solid #00000020;
   }
 
-  section.main_container {
-    width: 100%;
-    padding:  15px 30px;
-    flex: auto;
+  .section_calendar {
+    width: 77%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
-    .calendar {
+    section.function_menu {
       width: 100%;
-      height: 100%;
-      @include box_up;
-      display: flex;
-      flex-direction: column;
+      height: 90px;
+      padding: 10px 30px;
 
-      .weekdayRow {
-        height: 40px;
-        border-bottom: 1px solid #00000020;
+      .calendar_submenu {
+        height: 100%;
         display: flex;
-        .weekDayCell {
-          flex: auto;
-          border-right: 1px solid #00000020;
-          line-height: 40px;
-          text-align: right;
-          padding-right: 10px;
-          font-weight: 500;
-          &:nth-child(1) {
-            color: red;
+        justify-content: space-between;
+        align-items: center;
+
+        .calendar_controller {
+          height: 70%;
+          @include flex_set_center;
+          column-gap: 20px;
+
+          button {
+            width: 50px;
+            height: 100%;
+            @include box_up;
+            @include flex_set_center;
+
+            img {
+              width: 40%;
+            }
           }
         }
-      }
 
-      .weekRows {
-        flex: auto;
+        .date_shower {
+          //@include box_up;
+          width: fit-content;
+          padding: 0 20px;
+          height: 70%;
+          @include flex_set_center;
+          text-align: center;
+          font-size: 17px;
+          box-shadow: 0px 0px 15px $primary_pink;
+        }
+      }
+    }
+
+    section.main_container {
+      width: 100%;
+      padding:  15px 30px;
+      flex: auto;
+
+      .calendar {
+        width: 100%;
+        height: 100%;
+        @include box_up;
         display: flex;
         flex-direction: column;
 
-        .weekRow {
-          flex: 1;
+        .weekdayRow {
+          height: 40px;
           border-bottom: 1px solid #00000020;
           display: flex;
-
-          .dayCell {
-            flex: 1;
+          .weekDayCell {
+            flex: auto;
             border-right: 1px solid #00000020;
-            padding:  5px 10px;
-            display: flex;
-            flex-direction: column;
-
-            .dayWrapper {
-              flex: 1;
-              text-align: right;
+            line-height: 40px;
+            text-align: right;
+            padding-right: 10px;
+            font-weight: 500;
+            &:nth-child(1) {
+              color: red;
             }
+          }
+        }
 
-            .eventWrapper {
-              flex: 7;
+        .weekRows {
+          flex: auto;
+          display: flex;
+          flex-direction: column;
+
+          .weekRow {
+            flex: 1;
+            border-bottom: 1px solid #00000020;
+            display: flex;
+
+            .dayCell {
+              flex: 1;
+              border-right: 1px solid #00000020;
+              padding:  5px 10px;
+              display: flex;
+              flex-direction: column;
+
+              .dayWrapper {
+                flex: 1;
+                text-align: right;
+              }
+
+              .eventWrapper {
+                flex: 7;
+              }
             }
           }
         }
       }
     }
+    border-right: 1px solid #00000020;
+  }
+
+  .section_detail {
+    width: 20%;
   }
 }
