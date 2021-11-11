@@ -34,8 +34,29 @@
   }
 
   .section_member {
-    width: 60px;
+    width: 70px;
     border-right: 1px solid #00000020;
+    .member_container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      row-gap: 10px;
+      .member1, .member2 {
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        @include flex_set_center;
+      }
+      .member1 {
+        margin-top: 10px;
+        background-color: $background_member1;
+      }
+      .member2 {
+        background-color: $background_member2;
+      }
+    }
   }
 
   .section_calendar {
@@ -160,5 +181,8 @@
 
   .section_detail {
     flex: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

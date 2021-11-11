@@ -30,18 +30,17 @@ const Index = (): ReactElement => {
   return (
     <div className="home root_page">
       <section className = "section_member">
-
+        <div className = 'member_container'>
+          <div className = 'member1'>백</div>
+          <div className = 'member2'>최</div>
+        </div>
       </section>
       <section className = "section_calendar">
         <section className="function_menu">
           <div className="calendar_submenu">
             <div className="calendar_controller">
-              <button onClick={subtractMonth}>
-                <img src={Left} alt="left"/>
-              </button>
-              <button onClick={addMonth}>
-                <img src={Right} alt="right"/>
-              </button>
+              <button onClick={subtractMonth}><img src={Left} alt="left"/></button>
+              <button onClick={addMonth}><img src={Right} alt="right"/></button>
             </div>
             <div className="date_shower">{year}년 {month + 1}월</div>
           </div>
@@ -51,7 +50,6 @@ const Index = (): ReactElement => {
         </section>
       </section>
       <section className = "section_detail">
-
       </section>
     </div>
   );
