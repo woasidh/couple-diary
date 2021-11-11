@@ -34,7 +34,7 @@
   }
 
   .section_member {
-    width: 3%;
+    width: 60px;
     border-right: 1px solid #00000020;
   }
 
@@ -43,6 +43,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid #00000020;
 
     section.function_menu {
       width: 100%;
@@ -93,7 +94,9 @@
       .calendar {
         width: 100%;
         height: 100%;
-        @include box_up;
+        border: 1px solid #00000030;
+        border-radius: 10px;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
 
@@ -111,6 +114,9 @@
             &:nth-child(1) {
               color: red;
             }
+            &:nth-child(7) {
+              border-right: none;
+            }
           }
         }
 
@@ -122,6 +128,9 @@
           .weekRow {
             flex: 1;
             border-bottom: 1px solid #00000020;
+            &:nth-child(7) {
+              border-bottom: none;
+            }
             display: flex;
 
             .dayCell {
@@ -130,6 +139,9 @@
               padding:  5px 10px;
               display: flex;
               flex-direction: column;
+              &:nth-child(7) {
+                border-right: none;
+              }
 
               .dayWrapper {
                 flex: 1;
@@ -144,10 +156,9 @@
         }
       }
     }
-    border-right: 1px solid #00000020;
   }
 
   .section_detail {
-    width: 20%;
+    flex: auto;
   }
 }
