@@ -1,13 +1,15 @@
 import {combineReducers} from 'redux';
 import counterReducer from './Counter';
 import userReducer from './User';
+import coupleReducer from './Couple';
 
 /**
  * store에서 쓸 rootReducer
  */
 export const rootReducer = combineReducers({
   counter: counterReducer,
-  user: userReducer
+  user: userReducer,
+  couple: coupleReducer
 })
 
 /**

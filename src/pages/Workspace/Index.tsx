@@ -7,7 +7,7 @@ import {RootState} from '../../redux_module';
 
 const Workspace = (): ReactElement => {
   const history = useHistory();
-  const isCouple = useSelector((state: RootState) => state.user?.isCouple);
+  const isCouple = true;
 
   function onClickConnectCouple(): void {
     history.push('connect');

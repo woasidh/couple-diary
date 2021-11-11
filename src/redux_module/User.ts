@@ -4,16 +4,15 @@
 
 const LOGIN_SUCCESS = 'user/LOGIN_SUCCESS' as const;
 const LOGOUT_SUCCESS = 'user/LOGOUT_SUCCESS' as const;
-const COUPLE_STATUS_UPDATE = 'user/COUPLE_STATUS_UPDATE' as const;
 
 /**
  * action 생성 함수
  */
 
-export const loginSuccess = (userData: UserData): any => {
+export const loginSuccess = (loginData: UserData): any => {
   return {
     type: LOGIN_SUCCESS,
-    payload: userData
+    payload: loginData
   }
 };
 
@@ -23,32 +22,21 @@ export const logoutSuccess = (): any => {
   }
 }
 
-export const updateCoupleStatus = (): any => {
-  return {
-    type: COUPLE_STATUS_UPDATE
-  }
-}
-
 /**
  * reducer
  */
 
-const userReducer  = (state: UserState | null = null, action: UserAction): UserAction => {
+const userReducer  = (state: UserState | null = null, action: UserAction): UserState | null => {
   console.log(action);
   switch(action.type) {
     case LOGIN_SUCCESS:
       return {
         ...state,
         name: action.payload.name,
-        isCouple: action.payload.isCouple
+        email: action.payload.email
       }
     case LOGOUT_SUCCESS:
       return null;
-    case COUPLE_STATUS_UPDATE:
-      return {
-        ...state,
-        isCouple: true
-      }
     default:
       return state;
   }
@@ -59,16 +47,16 @@ const userReducer  = (state: UserState | null = null, action: UserAction): UserA
  */
 type UserData = {
   name: string
+  email: string
 }
 
 type UserState = {
   name: string
-  isCouple: boolean
+  email: string
 }
 
 type UserAction =
   | ReturnType<typeof loginSuccess>
-  | ReturnType<typeof logoutSuccess>
-  | ReturnType<typeof updateCoupleStatus>;
+  | ReturnType<typeof logoutSuccess>;
 
 export default userReducer;

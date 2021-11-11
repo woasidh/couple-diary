@@ -6,6 +6,7 @@ import {PopupMessageType} from '../components/Popup';
 import Login from '../pages/Login';
 import {loginSuccess, logoutSuccess} from '../redux_module/User';
 import {PopupUtil} from './PopupUtil';
+import {updateCoupleStatus} from '../redux_module/Couple';
 
 export enum AuthOption {
   AUTH_ONLY,
@@ -47,6 +48,7 @@ export namespace HOC {
             }
           } else if (res.data.isLoggedIn) { // 로그인안된 유저만 출입가능 - 로그인 되어있을 때 -> workspace로 (현재는 loginPage만 적용)
             dispatch(loginSuccess(res.data.userData));
+            dispatch(updateCoupleStatus(res.data.coupleData));
             if (option === AuthOption.NO_AUTH_ONLY) {
               history.push('/workspace');
             }

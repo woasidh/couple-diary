@@ -1,13 +1,23 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import './index.scss';
 import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
 import Calendar from './Calendar/Calendar';
 import Topbar from '../../components/Topbar/Topbar';
+import {RootState} from '../../redux_module';
+import {useSelector} from 'react-redux';
 
 const Index = (): ReactElement => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
+
+  const coupleData = useSelector((state: RootState) => state.couple);
+
+  useEffect(() => {
+    console.log(coupleData);
+  }, [coupleData]);
+
+
 
   function subtractMonth(): void {
     if (month === 0) {

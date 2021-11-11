@@ -9,9 +9,10 @@ import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import variables from '../../variables';
 import People from '../../resource/images/social_illust.jpg';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../redux_module/User';
+import {loginSuccess} from '../../redux_module/User';
 import { PopupUtil } from '../../util/PopupUtil';
 import { PopupMessageType } from '../../components/Popup';
+import {updateCoupleStatus} from '../../redux_module/Couple';
 
 interface LoginSubmitForm {
   email: string
@@ -71,6 +72,7 @@ const Index = (): ReactElement => {
           // 로그인 성공
           // redux state 변경
           dispatch(loginSuccess(res.data.userData));
+          dispatch(updateCoupleStatus(res.data.coupleData));
           history.push('/workspace');
         }
       }

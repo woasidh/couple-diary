@@ -8,6 +8,7 @@ import Logo from '../../resource/images/logo.png';
 import {PopupUtil} from '../../util/PopupUtil';
 import {PopupMessageType} from '../Popup';
 import './Topbar.scss';
+import {removeCoupleData} from '../../redux_module/Couple';
 
 const Topbar = (): ReactElement => {
 
@@ -21,6 +22,7 @@ const Topbar = (): ReactElement => {
       if (res.status === 200 && res.data.success === true) {
         PopupUtil.showNotificationPopup(PopupMessageType.NOTIFICATION, '로그아웃 되었습니다');
         dispatch(logoutSuccess());
+        dispatch(removeCoupleData());
         history.push('/');
       }
     }).catch(e => {
