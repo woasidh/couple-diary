@@ -27,7 +27,6 @@ export const logoutSuccess = (): any => {
  */
 
 const userReducer  = (state: UserState | null = null, action: UserAction): UserState | null => {
-  console.log(action);
   switch(action.type) {
     case LOGIN_SUCCESS:
       return {

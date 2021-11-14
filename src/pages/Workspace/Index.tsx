@@ -2,8 +2,6 @@ import React, {ReactElement} from 'react';
 import './Index.scss';
 import {useHistory} from 'react-router-dom';
 import AgoSad from '../../resource/images/ago_sad.png';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../redux_module';
 
 const Workspace = (): ReactElement => {
   const history = useHistory();

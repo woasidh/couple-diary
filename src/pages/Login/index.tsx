@@ -54,7 +54,6 @@ const Index = (): ReactElement => {
 
   function submitLoginForm(): void {
     axios.post('/api/users/login', submitContent).then((res) => {
-      console.log(res);
       if (res.status !== 200) { // 서버 통신 잘 안되었을 때
         console.log('not valid');
       } else { // 서버 통신 잘되었을 때

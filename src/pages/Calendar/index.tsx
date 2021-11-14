@@ -1,23 +1,13 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {ReactElement, useState} from 'react';
 import './index.scss';
 import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
 import Calendar from './Calendar/Calendar';
-import Topbar from '../../components/Topbar/Topbar';
-import {RootState} from '../../redux_module';
-import {useSelector} from 'react-redux';
-import axios from 'axios';
+import Member from './Member/Member';
 
 const Index = (): ReactElement => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
-
-  const userData = useSelector((state: RootState) => state.user);
-  const coupleData = useSelector((state: RootState) => state.couple);
-
-  const getFirstName = (koreanName: string): string => {
-    return koreanName.charAt(0);
-  }
 
   function subtractMonth(): void {
     if (month === 0) {
@@ -40,14 +30,7 @@ const Index = (): ReactElement => {
   return (
     <div className="home root_page">
       <section className = "section_member">
-        <div className = 'member_container'>
-          {!!userData && !!coupleData && (
-            <>
-              <div className = 'member1'>{getFirstName(userData.name)}</div>
-              <div className = 'member2'>{getFirstName(coupleData.partnerName)}</div>
-            </>
-          )}
-        </div>
+        <Member/>
       </section>
       <section className = "section_calendar">
         <section className="function_menu">

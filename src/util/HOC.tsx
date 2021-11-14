@@ -19,8 +19,6 @@ export namespace HOC {
     Component: () => ReactElement,
     option: AuthOption): () => ReactElement {
 
-    console.log(Component.name);
-
     return (): ReactElement => {
 
       // history.push 되고 나서 unmount된 컴포넌트 state 조절 못하니까 clean up
@@ -38,9 +36,7 @@ export namespace HOC {
       const dispatch = useDispatch();
 
       useEffect(() => {
-        console.log('hi');
         axios.get('/api/users/login/check').then((res) => {
-          console.log(res.data);
           if (!res.data.isLoggedIn) { // 로그인유저만 출입가능 - 로그인 안되어있을 떄 -> 로그인으로
             dispatch(logoutSuccess());
             if (option === AuthOption.AUTH_ONLY) {

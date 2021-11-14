@@ -160,6 +160,7 @@
               padding:  5px 10px;
               display: flex;
               flex-direction: column;
+              cursor: pointer;
               &:nth-child(7) {
                 border-right: none;
               }
@@ -167,6 +168,10 @@
               .dayWrapper {
                 flex: 1;
                 text-align: right;
+              }
+
+              &:hover {
+                background-color: rgba(0, 0, 0, 0.03);
               }
 
               .eventWrapper {
