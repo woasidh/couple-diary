@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, {ReactElement, useEffect} from 'react';
 import DayCell from './DayCell/DayCell';
+import axios from 'axios';
 
 interface CalendarProps {
     year: number
@@ -7,6 +8,14 @@ interface CalendarProps {
 }
 
 const Calendar = ({ year, month }: CalendarProps): ReactElement => {
+
+  useEffect(() => {
+    axios.get(`/api/calendar/holiday?year=${year}&month=${month}`).then(res => {
+      console.log(res.data);
+    })
+  }, [year, month]);
+
+
   const startDay = new Date(year, month, 1).getDay();
   const totalDay = new Date(year, month + 1, 0).getDate();
 

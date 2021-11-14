@@ -6,18 +6,18 @@ import Calendar from './Calendar/Calendar';
 import Topbar from '../../components/Topbar/Topbar';
 import {RootState} from '../../redux_module';
 import {useSelector} from 'react-redux';
+import axios from 'axios';
 
 const Index = (): ReactElement => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
 
+  const userData = useSelector((state: RootState) => state.user);
   const coupleData = useSelector((state: RootState) => state.couple);
 
-  useEffect(() => {
-    console.log(coupleData);
-  }, [coupleData]);
-
-
+  const getFirstName = (koreanName: string): string => {
+    return koreanName.charAt(0);
+  }
 
   function subtractMonth(): void {
     if (month === 0) {
@@ -41,8 +41,12 @@ const Index = (): ReactElement => {
     <div className="home root_page">
       <section className = "section_member">
         <div className = 'member_container'>
-          <div className = 'member1'>백</div>
-          <div className = 'member2'>최</div>
+          {!!userData && !!coupleData && (
+            <>
+              <div className = 'member1'>{getFirstName(userData.name)}</div>
+              <div className = 'member2'>{getFirstName(coupleData.partnerName)}</div>
+            </>
+          )}
         </div>
       </section>
       <section className = "section_calendar">

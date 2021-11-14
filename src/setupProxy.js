@@ -12,3 +12,15 @@ module.exports = function (app){
     })
   )
 }
+
+// // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+// module.exports = function (app){
+//   app.use(
+//     '/B090041',
+//     createProxyMiddleware({
+//       target: 'http://apis.data.go.kr',
+//       changeOrigin: true
+//     })
+//   )
+// }
+
