@@ -9,10 +9,17 @@ interface CalendarProps {
     month: number
 }
 
+interface HolidayApiForm {
+  dateName: string;
+  locdate: number;
+}
+
 const Calendar = ({ year, month }: CalendarProps): ReactElement => {
 
   const startDay = new Date(year, month, 1).getDay();
   const totalDay = new Date(year, month + 1, 0).getDate();
+
+  
 
   const sampleEvent: CalendarCellEvent = {
     name: '한글날',
@@ -22,15 +29,24 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
   const [eventMap, setEventMap] = useState<Map<number, CalendarCellEvent>>(new Map<number, CalendarCellEvent>());
 
   useEffect(() => {
-    axios.get(`/api/calendar/holiday?year=${year}&month=${month + 2}`).then(res => {
-      console.log(res.data);
-      setEventMap(new Map(eventMap.set(1, sampleEvent)));
+    console.log(year, month);
+    axios.get(`/api/calendar/holiday?year=${year}&month=${month + 1}`).then(res => {
+      console.log(typeof res.data.item);
+      if (res.data.item){
+        const holidays: Array<CalendarCellEvent> | null = convertToEventObject(res.data.item);
+        setEventMap(new Map(eventMap.set(1, sampleEvent)));
+      }
     }).catch(e => {
       PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
     })
   }, [year, month]);
 
-  function renderWeekdayRow(): ReactElement {
+  const convertToEventObject = (data: HolidayApiForm): Array<CalendarCellEvent> | null => {
+    return null;
+  }
+
+  //todo useCallback 왜 안되는지???
+  const renderWeekdayRow = useCallback((): ReactElement => {
     const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
     return (
       <div className="weekdayRow">
@@ -39,11 +55,10 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
         ))}
       </div>
     );
-  }
+  }, []);
 
-  const renderWeekRows = useCallback((): Array<ReactElement> => {
-
-    console.error('renderWeekMap');
+  // TODO 하나 DayCell만 update하게 최적화 하기
+  const renderWeekRows = (): Array<ReactElement> => {
 
     // DayCell에 넘겨주는 data
     let dayCount = 0;
@@ -64,7 +79,7 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
         </div>
       ))
     );
-  }, [eventMap]);
+  }
 
   return (
     <div className="calendar">
