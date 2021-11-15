@@ -176,6 +176,14 @@
 
               .eventWrapper {
                 flex: 7;
+                .event_item {
+                  background-color: $primary_pink;
+                  border-radius: 5px;
+                  color: white;
+                  font-size: 12px;
+                  width: 80%;
+                  padding: 1px 3px;
+                }
               }
             }
           }

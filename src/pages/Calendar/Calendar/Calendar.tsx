@@ -19,8 +19,6 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
   const startDay = new Date(year, month, 1).getDay();
   const totalDay = new Date(year, month + 1, 0).getDate();
 
-  
-
   const sampleEvent: CalendarCellEvent = {
     name: '한글날',
     type: EventType.NORMAL
@@ -31,18 +29,31 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
   useEffect(() => {
     console.log(year, month);
     axios.get(`/api/calendar/holiday?year=${year}&month=${month + 1}`).then(res => {
-      console.log(typeof res.data.item);
+      console.log(res.data.item);
       if (res.data.item){
-        const holidays: Array<CalendarCellEvent> | null = convertToEventObject(res.data.item);
-        setEventMap(new Map(eventMap.set(1, sampleEvent)));
+        setEventMap(updateMapFromHolidayObject(res.data.item, new Map(eventMap)));
       }
     }).catch(e => {
       PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
     })
   }, [year, month]);
 
-  const convertToEventObject = (data: HolidayApiForm): Array<CalendarCellEvent> | null => {
-    return null;
+  const getDateFromHolidayApiForm = (data: HolidayApiForm): number => {
+    // locdate form : YYYYMMDD
+    return parseInt(data.locdate.toString().slice(6, 8));
+  }
+
+  const updateMapFromHolidayObject = (holidays: HolidayApiForm, map: Map<number, CalendarCellEvent>): Map<number, CalendarCellEvent> => {
+    const holidayArray = Array.isArray(holidays) ? holidays : [holidays];
+    holidayArray.forEach((holiday) => {
+      const date = getDateFromHolidayApiForm(holiday);
+      const event: CalendarCellEvent = {
+        name: holiday.dateName,
+        type: EventType.HOLIDAY
+      }
+      map.set(date, event);
+    })
+    return map;
   }
 
   //todo useCallback 왜 안되는지???

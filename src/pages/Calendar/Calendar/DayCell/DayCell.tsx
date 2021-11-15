@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react';
+import React, {ReactElement, useEffect} from 'react';
 
 export enum EventType {
-  NORMAL
+  NORMAL,
+  HOLIDAY
 }
 
 export interface CalendarCellEvent {
@@ -20,11 +21,16 @@ const DayCell = (props: DayCellProps): ReactElement => {
     //
   }
 
+  useEffect(() => {
+    console.log(props.event);
+  }, []);
+
+
   return (
     <div className="dayCell" onClick = {onClickCell}>
       <div className="dayWrapper">{props.day}</div>
       <div className="eventWrapper">
-        <div></div>
+        {props.event && <div className = "event_item">{props.event.name}</div>}
       </div>
     </div>
   );
