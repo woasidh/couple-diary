@@ -39,7 +39,7 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
   }, [year, month]);
 
   const getDateFromHolidayApiForm = (data: HolidayApiForm): number => {
-    // locdate form : YYYYMMDD
+    // locdate form : YYYY-MM-DD
     return parseInt(data.locdate.toString().slice(6, 8));
   }
 
