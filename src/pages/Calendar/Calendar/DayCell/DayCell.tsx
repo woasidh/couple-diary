@@ -21,10 +21,6 @@ const DayCell = (props: DayCellProps): ReactElement => {
     //
   }
 
-  useEffect(() => {
-    console.log(props.event);
-  }, []);
-
 
   return (
     <div className="dayCell" onClick = {onClickCell}>

@@ -19,27 +19,26 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
   const startDay = new Date(year, month, 1).getDay();
   const totalDay = new Date(year, month + 1, 0).getDate();
 
-  const sampleEvent: CalendarCellEvent = {
-    name: '한글날',
-    type: EventType.NORMAL
-  }
-
   const [eventMap, setEventMap] = useState<Map<number, CalendarCellEvent>>(new Map<number, CalendarCellEvent>());
 
   useEffect(() => {
-    console.log(year, month);
-    axios.get(`/api/calendar/holiday?year=${year}&month=${month + 1}`).then(res => {
-      console.log(res.data.item);
+
+    const monthString: string = month + 1 < 10 ? `0${month + 1}` : `${month + 1}`;
+
+    axios.get(`/api/calendar/holiday?year=${year}&month=${monthString}`)
+    .then(res => {
       if (res.data.item){
-        setEventMap(updateMapFromHolidayObject(res.data.item, new Map(eventMap)));
+        setEventMap(updateMapFromHolidayObject(res.data.item, new Map()));
+      } else {
+        setEventMap(new Map());
       }
-    }).catch(e => {
+    })
+    .catch(e => {
       PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
     })
   }, [year, month]);
 
   const getDateFromHolidayApiForm = (data: HolidayApiForm): number => {
-    // locdate form : YYYY-MM-DD
     return parseInt(data.locdate.toString().slice(6, 8));
   }
 
