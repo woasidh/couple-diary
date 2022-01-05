@@ -5,8 +5,8 @@ import {PopupUtil} from '../../../util/PopupUtil';
 import {PopupMessageType} from '../../../components/Popup';
 
 interface CalendarProps {
-    year: number
-    month: number
+  year: number
+  month: number
 }
 
 interface HolidayApiForm {
@@ -14,45 +14,35 @@ interface HolidayApiForm {
   locdate: number;
 }
 
-const Calendar = ({ year, month }: CalendarProps): ReactElement => {
-
+const Calendar = ({year, month}: CalendarProps): ReactElement => {
   const startDay = new Date(year, month, 1).getDay();
   const totalDay = new Date(year, month + 1, 0).getDate();
 
-  const [eventMap, setEventMap] = useState<Map<number, CalendarCellEvent>>(new Map<number, CalendarCellEvent>());
+  const [holidayMap, setHolidayMap] = useState<Map<string, CalendarCellEvent>>(new Map<string, CalendarCellEvent>());
 
   useEffect(() => {
-
-    const monthString: string = month + 1 < 10 ? `0${month + 1}` : `${month + 1}`;
-
-    axios.get(`/api/calendar/holiday?year=${year}&month=${monthString}`)
+    axios.get(`/api/calendar/holiday?year=${year}`)
     .then(res => {
-      if (res.data.item){
-        setEventMap(updateMapFromHolidayObject(res.data.item, new Map()));
-      } else {
-        setEventMap(new Map());
+      if (res.data.item) {
+        setHolidayMap(new Map([
+          ...holidayMap,
+          ...parseHolidayAPI(res.data.item)
+        ]))
       }
     })
     .catch(e => {
       PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
     })
-  }, [year, month]);
+  }, [year]);
 
-  const getDateFromHolidayApiForm = (data: HolidayApiForm): number => {
-    return parseInt(data.locdate.toString().slice(6, 8));
-  }
-
-  const updateMapFromHolidayObject = (holidays: HolidayApiForm, map: Map<number, CalendarCellEvent>): Map<number, CalendarCellEvent> => {
-    const holidayArray = Array.isArray(holidays) ? holidays : [holidays];
-    holidayArray.forEach((holiday) => {
-      const date = getDateFromHolidayApiForm(holiday);
-      const event: CalendarCellEvent = {
-        name: holiday.dateName,
+  const parseHolidayAPI = (datas: Array<HolidayApiForm>): Map<string, CalendarCellEvent> => {
+    return new Map(datas.map(data => {
+      const calendarCellEvent: CalendarCellEvent = {
+        name: data.dateName,
         type: EventType.HOLIDAY
       }
-      map.set(date, event);
-    })
-    return map;
+      return [data.locdate.toString(), calendarCellEvent];
+    }));
   }
 
   //todo useCallback 왜 안되는지???
@@ -84,11 +74,21 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
             if (dayCount === totalDay) shouldCount = false;
             if (row === 0 && column === startDay) shouldCount = true;
             if (shouldCount) dayCount++;
-            return <DayCell day={shouldCount ? dayCount : null} key={idx} event = {eventMap.get(dayCount)} />;
+            return <DayCell
+              day={shouldCount ? dayCount : null}
+              key={idx}
+              event={holidayMap.get(getDateInStringForm(year, month + 1, dayCount))}
+            />;
           })}
         </div>
       ))
     );
+  }
+
+  const getDateInStringForm = (year: number, month: number, day: number): string => {
+    const monthInStr = `${month < 10 ? 0 : ''}${month}`;
+    const dayInStr = `${day < 10 ? 0 : ''}${day}`;
+    return year + monthInStr + dayInStr;
   }
 
   return (
@@ -96,7 +96,7 @@ const Calendar = ({ year, month }: CalendarProps): ReactElement => {
       <div className="weekRows">
         {renderWeekdayRow()}
         {renderWeekRows()}
-        {eventMap.size}
+        {holidayMap.size}
       </div>
     </div>
   );
