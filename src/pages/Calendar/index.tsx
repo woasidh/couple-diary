@@ -1,5 +1,5 @@
 import React, {ReactElement, useState} from 'react';
-import './index.scss';
+import './indexx.scss';
 import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
 import Calendar from './Calendar/Calendar';
