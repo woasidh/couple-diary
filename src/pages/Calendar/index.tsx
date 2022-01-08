@@ -1,5 +1,5 @@
 import React, {ReactElement, useState} from 'react';
-import './indexx.scss';
+import './index.scss';
 import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
 import Calendar from './Calendar/Calendar';
@@ -27,6 +27,10 @@ const Index = (): ReactElement => {
     setMonth(month + 1);
   }
 
+  const addEvent = (): void => {
+    console.log('event popup open');
+  }
+
   return (
     <div className="home root_page">
       <section className = "section_member">
@@ -36,8 +40,12 @@ const Index = (): ReactElement => {
         <section className="function_menu">
           <div className="calendar_submenu">
             <div className="calendar_controller">
+              {/*TODO SVG로 바꿔보기*/}
               <button onClick={subtractMonth}><img src={Left} alt="left"/></button>
               <button onClick={addMonth}><img src={Right} alt="right"/></button>
+              <button onClick={addEvent} className="add_event">
+                일정 추가
+              </button>
             </div>
             <div className="date_shower">{year}년 {month + 1}월</div>
           </div>
