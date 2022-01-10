@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {ReactElement, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
-import {PopupMessageType} from '../components/Popup';
+import {NotificationPopupType} from '../components/Popup/NotificationPopup';
 import Login from '../pages/Login';
 import {loginSuccess, logoutSuccess} from '../redux_module/User';
 import {PopupUtil} from './PopupUtil';
@@ -52,7 +52,7 @@ export namespace HOC {
           // 나머지는 그대로
           setIsLoading(false);
         }).catch(e => {
-          PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
+          PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
           setIsApiError(true);
         });
       }, []);

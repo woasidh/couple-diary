@@ -1,52 +1,11 @@
-@import '/src/variables.scss';
+@import 'src/variables';
 
 .popupBackground {
-    z-index: 98;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    @include flex_set_center;
-
-    .popupContainer {
-        z-index: 99;
-        width: 500px;
-        height: 300px;
-        background-color: white;
-        border-radius: 15px;
-        box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.05);
-
-        .header {
-            height: 50px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-            line-height: 50px;
-            span {
-                margin-left: 15px;
-                color: $primary_pink;
-            }
-        }
-
-        .content {
-            overflow-y: scroll;
-            height: 160px;
-            @include flex_set_center;
-            p {
-                margin: auto;
-            }
-        }
-
-        .footer {
-            height: 90px;
-            @include flex_set_center;
-            border-top: 1px solid rgba(0, 0, 0, 0.3);
-            button {
-                color: white;
-                background-color: $primary_pink;
-                border-radius: 5px;
-                height: 40px;
-                width: 100px;
-            }
-        }
-    }
+  z-index: 98;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  @include flex_set_center;
 }

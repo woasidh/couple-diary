@@ -3,7 +3,7 @@ import {ArrayUtil} from '../../../../util/ArrayUtil';
 import {StringUtil} from '../../../../util/StringUtil';
 import axios from 'axios';
 import {PopupUtil} from '../../../../util/PopupUtil';
-import {PopupMessageType} from '../../../../components/Popup';
+import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
 import {useHistory} from 'react-router-dom';
 
 enum CodeStatus {
@@ -27,18 +27,18 @@ const CodeInput = (): ReactElement => {
   function onClickSubmitBtn(): void {
     axios.post('/api/connection/connect', {code}).then(res => {
       if (res.status !== 200) {
-        PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, res.data.toString());
+        PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, res.data.toString());
       } else if (res.status === 200) {
         if (res.data.success === false) {
-          PopupUtil.showNotificationPopup(PopupMessageType.API_FAILURE, res.data.err.toString());
+          PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err.toString());
         }
         if (res.data.success === true) {
-          PopupUtil.showNotificationPopup(PopupMessageType.NOTIFICATION, `축하합니다 ${res.data.name}님과 연결되었어요!`);
+          PopupUtil.showNotificationPopup(NotificationPopupType.NOTIFICATION, `축하합니다 ${res.data.name}님과 연결되었어요!`);
           history.push('/workspace');
         }
       }
     }).catch(e => {
-      PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
+      PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
     })
   }
 

@@ -11,7 +11,7 @@ import People from '../../resource/images/social_illust.jpg';
 import { useDispatch } from 'react-redux';
 import {loginSuccess} from '../../redux_module/User';
 import { PopupUtil } from '../../util/PopupUtil';
-import { PopupMessageType } from '../../components/Popup';
+import { NotificationPopupType } from '../../components/Popup/NotificationPopup';
 import {updateCoupleStatus} from '../../redux_module/Couple';
 
 interface LoginSubmitForm {
@@ -55,7 +55,7 @@ const Index = (): ReactElement => {
   function submitLoginForm(): void {
     axios.post('/api/users/login', submitContent).then((res) => {
       if (res.status !== 200) { // 서버 통신 잘 안되었을 때
-        console.log('not valid');
+        alert('api connection error');
       } else { // 서버 통신 잘되었을 때
         const {data} = res;
         if (!data.success) {
@@ -76,7 +76,7 @@ const Index = (): ReactElement => {
         }
       }
     }).catch((e) => {
-      PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
+      PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
     });
   }
 

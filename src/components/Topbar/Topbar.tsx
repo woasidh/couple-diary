@@ -6,7 +6,7 @@ import {RootState} from '../../redux_module';
 import {logoutSuccess} from '../../redux_module/User';
 import Logo from '../../resource/images/logo.png';
 import {PopupUtil} from '../../util/PopupUtil';
-import {PopupMessageType} from '../Popup';
+import {NotificationPopupType} from '../Popup/NotificationPopup';
 import './Topbar.scss';
 import {removeCoupleData} from '../../redux_module/Couple';
 
@@ -20,13 +20,13 @@ const Topbar = (): ReactElement => {
   const onLogoutBtnClick = (): void => {
     axios.get('/api/users/logout').then(res => {
       if (res.status === 200 && res.data.success === true) {
-        PopupUtil.showNotificationPopup(PopupMessageType.NOTIFICATION, '로그아웃 되었습니다');
+        PopupUtil.showNotificationPopup(NotificationPopupType.NOTIFICATION, '로그아웃 되었습니다');
         dispatch(logoutSuccess());
         dispatch(removeCoupleData());
         history.push('/');
       }
     }).catch(e => {
-      PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
+      PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
     });
   }
 

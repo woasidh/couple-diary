@@ -6,7 +6,7 @@ import Counter from './Counter/Counter';
 import CodeInput from './CodeInput/CodeInput';
 import axios from 'axios';
 import {PopupUtil} from '../../../util/PopupUtil';
-import {PopupMessageType} from '../../../components/Popup';
+import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 
 const ConnectionContent = (): ReactElement => {
 
@@ -21,12 +21,12 @@ const ConnectionContent = (): ReactElement => {
       code: randomCode
     }).then(res => {
       if (res.data.success === false) {
-        PopupUtil.showNotificationPopup(PopupMessageType.API_FAILURE, res.data.err.toString());
+        PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err.toString());
       } else {
         setMyCode(randomCode);
       }
     }).catch(e => {
-      PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
+      PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
     });
   }, [refresh]);
 

@@ -4,6 +4,7 @@ import Left from '../../resource/images/left.png';
 import Right from '../../resource/images/right.png';
 import Calendar from './Calendar/Calendar';
 import Member from './Member/Member';
+import {PopupUtil} from '../../util/PopupUtil';
 
 const Index = (): ReactElement => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -28,7 +29,7 @@ const Index = (): ReactElement => {
   }
 
   const addEvent = (): void => {
-    console.log('event popup open');
+    PopupUtil.showEventAddPopup();
   }
 
   return (

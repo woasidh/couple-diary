@@ -2,7 +2,7 @@ import React, {ReactElement, useCallback, useEffect, useState} from 'react';
 import DayCell, {CalendarCellEvent, EventType} from './DayCell/DayCell';
 import axios from 'axios';
 import {PopupUtil} from '../../../util/PopupUtil';
-import {PopupMessageType} from '../../../components/Popup';
+import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 
 interface CalendarProps {
   year: number
@@ -31,7 +31,7 @@ const Calendar = ({year, month}: CalendarProps): ReactElement => {
       }
     })
     .catch(e => {
-      PopupUtil.showNotificationPopup(PopupMessageType.API_ERROR, e.toString());
+      PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
     })
   }, [year]);
 
