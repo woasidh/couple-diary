@@ -37,6 +37,16 @@
   bottom: 0;
 }
 
+@mixin button_gray {
+  background-color: $background_gray;
+  color: $font_gray;
+}
+
+@mixin button_primary {
+  background-color: $primary_pink;
+  color: white;
+}
+
 .class_flex_center {
   @include flex_set_center;
 }

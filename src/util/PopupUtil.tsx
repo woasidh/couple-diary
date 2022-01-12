@@ -17,7 +17,6 @@ export namespace PopupUtil {
   const closePopup = (e: any): void => {
     e.stopPropagation();
     ReactDOM.unmountComponentAtNode(document.getElementById('popup') as HTMLElement);
-    console.log('parent clicked');
   }
 
   export function showNotificationPopup(type: NotificationPopupType, popupMsg: string): void {
@@ -35,7 +34,7 @@ export namespace PopupUtil {
   export function showEventAddPopup(): void {
     ReactDOM.render(
       <PopupBackground onBackgroundClick={closePopup}>
-        <EventAddPopup/>
+        <EventAddPopup closePopup = {closePopup}/>
       </PopupBackground>,
       document.getElementById('popup')
     );

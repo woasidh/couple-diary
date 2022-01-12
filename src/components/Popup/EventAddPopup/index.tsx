@@ -4,7 +4,11 @@ import {DatePicker, Space} from 'antd';
 import ClockImg from '../../../resource/images/clock.png';
 import MemoImg from '../../../resource/images/notebook.png';
 
-const EventAddPopup = (): ReactElement => {
+interface EventAddPopupProps {
+  closePopup: (e: any) => void;
+}
+
+const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
   return (
     // todo css className 중복 처리 어떻게 해결할까
     <div className='popupContainer'
@@ -14,7 +18,7 @@ const EventAddPopup = (): ReactElement => {
          }}>
       <input type='text' className = 'titleInput' placeholder='제목'/>
       <div className='datePicker'>
-        <div className='imgHolder'><img src={ClockImg} width={20}/></div>
+        <div className='imgHolder'><img src={ClockImg} width={20} alt = '시간아이콘'/></div>
         <Space>
           <DatePicker
             style={{
@@ -25,9 +29,11 @@ const EventAddPopup = (): ReactElement => {
         </Space>
       </div>
       <div className='memoContainer'>
-        <div className='imgHolder'><img src={MemoImg} width={20}/></div>
+        <div className='imgHolder'><img src={MemoImg} width={20} alt = '메모아이콘'/></div>
         <input type = 'text' className = 'memoInput'/>
       </div>
+      <button className = 'submit'>저장</button>
+      <button className = 'close' onClick={props.closePopup}>닫기</button>
     </div>
   )
 }

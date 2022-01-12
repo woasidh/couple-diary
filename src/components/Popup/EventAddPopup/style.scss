@@ -5,6 +5,7 @@ $left_margin: 60px;
 .popupContainer#eventAdd {
   width: 600px;
   height: 400px;
+  position: relative;
 
   input[type = 'text']{
     &.titleInput {
@@ -43,6 +44,23 @@ $left_margin: 60px;
       &:focus {
         border: 1px solid $primary_pink;
       }
+    }
+  }
+
+  button {
+    position: absolute;
+    width: 80px;
+    height : 40px;
+    border-radius: 5px;
+    bottom: 10px;
+    &.submit {
+      right: 120px;
+      @include button_primary;
+    }
+
+    &.close {
+      right: 20px;
+      @include button_gray;
     }
   }
 }
