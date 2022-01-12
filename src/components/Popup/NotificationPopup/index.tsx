@@ -17,7 +17,6 @@ const NotificationPopup = (props: PopupProps): ReactElement => {
 
     return (
         <div onClick = {(e): void =>{
-            e.preventDefault();
             e.stopPropagation();
         }} className = 'popupContainer'>
             <div className = 'header'><span>{props.type}</span></div>

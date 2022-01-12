@@ -9,3 +9,10 @@
   background-color: rgba(0, 0, 0, 0.3);
   @include flex_set_center;
 }
+
+.popupContainer {
+  z-index: 99;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.05);
+}

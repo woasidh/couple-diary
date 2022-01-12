@@ -16,8 +16,8 @@ export namespace PopupUtil {
   // 팝업 제거
   const closePopup = (e: any): void => {
     e.stopPropagation();
-    e.preventDefault();
     ReactDOM.unmountComponentAtNode(document.getElementById('popup') as HTMLElement);
+    console.log('parent clicked');
   }
 
   export function showNotificationPopup(type: NotificationPopupType, popupMsg: string): void {

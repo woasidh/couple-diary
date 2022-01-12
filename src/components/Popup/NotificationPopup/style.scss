@@ -1,12 +1,8 @@
 @import '../../../variables';
 
-.popupContainer {
-    z-index: 99;
+.popupContainer#notification {
     width: 500px;
     height: 300px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.05);
 
     .header {
         height: 50px;

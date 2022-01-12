@@ -1,0 +1,48 @@
+@import 'src/variables';
+
+$left_margin: 60px;
+
+.popupContainer#eventAdd {
+  width: 600px;
+  height: 400px;
+
+  input[type = 'text']{
+    &.titleInput {
+      margin-top: 50px;
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      width: 400px;
+      font-size: 20px;
+      margin-left: $left_margin;
+      &:focus {
+        border-bottom: 1px solid $primary_pink;
+      }
+    }
+  }
+
+  .imgHolder {
+    width: $left_margin;
+    @include flex_set_center;
+  }
+
+  .datePicker {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .memoContainer {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    .memoInput {
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      width: 400px;
+      height: 100px;
+      &:focus {
+        border: 1px solid $primary_pink;
+      }
+    }
+  }
+}
