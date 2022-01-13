@@ -12,7 +12,7 @@ export interface CalendarCellEvent {
 
 interface DayCellProps {
   day: number | null;
-  event?: CalendarCellEvent;
+  event?: CalendarCellEvent | null;
   onClick: (date: number) => void;
 }
 

@@ -1,10 +1,7 @@
 import React, {ReactElement, useState} from 'react';
 import './index.scss';
-import Left from '../../resource/images/left.png';
-import Right from '../../resource/images/right.png';
-import Calendar from './Calendar/Calendar';
+import Calendar from './Calendar';
 import Member from './Member/Member';
-import {PopupUtil} from '../../util/PopupUtil';
 import EventDetail from './EventDetail';
 
 const Index = (): ReactElement => {
@@ -31,10 +28,6 @@ const Index = (): ReactElement => {
     } else setMonth(month + 1);
   }
 
-  const addEvent = (): void => {
-    PopupUtil.showEventAddPopup();
-  }
-
   const setSelectedDate = (date: number): void => {
     setSelectedYear(year);
     setSelectedMonth(month);
@@ -44,25 +37,16 @@ const Index = (): ReactElement => {
   return (
     <div className="home root_page">
       <Member/>
-      <section className="section_calendar">
-        <section className="function_menu">
-          <div className="calendar_submenu">
-            <div className="calendar_controller">
-              {/*TODO SVG로 바꿔보기*/}
-              <button onClick={subtractMonth}><img src={Left} alt="left"/></button>
-              <button onClick={addMonth}><img src={Right} alt="right"/></button>
-              <button onClick={addEvent} className="add_event">
-                일정 추가
-              </button>
-            </div>
-            <div className="date_shower">{year}년 {month + 1}월</div>
-          </div>
-        </section>
-        <section className="main_container">
-          <Calendar year={year} month={month} onClickCell={setSelectedDate}/>
-        </section>
-      </section>
-      <EventDetail year={selectedYear} month={selectedMonth} day={selectedDay}/>
+      <Calendar
+        year={year}
+        month={month}
+        onClickNextBtn = {addMonth}
+        onClickPrevBtn = {subtractMonth}
+        onClickCell={setSelectedDate}/>
+      <EventDetail
+        year={selectedYear}
+        month={selectedMonth}
+        day={selectedDay}/>
     </div>
   );
 };
