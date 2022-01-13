@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {ReactElement} from 'react';
 
 export enum EventType {
   NORMAL,
@@ -11,22 +11,24 @@ export interface CalendarCellEvent {
 }
 
 interface DayCellProps {
-    day: number | null;
-    event?: CalendarCellEvent;
+  day: number | null;
+  event?: CalendarCellEvent;
+  onClick: (date: number) => void;
 }
 
 const DayCell = (props: DayCellProps): ReactElement => {
 
-  const onClickCell = (): void => {
-    //
+  const onCellClick = (e: any): void => {
+    if (typeof props.day === 'number') {
+      props.onClick(props.day);
+    }
   }
 
-
   return (
-    <div className="dayCell" onClick = {onClickCell}>
+    <div className="dayCell" onClick={onCellClick}>
       <div className="dayWrapper">{props.day}</div>
       <div className="eventWrapper">
-        {props.event && <div className = "event_item">{props.event.name}</div>}
+        {props.event && <div className="event_item">{props.event.name}</div>}
       </div>
     </div>
   );

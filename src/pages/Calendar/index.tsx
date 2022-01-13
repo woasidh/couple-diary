@@ -7,29 +7,37 @@ import Member from './Member/Member';
 import {PopupUtil} from '../../util/PopupUtil';
 
 const Index = (): ReactElement => {
+  // Calendar 보여줄 date
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
+  
+  // 상세정보용 date
+  const [selectedYear, setSelectedYear] = useState(year);
+  const [selectedMonth, setSelectedMonth] = useState(month);
+  const [selectedDay, setSelectedDay] = useState(new Date().getDate());
 
   function subtractMonth(): void {
     if (month === 0) {
       setMonth(11);
       setYear(year - 1);
-      return;
-    }
-    setMonth(month - 1);
+    } else setMonth(month - 1);
   }
 
   function addMonth(): void {
     if (month === 11) {
       setMonth(0);
       setYear(year + 1);
-      return;
-    }
-    setMonth(month + 1);
+    } else setMonth(month + 1);
   }
 
   const addEvent = (): void => {
     PopupUtil.showEventAddPopup();
+  }
+
+  const setSelectedDate = (date: number): void => {
+    setSelectedYear(year);
+    setSelectedMonth(month);
+    setSelectedDay(date);
   }
 
   return (
@@ -52,10 +60,11 @@ const Index = (): ReactElement => {
           </div>
         </section>
         <section className="main_container">
-          <Calendar year={year} month={month}/>
+          <Calendar year={year} month={month} onClickCell = {setSelectedDate}/>
         </section>
       </section>
       <section className = "section_detail">
+        <div className = 'showDate'>{`${selectedYear}년 ${selectedMonth + 1}월 ${selectedDay}일`}</div>
       </section>
     </div>
   );

@@ -7,6 +7,7 @@ import {NotificationPopupType} from '../../../components/Popup/NotificationPopup
 interface CalendarProps {
   year: number
   month: number
+  onClickCell: (date: number) => void;
 }
 
 interface HolidayApiForm {
@@ -14,7 +15,7 @@ interface HolidayApiForm {
   locdate: number;
 }
 
-const Calendar = ({year, month}: CalendarProps): ReactElement => {
+const Calendar = ({year, month, onClickCell}: CalendarProps): ReactElement => {
   const startDay = new Date(year, month, 1).getDay();
   const totalDay = new Date(year, month + 1, 0).getDate();
 
@@ -78,6 +79,7 @@ const Calendar = ({year, month}: CalendarProps): ReactElement => {
               day={shouldCount ? dayCount : null}
               key={idx}
               event={holidayMap.get(getDateInStringForm(year, month + 1, dayCount))}
+              onClick = {onClickCell}
             />;
           })}
         </div>
