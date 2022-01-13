@@ -33,32 +33,6 @@
     }
   }
 
-  .section_member {
-    width: 70px;
-    border-right: 1px solid #00000020;
-    .member_container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      row-gap: 10px;
-      .member1, .member2 {
-        color: white;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        @include flex_set_center;
-      }
-      .member1 {
-        margin-top: 10px;
-        background-color: $background_member1;
-      }
-      .member2 {
-        background-color: $background_member2;
-      }
-    }
-  }
-
   .section_calendar {
     width: 77%;
     height: 100%;
@@ -200,19 +174,6 @@
           }
         }
       }
-    }
-  }
-
-  .section_detail {
-    flex: auto;
-
-    .showDate {
-      width: 100%;
-      height: 60px;
-      border-bottom: 1px solid $line_gray;
-      line-height: 60px;
-      font-size: 18px;
-      padding-left: 15px;
     }
   }
 }

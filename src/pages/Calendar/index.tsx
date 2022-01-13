@@ -5,12 +5,13 @@ import Right from '../../resource/images/right.png';
 import Calendar from './Calendar/Calendar';
 import Member from './Member/Member';
 import {PopupUtil} from '../../util/PopupUtil';
+import EventDetail from './EventDetail';
 
 const Index = (): ReactElement => {
   // Calendar 보여줄 date
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
-  
+
   // 상세정보용 date
   const [selectedYear, setSelectedYear] = useState(year);
   const [selectedMonth, setSelectedMonth] = useState(month);
@@ -42,10 +43,8 @@ const Index = (): ReactElement => {
 
   return (
     <div className="home root_page">
-      <section className = "section_member">
-        <Member/>
-      </section>
-      <section className = "section_calendar">
+      <Member/>
+      <section className="section_calendar">
         <section className="function_menu">
           <div className="calendar_submenu">
             <div className="calendar_controller">
@@ -60,12 +59,10 @@ const Index = (): ReactElement => {
           </div>
         </section>
         <section className="main_container">
-          <Calendar year={year} month={month} onClickCell = {setSelectedDate}/>
+          <Calendar year={year} month={month} onClickCell={setSelectedDate}/>
         </section>
       </section>
-      <section className = "section_detail">
-        <div className = 'showDate'>{`${selectedYear}년 ${selectedMonth + 1}월 ${selectedDay}일`}</div>
-      </section>
+      <EventDetail year={selectedYear} month={selectedMonth} day={selectedDay}/>
     </div>
   );
 };
