@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import './style.scss';
-import MyLabel from '../../../components/MemberLabel/MemberLabel/MyLabel';
-import PartnerLabel from '../../../components/MemberLabel/MemberLabel/PartnerLabel';
+import MyLabel from '../../../components/Label/MyLabel';
+import PartnerLabel from '../../../components/Label/PartnerLabel';
 
 const Member = (): ReactElement => {
   return (

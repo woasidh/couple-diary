@@ -1,6 +1,6 @@
-@import 'src/variables';
+@import '../../variables';
 
-.memberLabel {
+.memberLabel, .holidayLabel {
   font-size: 19px;
   color: white;
   width: 50px;
@@ -15,4 +15,8 @@
   &#partner {
     background-color: $background_member2;
   }
+}
+
+.holidayLabel {
+  background-color: $background_holiday;
 }

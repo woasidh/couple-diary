@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../redux_module';
-import {StringUtil} from '../../../util/StringUtil';
-import './MemberLabel.scss';
+import {RootState} from '../../redux_module';
+import {StringUtil} from '../../util/StringUtil';
+import './Label.scss';
 
 const MyLabel = (): ReactElement => {
 

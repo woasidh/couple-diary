@@ -1,7 +1,8 @@
 import React, {ReactElement} from 'react';
 
 export enum EventType {
-  NORMAL,
+  PERSONAL,
+  COUPLE, // todo 네이밍 리팩토링 필요
   HOLIDAY
 }
 
