@@ -26,18 +26,31 @@ const Calendar = (props: CalendarProps): ReactElement => {
   const [holidayMap, setHolidayMap] = useState<Map<string, CalendarCellEvent>>(new Map<string, CalendarCellEvent>());
 
   useEffect(() => {
-    axios.get(`/api/calendar/holiday?year=${props.year}`)
-    .then(res => {
-      if (res.data.item) {
-        setHolidayMap(new Map([
-          ...holidayMap,
-          ...parseHolidayAPI(res.data.item)
-        ]))
-      }
-    })
-    .catch(e => {
-      PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
-    })
+    // todo sample data 지우기
+    const sampleData = {
+      name: '설날',
+      type: EventType.HOLIDAY
+    }
+    const sampleMap = new Map([
+      ['20220101', sampleData]
+    ]);
+    setHolidayMap(new Map([
+      ...holidayMap,
+      ...sampleMap
+    ]))
+    // todo 공휴일 api 호출 풀기
+    // axios.get(`/api/calendar/holiday?year=${props.year}`)
+    // .then(res => {
+    //   if (res.data.item) {
+    //     setHolidayMap(new Map([
+    //       ...holidayMap,
+    //       ...parseHolidayAPI(res.data.item)
+    //     ]))
+    //   }
+    // })
+    // .catch(e => {
+    //   PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
+    // })
   }, [props.year]);
 
   const parseHolidayAPI = (datas: Array<HolidayApiForm>): Map<string, CalendarCellEvent> => {
@@ -83,7 +96,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
               day={isValidCell ? dayCount : null}
               key={idx}
               event={isValidCell ? holidayMap.get(getDateInStringForm(props.year, props.month + 1, dayCount)) : null}
-              onClick = {props.onClickCell}
+              onClick={props.onClickCell}
             />;
           })}
         </div>

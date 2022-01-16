@@ -1,0 +1,18 @@
+@import 'src/variables';
+
+.memberLabel {
+  font-size: 19px;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  @include flex_set_center;
+
+  &#self {
+    background-color: $background_member1;
+  }
+
+  &#partner {
+    background-color: $background_member2;
+  }
+}

@@ -11,4 +11,28 @@
     font-size: 18px;
     padding-left: 15px;
   }
+
+  ul.eventContainer {
+    width: 100%;
+    padding: 20px;
+    li.eventItem {
+      width: 100%;
+      border: 1px solid $primary_pink;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+
+      .title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+      .time {
+        font-size: 15px;
+      }
+      .memo {
+        font-size: 15px;
+      }
+    }
+  }
 }
