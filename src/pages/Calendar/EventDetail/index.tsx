@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import './style.scss';
 import {EventType} from '../Calendar/DayCell/DayCell';
-import Label, {LabelType} from '../../../components/Label/Label';
+import Label, {LabelSize, LabelType} from '../../../components/Label/Label';
 
 interface EventDetailProps {
   year: number;
@@ -42,10 +42,10 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
 const MemberShower = ({eventType}: {eventType: EventType}): ReactElement => {
   return (
     <div className='memberContainer'>
-      {eventType === EventType.HOLIDAY && <Label labelType = {LabelType.EVENT_HOLIDAY}/>}
+      {eventType === EventType.HOLIDAY && <Label labelType = {LabelType.EVENT_HOLIDAY} size = {LabelSize.SMALL}/>}
       {/* 공휴일 아닐 때는 항상 포함 */}
-      {eventType !== EventType.HOLIDAY && <Label labelType = {LabelType.MEMBER_SELF}/>}
-      {eventType === EventType.COUPLE && <Label labelType = {LabelType.MEMBER_PARTNER}/>}
+      {eventType !== EventType.HOLIDAY && <Label labelType = {LabelType.MEMBER_SELF} size = {LabelSize.SMALL}/>}
+      {eventType === EventType.COUPLE && <Label labelType = {LabelType.MEMBER_PARTNER} size = {LabelSize.SMALL}/>}
     </div>
   )
 }

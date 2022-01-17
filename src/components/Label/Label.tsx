@@ -10,8 +10,14 @@ export enum LabelType {
   MEMBER_PARTNER
 }
 
+export enum LabelSize {
+  SMALL,
+  LARGE
+}
+
 interface LabelProps {
   labelType: LabelType;
+  size: LabelSize
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -19,18 +25,9 @@ const Label = (props: LabelProps): ReactElement => {
   const userData = useSelector((state: RootState) => state.user);
   const coupleData = useSelector((state: RootState) => state.couple);
 
-  const renderElement = (): ReactElement => {
-    switch (props.labelType) {
-      case LabelType.MEMBER_SELF:
-        return <div className='memberLabel' id='self'>{getContent()}</div>;
-      case LabelType.MEMBER_PARTNER:
-        return <div className='memberLabel' id='partner'>{getContent()}</div>
-      case LabelType.EVENT_HOLIDAY:
-        return <div className='holidayLabel'>{getContent()}</div>
-      default:
-        console.error('invalid labelType');
-        return <></>;
-    }
+  const getId = (): string => {
+    if (props.labelType === LabelType.EVENT_HOLIDAY) return '';
+    else return props.labelType === LabelType.MEMBER_SELF ? 'self' : 'partner';
   }
 
   const getContent = (): string => {
@@ -47,8 +44,23 @@ const Label = (props: LabelProps): ReactElement => {
     }
   }
 
-  // todo Label 컴포넌트 통합해서 props로 처리하는건 어떤지?
-  return renderElement();
+// todo Label 컴포넌트 통합해서 props로 처리하는건 어떤지?
+  return (
+    <div
+      className={props.labelType === LabelType.EVENT_HOLIDAY ? 'holidayLabel' : 'memberLabel'}
+      id={getId()}
+      style = {{
+        width : props.size === LabelSize.SMALL ? '35px' : '50px',
+        height : props.size === LabelSize.SMALL ? '35px' : '50px',
+        fontSize : props.size === LabelSize.SMALL ? '12px' : '14px',
+      }}>
+      {getContent()}
+    </div>
+  )
+}
+
+Label.defaultProps = {
+  size: LabelSize.LARGE
 }
 
 export default Label;
