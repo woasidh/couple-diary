@@ -5,6 +5,9 @@ import {PopupUtil} from '../../../util/PopupUtil';
 import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 import Left from '../../../resource/images/left.png';
 import Right from '../../../resource/images/right.png';
+import sampleHolidayData from '../../../resource/data/SampleHolidayData';
+import {useDispatch} from 'react-redux';
+import {addCalendarEvent} from '../../../redux_module/CalendarEvent';
 
 interface CalendarProps {
   year: number
@@ -20,6 +23,8 @@ interface HolidayApiForm {
 }
 
 const Calendar = (props: CalendarProps): ReactElement => {
+  const dispatch = useDispatch();
+
   const startDay = new Date(props.year, props.month, 1).getDay();
   const totalDay = new Date(props.year, props.month + 1, 0).getDate();
 
@@ -27,20 +32,18 @@ const Calendar = (props: CalendarProps): ReactElement => {
 
   useEffect(() => {
     // todo sample data 지우기
-    const sampleData = {
-      name: '설날',
-      type: EventType.HOLIDAY
-    }
-    const sampleMap = new Map([
-      ['20220101', sampleData]
-    ]);
     setHolidayMap(new Map([
       ...holidayMap,
-      ...sampleMap
+      ...parseHolidayAPI(sampleHolidayData)
     ]))
+
+    // todo 여기부터 작업
+    // dispatch(addCalendarEvent())
+
     // todo 공휴일 api 호출 풀기
     // axios.get(`/api/calendar/holiday?year=${props.year}`)
     // .then(res => {
+    //   console.log(res.data.item);
     //   if (res.data.item) {
     //     setHolidayMap(new Map([
     //       ...holidayMap,

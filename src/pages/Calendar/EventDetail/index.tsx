@@ -1,7 +1,10 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useEffect} from 'react';
 import './style.scss';
 import {EventType} from '../Calendar/DayCell/DayCell';
 import Label, {LabelSize, LabelType} from '../../../components/Label/Label';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../../redux_module';
+import {addCalendarEvent} from '../../../redux_module/CalendarEvent';
 
 interface EventDetailProps {
   year: number;
@@ -10,6 +13,20 @@ interface EventDetailProps {
 }
 
 const EventDetail = (props: EventDetailProps): ReactElement => {
+
+  const dispatch = useDispatch();
+  const calendarData = useSelector((state: RootState) => state.calendarEvent);
+
+  useEffect(() => {
+    const sampleEventData = {
+      name: 'sample data',
+      memo: 'sample memo'
+    };
+
+    dispatch(addCalendarEvent('20220101', sampleEventData));
+  }, []);
+
+
   return (
     <section className="section_detail">
       <div className='showDate'>{`${props.year}년 ${props.month + 1}월 ${props.day}일`}</div>
@@ -33,6 +50,7 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
           <div className='time'>시간: 01:00 ~ 02:00</div>
           <div className="memo">메모: 2022년 첫 설날!</div>
           <MemberShower eventType = {EventType.COUPLE}/>
+          {calendarData.eventMap.size}
         </li>
       </ul>
     </section>

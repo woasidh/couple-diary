@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 import counterReducer from './Counter';
 import userReducer from './User';
 import coupleReducer from './Couple';
+import CalendarEventReducer from './CalendarEvent';
 
 /**
  * store에서 쓸 rootReducer
@@ -9,7 +10,8 @@ import coupleReducer from './Couple';
 export const rootReducer = combineReducers({
   counter: counterReducer,
   user: userReducer,
-  couple: coupleReducer
+  couple: coupleReducer,
+  calendarEvent: CalendarEventReducer
 })
 
 /**
