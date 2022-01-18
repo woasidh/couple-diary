@@ -1,13 +1,14 @@
 import React, {ReactElement, useCallback, useEffect, useState} from 'react';
-import DayCell, {CalendarCellEvent, EventType} from './DayCell/DayCell';
+import DayCell from './DayCell/DayCell';
 import axios from 'axios';
 import {PopupUtil} from '../../../util/PopupUtil';
 import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 import Left from '../../../resource/images/left.png';
 import Right from '../../../resource/images/right.png';
 import sampleHolidayData from '../../../resource/data/SampleHolidayData';
-import {useDispatch} from 'react-redux';
-import {addCalendarEvent} from '../../../redux_module/CalendarEvent';
+import {useDispatch, useSelector} from 'react-redux';
+import {addCalendarEvent, CalendarEventData, CalendarEventType} from '../../../redux_module/CalendarEvent';
+import {RootState} from '../../../redux_module';
 
 interface CalendarProps {
   year: number
@@ -24,23 +25,24 @@ interface HolidayApiForm {
 
 const Calendar = (props: CalendarProps): ReactElement => {
   const dispatch = useDispatch();
+  const calendarEventMap = useSelector((state: RootState) => state.calendarEvent.eventMap);
 
   const startDay = new Date(props.year, props.month, 1).getDay();
   const totalDay = new Date(props.year, props.month + 1, 0).getDate();
 
-  const [holidayMap, setHolidayMap] = useState<Map<string, CalendarCellEvent>>(new Map<string, CalendarCellEvent>());
+  const [holidayMap, setHolidayMap] = useState<Map<string, CalendarEventData>>(new Map<string, CalendarEventData>());
 
   useEffect(() => {
-    // todo sample data 지우기
-    setHolidayMap(new Map([
-      ...holidayMap,
-      ...parseHolidayAPI(sampleHolidayData)
-    ]))
 
-    // todo 여기부터 작업
-    // dispatch(addCalendarEvent())
+    // todo sample data -> api 호출로 변경하기
+    sampleHolidayData.forEach((data) => {
+      const calendarEvent: CalendarEventData = {
+        name: data.dateName,
+        type: CalendarEventType.HOLIDAY
+      }
+      dispatch(addCalendarEvent(data.locdate.toString(), calendarEvent));
+    });
 
-    // todo 공휴일 api 호출 풀기
     // axios.get(`/api/calendar/holiday?year=${props.year}`)
     // .then(res => {
     //   console.log(res.data.item);
@@ -56,15 +58,15 @@ const Calendar = (props: CalendarProps): ReactElement => {
     // })
   }, [props.year]);
 
-  const parseHolidayAPI = (datas: Array<HolidayApiForm>): Map<string, CalendarCellEvent> => {
-    return new Map(datas.map(data => {
-      const calendarCellEvent: CalendarCellEvent = {
-        name: data.dateName,
-        type: EventType.HOLIDAY
-      }
-      return [data.locdate.toString(), calendarCellEvent];
-    }));
-  }
+  // const parseHolidayAPI = (datas: Array<HolidayApiForm>): Map<string, CalendarEventData> => {
+  //   return new Map(datas.map(data => {
+  //     const calendarCellEvent: CalendarEventData = {
+  //       name: data.dateName,
+  //       type: CalendarEventType.HOLIDAY
+  //     }
+  //     return [data.locdate.toString(), calendarCellEvent];
+  //   }));
+  // }
 
   //todo useCallback 왜 안되는지???
   const renderWeekdayRow = useCallback((): ReactElement => {
@@ -98,7 +100,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
             return <DayCell
               day={isValidCell ? dayCount : null}
               key={idx}
-              event={isValidCell ? holidayMap.get(getDateInStringForm(props.year, props.month + 1, dayCount)) : null}
+              event={isValidCell ? calendarEventMap.get(getDateInStringForm(props.year, props.month + 1, dayCount)) : null}
               onClick={props.onClickCell}
             />;
           })}
@@ -137,7 +139,6 @@ const Calendar = (props: CalendarProps): ReactElement => {
           <div className="weekRows">
             {renderWeekdayRow()}
             {renderWeekRows()}
-            {holidayMap.size}
           </div>
         </div>
       </section>

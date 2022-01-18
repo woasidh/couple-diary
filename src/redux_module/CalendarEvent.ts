@@ -9,7 +9,7 @@ const ADD_EVENT = 'calendarEvent/ADD_EVENT' as const;
 /**
  * action 생성 함수
  */
-export const addCalendarEvent = (date: string, eventData: EventData): any => {
+export const addCalendarEvent = (date: string, eventData: CalendarEventData): any => {
   return {
     type: ADD_EVENT,
     payload: {
@@ -23,15 +23,18 @@ export const addCalendarEvent = (date: string, eventData: EventData): any => {
  * reducer
  */
 
-const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map()}, action: CalendarEventAction): CalendarEventState => {
+const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<string, Array<CalendarEventData>>()}, action: CalendarEventAction): CalendarEventState => {
   switch(action.type) {
-    case ADD_EVENT:
+    case ADD_EVENT: {
+      const prevEvents = state.eventMap.get(action.payload.eventDate);
+      const newEvents = prevEvents ? prevEvents.concat([action.payload.eventData]) : [action.payload.eventData];
       return {
         eventMap: new Map([
           ...state.eventMap,
-          [action.payload.eventDate, action.payload.eventData]
+          [action.payload.eventDate, newEvents]
         ])
       }
+    }
     default:
       return state;
   }
@@ -43,12 +46,19 @@ const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map()},
 type CalendarEventAction = ReturnType<typeof addCalendarEvent>;
 
 type CalendarEventState = {
-  eventMap: Map<string, EventData>
-}
-
-type EventData = {
-  name: string
-  memo: string
+  eventMap: Map<string, Array<CalendarEventData>>
 }
 
 export default CalendarEventReducer;
+
+export enum CalendarEventType {
+  PERSONAL,
+  COUPLE, // todo 네이밍 리팩토링 필요
+  HOLIDAY
+}
+
+export interface CalendarEventData {
+  type: CalendarEventType;
+  name: string;
+  memo?: string;
+}
