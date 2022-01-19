@@ -29,6 +29,7 @@ const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<str
       const prevEvents = state.eventMap.get(action.payload.eventDate);
       const newEvents = prevEvents ? prevEvents.concat([action.payload.eventData]) : [action.payload.eventData];
       return {
+        ...state,
         eventMap: new Map([
           ...state.eventMap,
           [action.payload.eventDate, newEvents]
@@ -60,5 +61,6 @@ export enum CalendarEventType {
 export interface CalendarEventData {
   type: CalendarEventType;
   name: string;
-  memo?: string;
+  time: Array<string> | null; // 공휴일이면 null
+  memo: string | null; // memo는 optional
 }

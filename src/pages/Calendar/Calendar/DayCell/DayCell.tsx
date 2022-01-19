@@ -9,7 +9,7 @@ interface DayCellProps {
 
 const DayCell = (props: DayCellProps): ReactElement => {
 
-  const onCellClick = (e: any): void => {
+  const onCellClick = (_: any): void => {
     if (typeof props.day === 'number') {
       props.onClick(props.day);
     }

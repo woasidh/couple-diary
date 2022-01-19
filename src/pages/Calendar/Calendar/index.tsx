@@ -1,8 +1,6 @@
 import React, {ReactElement, useCallback, useEffect, useState} from 'react';
 import DayCell from './DayCell/DayCell';
-import axios from 'axios';
 import {PopupUtil} from '../../../util/PopupUtil';
-import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 import Left from '../../../resource/images/left.png';
 import Right from '../../../resource/images/right.png';
 import sampleHolidayData from '../../../resource/data/SampleHolidayData';
@@ -16,11 +14,6 @@ interface CalendarProps {
   onClickCell: (date: number) => void;
   onClickNextBtn: () => void;
   onClickPrevBtn: () => void;
-}
-
-interface HolidayApiForm {
-  dateName: string;
-  locdate: number;
 }
 
 const Calendar = (props: CalendarProps): ReactElement => {
@@ -39,8 +32,10 @@ const Calendar = (props: CalendarProps): ReactElement => {
       // todo sample data -> api 호출로 변경하기
       sampleHolidayData.forEach((data) => {
         const calendarEvent: CalendarEventData = {
+          type: CalendarEventType.HOLIDAY,
           name: data.dateName,
-          type: CalendarEventType.HOLIDAY
+          time: null,
+          memo: null
         }
         dispatch(addCalendarEvent(data.locdate.toString(), calendarEvent));
       });
@@ -122,8 +117,10 @@ const Calendar = (props: CalendarProps): ReactElement => {
     return year + monthInStr + dayInStr;
   }
 
-  const addEvent = (): void => {
-    PopupUtil.showEventAddPopup();
+  const showEventAddPopup = (): void => {
+    PopupUtil.showEventAddPopup((date: string, event: CalendarEventData) => {
+      dispatch(addCalendarEvent(date, event));
+    });
   }
 
   return (
@@ -134,7 +131,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
             {/*TODO SVG로 바꿔보기*/}
             <button onClick={props.onClickPrevBtn}><img src={Left} alt="left"/></button>
             <button onClick={props.onClickNextBtn}><img src={Right} alt="right"/></button>
-            <button onClick={addEvent} className="add_event">
+            <button onClick={showEventAddPopup} className="add_event">
               일정 추가
             </button>
           </div>
@@ -146,7 +143,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
           <div className="weekRows">
             {renderWeekdayRow()}
             {renderWeekRows()}
-            {calendarEventMap.get('20220101')?.length}
+            <div>{!calendarEventMap.get('20220102') ? 0 : calendarEventMap.get('20220102')?.length}</div>
           </div>
         </div>
       </section>

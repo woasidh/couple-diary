@@ -2,7 +2,7 @@ import React, {ReactElement, useState} from 'react';
 import './index.scss';
 import Calendar from './Calendar';
 import Member from './Member/Member';
-import EventDetail from './EventDetail';
+import EventDetail from './EventDetail/EventDetail';
 
 const Index = (): ReactElement => {
   // Calendar 보여줄 date
