@@ -25,23 +25,30 @@ interface HolidayApiForm {
 
 const Calendar = (props: CalendarProps): ReactElement => {
   const dispatch = useDispatch();
+
   const calendarEventMap = useSelector((state: RootState) => state.calendarEvent.eventMap);
 
   const startDay = new Date(props.year, props.month, 1).getDay();
   const totalDay = new Date(props.year, props.month + 1, 0).getDate();
 
-  const [holidayMap, setHolidayMap] = useState<Map<string, CalendarEventData>>(new Map<string, CalendarEventData>());
+  const [holidayApiCallMap, setHolidayApiCallMap] = useState(new Map<number, boolean>());
 
   useEffect(() => {
-
-    // todo sample data -> api 호출로 변경하기
-    sampleHolidayData.forEach((data) => {
-      const calendarEvent: CalendarEventData = {
-        name: data.dateName,
-        type: CalendarEventType.HOLIDAY
-      }
-      dispatch(addCalendarEvent(data.locdate.toString(), calendarEvent));
-    });
+    const isApiCalled = !!holidayApiCallMap.get(props.year);
+    if (!isApiCalled) {
+      // todo sample data -> api 호출로 변경하기
+      sampleHolidayData.forEach((data) => {
+        const calendarEvent: CalendarEventData = {
+          name: data.dateName,
+          type: CalendarEventType.HOLIDAY
+        }
+        dispatch(addCalendarEvent(data.locdate.toString(), calendarEvent));
+      });
+      setHolidayApiCallMap(new Map([
+        ...holidayApiCallMap,
+        [props.year, true]
+      ]))
+    }
 
     // axios.get(`/api/calendar/holiday?year=${props.year}`)
     // .then(res => {
@@ -139,6 +146,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
           <div className="weekRows">
             {renderWeekdayRow()}
             {renderWeekRows()}
+            {calendarEventMap.get('20220101')?.length}
           </div>
         </div>
       </section>
