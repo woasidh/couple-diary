@@ -1,11 +1,12 @@
 @import 'src/variables';
 
 $left_margin: 60px;
+$padding_bottom: 80px;
 
 .popupContainer#eventAdd {
   width: 600px;
-  height: 400px;
   position: relative;
+  padding-bottom: $padding_bottom;
 
   input[type = 'text']{
     &.titleInput {

@@ -18,7 +18,7 @@ const NotificationPopup = (props: PopupProps): ReactElement => {
     return (
         <div onClick = {(e): void =>{
             e.stopPropagation();
-        }} className = 'popupContainer'>
+        }} className = 'popupContainer' id='notification'>
             <div className = 'header'><span>{props.type}</span></div>
             <div className = 'content'><p>{props.msg}</p></div>
             <div className = 'footer'><button onClick = {props.onCloseBtnClick}>확인</button></div>

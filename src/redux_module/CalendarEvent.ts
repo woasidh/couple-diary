@@ -52,9 +52,9 @@ type CalendarEventState = {
 export default CalendarEventReducer;
 
 export enum CalendarEventType {
-  PERSONAL,
-  COUPLE, // todo 네이밍 리팩토링 필요
-  HOLIDAY
+  PERSONAL= 'PERSONAL',
+  COUPLE = 'COUPLE', // todo 네이밍 리팩토링 필요
+  HOLIDAY = 'HOLIDAY'
 }
 
 export interface CalendarEventData {

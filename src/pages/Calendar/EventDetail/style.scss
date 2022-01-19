@@ -1,4 +1,4 @@
-@import 'src/variables.scss';
+@import 'src/variables';
 
 .section_detail {
   flex: auto;
@@ -37,7 +37,7 @@
         width: 100%;
         margin-top: 15px;
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         align-items: center;
         column-gap: 10px;
       }

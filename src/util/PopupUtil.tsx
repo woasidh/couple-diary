@@ -34,7 +34,7 @@ export namespace PopupUtil {
   export function showEventAddPopup(): void {
     ReactDOM.render(
       <PopupBackground onBackgroundClick={closePopup}>
-        <EventAddPopup closePopup = {closePopup}/>
+        <EventAddPopup onPopupClose= {closePopup}/>
       </PopupBackground>,
       document.getElementById('popup')
     );
