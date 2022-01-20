@@ -1,14 +1,14 @@
 import ReactDOM from 'react-dom';
 import React from 'react'
-import NotificationPopup, {NotificationPopupType} from '../components/Popup/NotificationPopup';
-import EventAddPopup from '../components/Popup/EventAddPopup';
-import PopupBackground from '../components/Popup';
+import NotificationPopup, {NotificationPopupType} from '../Popup/NotificationPopup';
+import EventAddPopup from '../Popup/EventAddPopup';
+import PopupBackground from '../Popup';
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
-import {rootReducer} from '../redux_module';
+import {rootReducer} from '../../redux_module';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
-import {CalendarEventData} from '../redux_module/CalendarEvent';
+import {CalendarEventData} from '../../redux_module/CalendarEvent';
 
 export namespace PopupUtil {
   /**

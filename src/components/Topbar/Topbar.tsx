@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom';
 import {RootState} from '../../redux_module';
 import {logoutSuccess} from '../../redux_module/User';
 import Logo from '../../resource/images/logo.png';
-import {PopupUtil} from '../../util/PopupUtil';
+import {PopupUtil} from '../Util/PopupUtil';
 import {NotificationPopupType} from '../Popup/NotificationPopup';
 import './Topbar.scss';
 import {removeCoupleData} from '../../redux_module/Couple';

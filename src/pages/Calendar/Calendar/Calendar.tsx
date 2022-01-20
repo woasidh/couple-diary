@@ -1,12 +1,13 @@
 import React, {ReactElement, useCallback, useEffect, useState} from 'react';
 import DayCell from './DayCell/DayCell';
-import {PopupUtil} from '../../../util/PopupUtil';
+import {PopupUtil} from '../../../components/Util/PopupUtil';
 import Left from '../../../resource/images/left.png';
 import Right from '../../../resource/images/right.png';
 import sampleHolidayData from '../../../resource/data/SampleHolidayData';
 import {useDispatch, useSelector} from 'react-redux';
 import {addCalendarEvent, CalendarEventData, CalendarEventType} from '../../../redux_module/CalendarEvent';
 import {RootState} from '../../../redux_module';
+import {StringUtil} from '../../../util/StringUtil';
 
 interface CalendarProps {
   year: number
@@ -37,7 +38,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
           time: null,
           memo: null
         }
-        dispatch(addCalendarEvent(data.locdate.toString(), calendarEvent));
+        dispatch(addCalendarEvent(StringUtil.convertToDate(data.locdate.toString()), calendarEvent));
       });
       setHolidayApiCallMap(new Map([
         ...holidayApiCallMap,
@@ -45,6 +46,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
       ]))
     }
 
+    // todo 주석 풀고 api 호출하기
     // axios.get(`/api/calendar/holiday?year=${props.year}`)
     // .then(res => {
     //   console.log(res.data.item);
@@ -102,19 +104,13 @@ const Calendar = (props: CalendarProps): ReactElement => {
             return <DayCell
               day={isValidCell ? dayCount : null}
               key={idx}
-              event={isValidCell ? calendarEventMap.get(getDateInStringForm(props.year, props.month + 1, dayCount)) : null}
+              event={isValidCell ? calendarEventMap.get(StringUtil.dateToString(props.year, props.month + 1, dayCount)) : null}
               onClick={props.onClickCell}
             />;
           })}
         </div>
       ))
     );
-  }
-
-  const getDateInStringForm = (year: number, month: number, day: number): string => {
-    const monthInStr = `${month < 10 ? 0 : ''}${month}`;
-    const dayInStr = `${day < 10 ? 0 : ''}${day}`;
-    return year + monthInStr + dayInStr;
   }
 
   const showEventAddPopup = (): void => {
@@ -143,7 +139,6 @@ const Calendar = (props: CalendarProps): ReactElement => {
           <div className="weekRows">
             {renderWeekdayRow()}
             {renderWeekRows()}
-            <div>{!calendarEventMap.get('20220102') ? 0 : calendarEventMap.get('20220102')?.length}</div>
           </div>
         </div>
       </section>

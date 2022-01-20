@@ -5,7 +5,7 @@ import {ArrayUtil} from '../../../util/ArrayUtil';
 import Counter from './Counter/Counter';
 import CodeInput from './CodeInput/CodeInput';
 import axios from 'axios';
-import {PopupUtil} from '../../../util/PopupUtil';
+import {PopupUtil} from '../../../components/Util/PopupUtil';
 import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 
 const ConnectionContent = (): ReactElement => {

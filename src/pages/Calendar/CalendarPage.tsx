@@ -1,10 +1,17 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import './index.scss';
-import Calendar from './Calendar';
+import Calendar from './Calendar/Calendar';
 import Member from './Member/Member';
 import EventDetail from './EventDetail/EventDetail';
+import axios from 'axios';
+import {DataParsingUtil} from '../../util/DataParsingUtil';
+import {addCalendarEvent, CalendarEventType} from '../../redux_module/CalendarEvent';
+import {useDispatch} from 'react-redux';
 
 const Index = (): ReactElement => {
+
+  const dispatch = useDispatch();
+
   // Calendar 보여줄 date
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
@@ -13,6 +20,16 @@ const Index = (): ReactElement => {
   const [selectedYear, setSelectedYear] = useState(year);
   const [selectedMonth, setSelectedMonth] = useState(month);
   const [selectedDay, setSelectedDay] = useState(new Date().getDate());
+
+  useEffect((): void => {
+    axios.get('/api/calendar/personal').then((res) => {
+      res.data.events.forEach((event: any) => {
+        const date = event.date.split('T')[0];
+        const calendarEvent = DataParsingUtil.parseToCalendarEvent(event, CalendarEventType.PERSONAL);
+        dispatch(addCalendarEvent(date, calendarEvent));
+      })
+    })
+  }, []);
 
   function subtractMonth(): void {
     if (month === 0) {

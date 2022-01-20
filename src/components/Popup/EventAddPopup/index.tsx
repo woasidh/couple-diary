@@ -55,7 +55,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
               width: '200px'
             }}
             placeholder='날짜를 입력해주세요'
-            onChange = {(_: any, dateStr: string): void => setDate(dateStr.split('-').join(''))}
+            onChange = {(_: any, dateStr: string): void => setDate(dateStr)}
           />
         </Space>
       </div>

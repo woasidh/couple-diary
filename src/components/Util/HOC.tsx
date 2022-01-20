@@ -2,11 +2,11 @@ import axios from 'axios';
 import React, {ReactElement, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
-import {NotificationPopupType} from '../components/Popup/NotificationPopup';
-import Login from '../pages/Login';
-import {loginSuccess, logoutSuccess} from '../redux_module/User';
+import {NotificationPopupType} from '../Popup/NotificationPopup';
+import Login from '../../pages/Login';
+import {loginSuccess, logoutSuccess} from '../../redux_module/User';
 import {PopupUtil} from './PopupUtil';
-import {updateCoupleStatus} from '../redux_module/Couple';
+import {updateCoupleStatus} from '../../redux_module/Couple';
 
 export enum AuthOption {
   AUTH_ONLY,

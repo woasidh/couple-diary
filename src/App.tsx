@@ -5,14 +5,14 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import Home from './pages/Calendar/index';
+import Home from './pages/Calendar/CalendarPage';
 import Login from './pages/Login/index';
 import Signup from './pages/Signup/Index';
 import Workspace from './pages/Workspace/Index';
 import Fallback from './pages/Fallback/Index';
 import Topbar from './components/Topbar/Topbar';
 import Connect from './pages/Connect/Index';
-import { AuthOption, HOC } from './util/HOC';
+import { AuthOption, HOC } from './components/Util/HOC';
 import ReduxTest from './pages/Test/ReduxTest';
 
 function App(): ReactElement {
