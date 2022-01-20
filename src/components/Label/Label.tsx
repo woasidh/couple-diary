@@ -39,6 +39,7 @@ const Label = (props: LabelProps): ReactElement => {
       case LabelType.EVENT_HOLIDAY:
         return '공';
       default:
+        // eslint-disable-next-line no-console
         console.error('invalid labelType');
         return '';
     }
