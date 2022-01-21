@@ -40,7 +40,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
     // todo css className 중복 처리 어떻게 해결할까
     // todo img -> svg로 hover시 바꿔보기
     // todo component화 하자 - 너무 복잡함
-    // todo css classname 정리하기
+    // todo css classname 리팩토링 하기
     <div className='popupContainer'
          id='eventAdd'
          onClick={(e): void => {
@@ -64,10 +64,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
         <TimePicker.RangePicker
           format='HH:00:00'
           placeholder={['시작 시간', '종료 시간']}
-          onChange={(_: any, timeArr: Array<string>): void => {
-            const timeRange = [timeArr[0].split(':')[0], timeArr[1].split(':')[0]];
-            setTime(timeRange);
-          }}
+          onChange={(_: any, timeArr: Array<string>): void => {setTime(timeArr);}}
         />
       </div>
       <div className='memoContainer'>

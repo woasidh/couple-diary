@@ -9,7 +9,6 @@ import {addCalendarEvent, CalendarEventType} from '../../redux_module/CalendarEv
 import {useDispatch} from 'react-redux';
 
 const Index = (): ReactElement => {
-
   const dispatch = useDispatch();
 
   // Calendar 보여줄 date
@@ -26,6 +25,15 @@ const Index = (): ReactElement => {
       res.data.events.forEach((event: any) => {
         const date = event.date.split('T')[0];
         const calendarEvent = DataParsingUtil.parseToCalendarEvent(event, CalendarEventType.PERSONAL);
+        dispatch(addCalendarEvent(date, calendarEvent));
+      })
+    })
+
+    axios.get('/api/calendar/couple').then((res) => {
+      res.data.events.forEach((event: any) => {
+        console.log(event);
+        const date = event.date.split('T')[0];
+        const calendarEvent = DataParsingUtil.parseToCalendarEvent(event, CalendarEventType.COUPLE);
         dispatch(addCalendarEvent(date, calendarEvent));
       })
     })

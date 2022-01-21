@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addCalendarEvent, CalendarEventData, CalendarEventType} from '../../../redux_module/CalendarEvent';
 import {RootState} from '../../../redux_module';
 import {StringUtil} from '../../../util/StringUtil';
+import axios from 'axios';
 
 interface CalendarProps {
   year: number
@@ -114,8 +115,25 @@ const Calendar = (props: CalendarProps): ReactElement => {
   }
 
   const showEventAddPopup = (): void => {
-    PopupUtil.showEventAddPopup((date: string, event: CalendarEventData) => {
+
+    const updateCalendarEventState = (date: string, event: CalendarEventData): void => {
       dispatch(addCalendarEvent(date, event));
+    }
+
+    PopupUtil.showEventAddPopup((date: string, event: CalendarEventData): void => {
+      // redux update
+      updateCalendarEventState(date, event);
+      // api call
+      axios.post(`/api/calendar/${event.type}`, {
+        //const {title, date, startTime, endTime, memo} = req.body;
+        title: event.name,
+        date: date,
+        startTime: event.time ? event.time[0] : null,
+        endTime: event.time ? event.time[1] : null,
+        memo: event.memo
+      }).then((res) => {
+        console.log(res.data);
+      })
     });
   }
 
