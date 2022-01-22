@@ -9,6 +9,8 @@ import {addCalendarEvent, CalendarEventData, CalendarEventType} from '../../../r
 import {RootState} from '../../../redux_module';
 import {StringUtil} from '../../../util/StringUtil';
 import axios from 'axios';
+import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
+import './Calendar.scss';
 
 interface CalendarProps {
   year: number
@@ -86,18 +88,16 @@ const Calendar = (props: CalendarProps): ReactElement => {
   }, []);
 
   // TODO 하나 DayCell만 update하게 최적화 하기
+  // TODO cell render 로직 최적화 하기
   const renderWeekRows = (): Array<ReactElement> => {
-
     // DayCell에 넘겨주는 data
     let dayCount = 0;
     // DayCell에 일 표기 데이터 넘겨줄 지
     let isValidCell = false;
-
     return (
       // 6주
       [0, 1, 2, 3, 4, 5].map((row) => (
         <div className="weekRow" key={row}>
-          {/* 7일 */}
           {[0, 1, 2, 3, 4, 5, 6].map((column, idx) => {
             if (dayCount === totalDay) isValidCell = false;
             if (row === 0 && column === startDay) isValidCell = true;
@@ -121,18 +121,22 @@ const Calendar = (props: CalendarProps): ReactElement => {
     }
 
     PopupUtil.showEventAddPopup((date: string, event: CalendarEventData): void => {
-      // redux update
-      updateCalendarEventState(date, event);
       // api call
       axios.post(`/api/calendar/${event.type}`, {
-        //const {title, date, startTime, endTime, memo} = req.body;
         title: event.name,
         date: date,
         startTime: event.time ? event.time[0] : null,
         endTime: event.time ? event.time[1] : null,
         memo: event.memo
-      }).then((res) => {
-        console.log(res.data);
+      })
+      .then((res) => {
+        // api success -> redux state update
+        if (!res.data.success) {
+          PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
+        }
+        updateCalendarEventState(date, event);
+      }).catch(e => {
+        PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
       })
     });
   }

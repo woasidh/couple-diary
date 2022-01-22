@@ -31,7 +31,6 @@ const Index = (): ReactElement => {
 
     axios.get('/api/calendar/couple').then((res) => {
       res.data.events.forEach((event: any) => {
-        console.log(event);
         const date = event.date.split('T')[0];
         const calendarEvent = DataParsingUtil.parseToCalendarEvent(event, CalendarEventType.COUPLE);
         dispatch(addCalendarEvent(date, calendarEvent));

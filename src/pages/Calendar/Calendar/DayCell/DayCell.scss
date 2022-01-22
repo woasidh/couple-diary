@@ -1,0 +1,47 @@
+@import 'src/variables';
+
+// className 다른 곳에서 쓰이는 문제 해결해야함 css 뭐 사용할 지??, scss면 어떻게 사용할지?
+.dayCell {
+  flex: 1;
+  border-right: 1px solid #00000020;
+  padding:  5px 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  &:nth-child(7) {
+    border-right: none;
+  }
+
+  .dayWrapper {
+    flex: 1;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    .holidayCellLabel {
+      background-color: #FF4343;
+      color: white;
+      font-size: 12px;
+      width: 50%;
+      text-align: center;
+      border-radius: 5px;
+      padding: 1px 0;
+    }
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .eventWrapper {
+    flex: 7;
+    .event_item {
+      background-color: #4395FF;
+      border-radius: 5px;
+      color: white;
+      font-size: 12px;
+      width: 100%;
+      padding: 1px 3px;
+      margin-bottom: 3px;
+    }
+  }
+}
