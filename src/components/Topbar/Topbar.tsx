@@ -35,9 +35,10 @@ const Topbar = (): ReactElement => {
       <div className='left_section'>
         <img src={Logo} alt="logo" />
       </div>
+      {/* todo a tag 색깔 바꾸기 */}
       <div className="right_section">
         <span><a href = {gitHubURL} target={'_blank'}>Github</a></span>
-        <span>About</span>
+        {/*<span>About</span>*/}
         {userData && <span onClick={onLogoutBtnClick}>Logout</span>}
       </div>
     </header>

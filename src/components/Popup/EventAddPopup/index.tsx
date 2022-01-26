@@ -26,6 +26,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
   }
 
   const onClickSubmitBtn = (_: any): void => {
+    // todo type, name 필수처리 하기
     const eventData = {
       type: eventType as CalendarEventType,
       name: title as string,
@@ -41,47 +42,97 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
     // todo img -> svg로 hover시 바꿔보기
     // todo component화 하자 - 너무 복잡함
     // todo css classname 리팩토링 하기
-    <div className='popupContainer'
-         id='eventAdd'
-         onClick={(e): void => {
-           e.stopPropagation();
-         }}>
+    <div className='popupContainer' id='eventAdd' onClick={(e): void => {e.stopPropagation();}}>
       <input type='text' className='titleInput' placeholder='제목' onChange={(e: any): void => setTitle(e.target.value)}/>
-      <div className='datePicker'>
-        <div className='imgHolder'><img src={CalendarImg} width={20} alt='달력아이콘'/></div>
-        <Space>
-          <DatePicker
-            style={{
-              width: '200px'
-            }}
-            placeholder='날짜를 입력해주세요'
-            onChange = {(_: any, dateStr: string): void => setDate(dateStr)}
-          />
-        </Space>
-      </div>
-      <div className='datePicker'>
-        <div className='imgHolder'><img src={ClockImg} width={20} alt='시간아이콘'/></div>
-        <TimePicker.RangePicker
-          format='HH:00:00'
-          placeholder={['시작 시간', '종료 시간']}
-          onChange={(_: any, timeArr: Array<string>): void => {setTime(timeArr);}}
-        />
-      </div>
-      <div className='memoContainer'>
-        <div className='imgHolder'><img src={MemoImg} width={20} alt='메모아이콘'/></div>
-        <textarea className='memoInput' onChange={(e: any): void => setMemo(e.target.value)}/>
-      </div>
-      <div className='memoContainer'>
-        <div className='imgHolder'><img src={CategoryImg} width={20} alt='카테고리아이콘'/></div>
-        <Radio.Group defaultValue="a" size="large" onChange={(e: any): void => setEventType(e.target.value)}>
-          <Radio.Button value={CalendarEventType.COUPLE}>커플일정</Radio.Button>
-          <Radio.Button value={CalendarEventType.PERSONAL}>개인일정</Radio.Button>
-        </Radio.Group>
-      </div>
-      <button className='submit' onClick={onClickSubmitBtn}>저장</button>
-      <button className='close' onClick={props.onClickCloseBtn}>닫기</button>
+      <ContentRowWrapper><DateContent useDate= {(date): any => setDate(date)}/></ContentRowWrapper>
+      <ContentRowWrapper><TimeContent useTime = {(time): any => setTime(time)}/></ContentRowWrapper>
+      <ContentRowWrapper><MemoContent useMemo={(memo): any => setMemo(memo)}/></ContentRowWrapper>
+      <ContentRowWrapper><EventTypeContent useEventType={(eventType): any => setEventType(eventType)}/></ContentRowWrapper>
+      <button className='eventAddPopupBottomBtn' id = 'submit'onClick={onClickSubmitBtn}>저장</button>
+      <button className='eventAddPopupBottomBtn' id = 'close' onClick={props.onClickCloseBtn}>닫기</button>
     </div>
   )
+}
+
+/**
+ * 날짜 컨텐트
+ */
+const ContentRowWrapper = (props: {children: ReactElement}): ReactElement => {
+  return (
+    <div className='eventContentRow'>
+      {props.children}
+    </div>
+  );
+}
+
+interface DateContentProps {
+  useDate: (date: string) => any;
+}
+const DateContent = ({useDate}: DateContentProps): ReactElement => {
+  return (
+    <>
+      <div className='eventContentImgHolder'><img src={CalendarImg} width={20} alt='달력아이콘'/></div>
+      <Space>
+        <DatePicker
+          style={{width: '200px'}}
+          placeholder='날짜를 입력해주세요'
+          onChange = {(_: any, dateStr: string): void => useDate(dateStr)}
+        />
+      </Space>
+    </>
+  );
+}
+
+/**
+ * 시간 컨텐트
+ */
+interface TimeContentProps {
+  useTime: (time: Array<string>) => any;
+}
+const TimeContent = ({useTime}: TimeContentProps): ReactElement => {
+  return (
+    <>
+      <div className='eventContentImgHolder'><img src={ClockImg} width={20} alt='시간아이콘'/></div>
+      <TimePicker.RangePicker
+        format='HH:00:00'
+        placeholder={['시작 시간', '종료 시간']}
+        onChange={(_: any, timeArr: Array<string>): void => {useTime(timeArr);}}
+      />
+    </>
+  );
+}
+
+/**
+ * 메모 컨텐트
+ */
+interface MmeoContentProps {
+  useMemo: (memo: string) => any;
+}
+const MemoContent = ({useMemo}: MmeoContentProps): ReactElement => {
+  return (
+    <>
+      <div className='eventContentImgHolder'><img src={MemoImg} width={20} alt='메모아이콘'/></div>
+      <textarea className='memoInput' onChange={(e: any): void => useMemo(e.target.value)}/>
+    </>
+  );
+}
+
+/**
+ * 이벤트 타입 컨텐트
+ */
+interface EventTypeContentProps {
+  useEventType: (eventType: CalendarEventType) => any;
+}
+const EventTypeContent = ({useEventType}: EventTypeContentProps): ReactElement => {
+  return (
+    <>
+      <div className='eventContentImgHolder'><img src={CategoryImg} width={20} alt='카테고리아이콘'/></div>
+      <Radio.Group defaultValue="a" size="large" onChange={(e: any): void => useEventType(e.target.value)}>
+        <Radio.Button value={CalendarEventType.COUPLE}>커플일정</Radio.Button>
+        <Radio.Button value={CalendarEventType.PERSONAL}>개인일정</Radio.Button>
+      </Radio.Group>
+    </>
+  );
 }
 
 export default EventAddPopup;

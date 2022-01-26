@@ -18,14 +18,14 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
 
   const renderEventItem = (): ReactElement => {
     const events = calendarEventMap.get(StringUtil.dateToString(props.year, props.month + 1, props.day));
-
     return (
       <>
         {events ? events.map((event, idx) => (
         <li className='eventItem' key = {idx}>
           <div className='title'>{event.name}</div>
-          <div className='time'>시간: 01:00 ~ 02:00</div>
-          <div className="memo">메모: 2022년 첫 설날!</div>
+          <div className='time'>시간: {event.time ? `${StringUtil.parseDateToMinute(event.time[0])} ~ ${StringUtil.parseDateToMinute(event.time[1])}` : ' -'}</div>
+          {/*<div className='time'>시간: a</div>*/}
+          <div className="memo">메모: {event.memo ? event.memo : ' -'}</div>
           <MemberShower eventType = {event.type}/>
         </li>
       )) : <></>}

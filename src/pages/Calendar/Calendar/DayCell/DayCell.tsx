@@ -63,7 +63,6 @@ const DayCell = (props: DayCellProps): ReactElement => {
       </div>
       <div className="eventWrapper">
         {props.event && renderItems()}
-        {props.event?.length}
       </div>
     </div>
   );

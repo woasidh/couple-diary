@@ -22,21 +22,14 @@ $padding_bottom: 80px;
     }
   }
 
-  .imgHolder {
-    width: $left_margin;
-    @include flex_set_center;
-  }
-
-  .datePicker {
+  .eventContentRow {
     margin-top: 20px;
     display: flex;
     align-items: center;
-  }
-
-  .memoContainer {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
+    .eventContentImgHolder {
+      width: $left_margin;
+      @include flex_set_center;
+    }
     .memoInput {
       border: 1px solid $line_gray;
       border-radius: 5px;
@@ -50,18 +43,18 @@ $padding_bottom: 80px;
     }
   }
 
-  button {
+  .eventAddPopupBottomBtn {
     position: absolute;
     width: 80px;
     height : 40px;
     border-radius: 5px;
     bottom: 10px;
-    &.submit {
+    &#submit {
       right: 120px;
       @include button_primary;
     }
 
-    &.close {
+    &#close {
       right: 20px;
       @include button_gray;
     }
