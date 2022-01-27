@@ -1,11 +1,13 @@
 import React, {ReactElement} from 'react';
 import './style.scss';
 import Label, {LabelSize, LabelType} from '../../../components/Label/Label';
-import {CalendarEventData, CalendarEventType} from '../../../redux_module/CalendarEvent';
+import {CalendarEventData, CalendarEventType, changeCalendarEvent} from '../../../redux_module/CalendarEvent';
 import {StringUtil} from '../../../util/StringUtil';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux_module';
 import {PopupUtil} from '../../../components/Util/PopupUtil';
+import axios from 'axios';
+import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 
 interface EventDetailProps {
   year: number;
@@ -15,26 +17,48 @@ interface EventDetailProps {
 
 const EventDetail = (props: EventDetailProps): ReactElement => {
 
+  const date = StringUtil.dateToString(props.year, props.month + 1, props.day);
+
+  const dispatch = useDispatch();
+
   const calendarEventMap = useSelector((state: RootState) => state.calendarEvent.eventMap);
 
-  const onClickDetail = (event: CalendarEventData): void => {
-    if (event.type === CalendarEventType.HOLIDAY) return;
-    PopupUtil.showEventAddPopup((date: string, event: CalendarEventData) => {
-      console.log(date, event);
-    }, event, StringUtil.dateToString(props.year, props.month + 1, props.day))
+  const onClickDetail = (prevEvent: CalendarEventData, id: number | undefined): void => {
+    if (!id) return;
+    PopupUtil.showEventAddPopup((newDate: string, newEvent: CalendarEventData) => {
+      console.log(newDate, newEvent);
+      axios.patch(`/api/calendar/${newEvent.type.toLowerCase()}`, {
+        id,
+        title: newEvent.name,
+        date: newDate,
+        startTime: newEvent.time ? newEvent.time[0] : null,
+        endTime: newEvent.time ? newEvent.time[1] : null,
+        memo: newEvent.memo
+      })
+        .then((res) => {
+          if (!res.data.success) {
+            PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
+          }
+          console.log(id);
+          dispatch(changeCalendarEvent(date, newDate, {...newEvent, num: id}));
+        })
+        .catch(e => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()));
+    }, prevEvent, date)
   }
 
   const renderEventItem = (): ReactElement => {
-    const events = calendarEventMap.get(StringUtil.dateToString(props.year, props.month + 1, props.day));
+    const events = calendarEventMap.get(date);
     return (
       <>
+        {/* todo key로 idx 넘겼는데 안좋음 -> 고유 id로 해야되는데 holiday는 id없어서 처리해야 함 */}
         {events ? events.map((event, idx) => (
-          <li className={`eventItem ${event.type === CalendarEventType.HOLIDAY ? '' : 'clickable'}`} key={idx} onClick={(): void => onClickDetail(event)}>
+          <li className={`eventItem ${event.type === CalendarEventType.HOLIDAY ? '' : 'clickable'}`} key={idx} onClick={(): void => onClickDetail(event, event.num)}>
             <div className='title'>{event.name}</div>
             <div
               className='time'>시간: {event.time ? `${StringUtil.parseDateToMinute(event.time[0])} ~ ${StringUtil.parseDateToMinute(event.time[1])}` : ' -'}</div>
             <div className="memo">메모: {event.memo ? event.memo : ' -'}</div>
             <MemberShower eventType={event.type}/>
+            {event.num}
           </li>
         )) : <></>}
       </>

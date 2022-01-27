@@ -122,7 +122,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
 
     PopupUtil.showEventAddPopup((date: string, event: CalendarEventData): void => {
       // api call
-      axios.post(`/api/calendar/${event.type}`, {
+      axios.post(`/api/calendar/${event.type.toLowerCase()}`, {
         title: event.name,
         date: date,
         startTime: event.time ? event.time[0] : null,
@@ -134,7 +134,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
         if (!res.data.success) {
           PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
         }
-        updateCalendarEventState(date, event);
+        updateCalendarEventState(date, {...event, num: res.data.insertId});
       }).catch(e => {
         PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
       })
