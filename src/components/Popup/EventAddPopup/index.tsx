@@ -40,6 +40,10 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
     closePopup();
   }
 
+  const isSubmitBtnAvailable = (): boolean => {
+    return !!title && !!date && !!eventType;
+  }
+
   return (
     // todo css className 중복 처리 어떻게 해결할까
     // todo img -> svg로 hover시 바꿔보기
@@ -61,7 +65,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
       <ContentRowWrapper leftImgSrc={CategoryImg} isDataValid={!!eventType}>
         <EventTypeContent useEventType={(eventType): any => setEventType(eventType)}/>
       </ContentRowWrapper>
-      <button className='eventAddPopupBottomBtn' id = 'submit'onClick={onClickSubmitBtn}>저장</button>
+      <button className={`eventAddPopupBottomBtn ${isSubmitBtnAvailable() ? '' : 'disable'}`} id = 'submit' disabled={!isSubmitBtnAvailable()} onClick={onClickSubmitBtn}>저장</button>
       <button className='eventAddPopupBottomBtn' id = 'close' onClick={props.onClickCloseBtn}>닫기</button>
     </div>
   )

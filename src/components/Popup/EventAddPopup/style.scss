@@ -60,6 +60,10 @@ $padding_bottom: 80px;
     &#submit {
       right: 120px;
       @include button_primary;
+      &.disable {
+        cursor: auto;
+        @include button_gray;
+      }
     }
 
     &#close {
