@@ -59,6 +59,7 @@ export enum CalendarEventType {
 }
 
 export interface CalendarEventData {
+  num?: number
   type: CalendarEventType;
   name: string;
   time: Array<string> | null; // 공휴일이면 null

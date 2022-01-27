@@ -43,13 +43,17 @@ export namespace PopupUtil {
   }
 
   // TODO 일정추가 팝업 만들기
-  export function showEventAddPopup(onClickSubmitBtn: (date: string, data: CalendarEventData) => void): void {
+  export function showEventAddPopup(onClickSubmitBtn: (date: string, data: CalendarEventData) => void,
+                                    data: CalendarEventData | null = null,
+                                    date: string | null = null): void {
     ReactDOM.render(
       <Provider store={store}>
         <PopupBackground onBackgroundClick={closePopup}>
           <EventAddPopup
             onClickCloseBtn={closePopup}
             onClickSubmitBtn={onClickSubmitBtn}
+            data={data}
+            date={date}
           />
         </PopupBackground>
       </Provider>,

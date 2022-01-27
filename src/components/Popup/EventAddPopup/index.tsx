@@ -10,19 +10,22 @@ import {CalendarEventData, CalendarEventType} from '../../../redux_module/Calend
 import ReactDOM from 'react-dom';
 import ValidImg from '../../../resource/images/check.png';
 import InvalidImg from '../../../resource/images/delete.png';
+import moment from 'moment';
 
 interface EventAddPopupProps {
   onClickCloseBtn: (e: any) => void;
   onClickSubmitBtn: (date: string, data: CalendarEventData) => void;
+  data: CalendarEventData | null;
+  date: string | null;
 }
 
 const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
 
-  const [title, setTitle] = useState<string>('');
-  const [date, setDate] = useState<string | null>(null);
-  const [time, setTime] = useState<Array<string> | null>(null);
-  const [memo, setMemo] = useState<string | null>(null);
-  const [eventType, setEventType] = useState<CalendarEventType | null>(null);
+  const [title, setTitle] = useState<string>(props.data?.name ? props.data.name : '');
+  const [date, setDate] = useState<string | null>(props.date ? props.date : null);
+  const [time, setTime] = useState<Array<string> | null>(props.data?.time ? props.data.time : null);
+  const [memo, setMemo] = useState<string | null>(props.data?.memo ? props.data.memo : null);
+  const [eventType, setEventType] = useState<CalendarEventType | null>(props.data?.type ? props.data.type : null);
 
   const closePopup = (): void => {
     ReactDOM.unmountComponentAtNode(document.getElementById('popup') as HTMLElement);
@@ -49,24 +52,32 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
     // todo img -> svg로 hover시 바꿔보기
     // todo component화 하자 - 너무 복잡함
     // todo(done) css classname 리팩토링 하기
-    <div className='popupContainer' id='eventAdd' onClick={(e): void => {e.stopPropagation();}}>
+    <div className='popupContainer' id='eventAdd' onClick={(e): void => {
+      e.stopPropagation();
+    }}>
       <ContentRowWrapper leftImgSrc={TitleImg} isDataValid={!!title}>
-        <input type='text' className='titleInput' placeholder='제목' onChange={(e: any): void => setTitle(e.target.value)}/>
+        <input type='text'
+               className='titleInput'
+               placeholder='제목'
+               onChange={(e: any): void => setTitle(e.target.value)}
+               value={title}/>
       </ContentRowWrapper>
       <ContentRowWrapper leftImgSrc={CalendarImg} isDataValid={!!date}>
-        <DateContent useDate= {(date): any => setDate(date)}/>
+        <DateContent useDate={(date): any => setDate(date)} date={date}/>
       </ContentRowWrapper>
       <ContentRowWrapper leftImgSrc={ClockImg} isDataValid={true}>
-        <TimeContent useTime = {(time): any => setTime(time)}/>
+        <TimeContent useTime={(time): any => setTime(time)} time={time}/>
       </ContentRowWrapper>
       <ContentRowWrapper leftImgSrc={MemoImg} isDataValid={true}>
-        <MemoContent useMemo={(memo): any => setMemo(memo)}/>
+        <MemoContent useMemo={(memo): any => setMemo(memo)} memo={memo}/>
       </ContentRowWrapper>
       <ContentRowWrapper leftImgSrc={CategoryImg} isDataValid={!!eventType}>
-        <EventTypeContent useEventType={(eventType): any => setEventType(eventType)}/>
+        <EventTypeContent useEventType={(eventType): any => setEventType(eventType)} eventType={eventType}/>
       </ContentRowWrapper>
-      <button className={`eventAddPopupBottomBtn ${isSubmitBtnAvailable() ? '' : 'disable'}`} id = 'submit' disabled={!isSubmitBtnAvailable()} onClick={onClickSubmitBtn}>저장</button>
-      <button className='eventAddPopupBottomBtn' id = 'close' onClick={props.onClickCloseBtn}>닫기</button>
+      <button className={`eventAddPopupBottomBtn ${isSubmitBtnAvailable() ? '' : 'disable'}`} id='submit'
+              disabled={!isSubmitBtnAvailable()} onClick={onClickSubmitBtn}>저장
+      </button>
+      <button className='eventAddPopupBottomBtn' id='close' onClick={props.onClickCloseBtn}>닫기</button>
     </div>
   )
 }
@@ -79,6 +90,7 @@ interface ContentRowWrapperProps {
   children: ReactNode;
   isDataValid: boolean;
 }
+
 const ContentRowWrapper = (props: ContentRowWrapperProps): ReactElement => {
 
   const validDOMRef = useRef<HTMLImageElement | null>(null);
@@ -103,28 +115,31 @@ const ContentRowWrapper = (props: ContentRowWrapperProps): ReactElement => {
   return (
     <div className='eventContentRow'>
       {/* todo 이미지홀더까지 공통처리 하기 */}
-      {props.leftImgSrc && <div className='eventContentImgHolder'><img src={props.leftImgSrc} width={20} alt='시간아이콘'/></div>}
+      {props.leftImgSrc &&
+      <div className='eventContentImgHolder'><img src={props.leftImgSrc} width={20} alt='시간아이콘'/></div>}
       {props.children}
-      <div className = 'dataStateWrapper'>
-        <img className = 'dataState' src = {ValidImg} width = {15} ref = {validDOMRef}/>
-        <img className = 'dataState' src = {InvalidImg} width = {15} ref = {inValidDOMRef}/>
+      <div className='dataStateWrapper'>
+        <img className='dataState' src={ValidImg} width={15} ref={validDOMRef}/>
+        <img className='dataState' src={InvalidImg} width={15} ref={inValidDOMRef}/>
       </div>
     </div>
   );
 }
 
 interface DateContentProps {
-
   useDate: (date: string) => any;
+  date: string | null;
 }
-const DateContent = ({useDate}: DateContentProps): ReactElement => {
+
+const DateContent = ({useDate, date}: DateContentProps): ReactElement => {
   return (
     <>
       <Space>
         <DatePicker
           style={{width: '200px'}}
           placeholder='날짜를 입력해주세요'
-          onChange = {(_: any, dateStr: string): void => useDate(dateStr)}
+          onChange={(_: any, dateStr: string): void => useDate(dateStr)}
+          value={date ? moment(date, 'YYYY-MM-DD') : undefined}
         />
       </Space>
     </>
@@ -136,14 +151,19 @@ const DateContent = ({useDate}: DateContentProps): ReactElement => {
  */
 interface TimeContentProps {
   useTime: (time: Array<string>) => any;
+  time: Array<string> | null
 }
-const TimeContent = ({useTime}: TimeContentProps): ReactElement => {
+
+const TimeContent = ({useTime, time}: TimeContentProps): ReactElement => {
   return (
     <>
       <TimePicker.RangePicker
         format='HH:00:00'
         placeholder={['시작 시간', '종료 시간']}
-        onChange={(_: any, timeArr: Array<string>): void => {useTime(timeArr);}}
+        onChange={(_: any, timeArr: Array<string>): void => {
+          useTime(timeArr);
+        }}
+        value={time ? [moment(time[0], 'HH:mm:ss'), moment(time[1], 'HH:mm:ss')] : undefined}
       />
     </>
   );
@@ -154,11 +174,15 @@ const TimeContent = ({useTime}: TimeContentProps): ReactElement => {
  */
 interface MmeoContentProps {
   useMemo: (memo: string) => any;
+  memo: string | null;
 }
-const MemoContent = ({useMemo}: MmeoContentProps): ReactElement => {
+
+const MemoContent = ({useMemo, memo}: MmeoContentProps): ReactElement => {
   return (
     <>
-      <textarea className='memoInput' onChange={(e: any): void => useMemo(e.target.value)}/>
+      <textarea className='memoInput'
+                onChange={(e: any): void => useMemo(e.target.value)}
+                value={memo ? memo : undefined}/>
     </>
   );
 }
@@ -168,11 +192,13 @@ const MemoContent = ({useMemo}: MmeoContentProps): ReactElement => {
  */
 interface EventTypeContentProps {
   useEventType: (eventType: CalendarEventType) => any;
+  eventType: CalendarEventType | null;
 }
-const EventTypeContent = ({useEventType}: EventTypeContentProps): ReactElement => {
+
+const EventTypeContent = ({useEventType, eventType}: EventTypeContentProps): ReactElement => {
   return (
     <>
-      <Radio.Group defaultValue="a" size="large" onChange={(e: any): void => useEventType(e.target.value)}>
+      <Radio.Group defaultValue= {eventType ? eventType : undefined} size="large" onChange={(e: any): void => useEventType(e.target.value)}>
         <Radio.Button value={CalendarEventType.COUPLE}>커플일정</Radio.Button>
         <Radio.Button value={CalendarEventType.PERSONAL}>개인일정</Radio.Button>
       </Radio.Group>
