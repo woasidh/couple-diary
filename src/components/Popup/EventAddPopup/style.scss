@@ -7,18 +7,26 @@ $padding_bottom: 80px;
   width: 600px;
   position: relative;
   padding-bottom: $padding_bottom;
+  padding-top: 30px;
 
   input[type = 'text']{
     &.titleInput {
-      margin-top: 50px;
       border: none;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       width: 400px;
       font-size: 20px;
-      margin-left: $left_margin;
       &:focus {
         border-bottom: 1px solid $primary_pink;
       }
+    }
+  }
+
+  .dataStateWrapper {
+    margin-left: 20px;
+    position: relative;
+    .dataState {
+      position: absolute;
+      transition: transform linear 0.1s;
     }
   }
 
