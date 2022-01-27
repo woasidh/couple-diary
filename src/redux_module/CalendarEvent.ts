@@ -9,7 +9,7 @@ const ADD_EVENT = 'calendarEvent/ADD_EVENT' as const;
 const CHANGE_EVENT = 'calendarEvent/CHANGE_EVENT' as const;
 
 /**
- * action 생성 함수
+ * action 생성함수
  */
 export const addCalendarEvent = (date: string, eventData: CalendarEventData): any => {
   return {
