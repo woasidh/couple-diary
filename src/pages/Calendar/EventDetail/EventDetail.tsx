@@ -26,24 +26,27 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
   const onClickDetail = (prevEvent: CalendarEventData, id: number | undefined): void => {
     if (!id) return;
     PopupUtil.showEventAddPopup((newDate: string, newEvent: CalendarEventData) => {
-      console.log(newDate, newEvent);
-      axios.patch(`/api/calendar/${newEvent.type.toLowerCase()}`, {
-        id,
-        title: newEvent.name,
-        date: newDate,
-        startTime: newEvent.time ? newEvent.time[0] : null,
-        endTime: newEvent.time ? newEvent.time[1] : null,
-        memo: newEvent.memo
-      })
+        axios.patch(`/api/calendar/${newEvent.type.toLowerCase()}`, {
+          id,
+          title: newEvent.name,
+          date: newDate,
+          startTime: newEvent.time ? newEvent.time[0] : null,
+          endTime: newEvent.time ? newEvent.time[1] : null,
+          memo: newEvent.memo
+        })
         .then((res) => {
-          if (!res.data.success) {
-            PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
-          }
-          console.log(id);
+          if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
           dispatch(changeCalendarEvent(date, newDate, {...newEvent, num: id}));
         })
         .catch(e => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()));
-    }, prevEvent, date)
+      },
+      prevEvent,
+      date,
+      (id: number, eventType) => {
+      axios.delete(`/api/calendar/${eventType.toLowerCase()}/?id=${id}`)
+        .then(res => console.log(res.data))
+        .catch(e => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()))
+      })
   }
 
   const renderEventItem = (): ReactElement => {
@@ -52,13 +55,13 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
       <>
         {/* todo key로 idx 넘겼는데 안좋음 -> 고유 id로 해야되는데 holiday는 id없어서 처리해야 함 */}
         {events ? events.map((event, idx) => (
-          <li className={`eventItem ${event.type === CalendarEventType.HOLIDAY ? '' : 'clickable'}`} key={idx} onClick={(): void => onClickDetail(event, event.num)}>
+          <li className={`eventItem ${event.type === CalendarEventType.HOLIDAY ? '' : 'clickable'}`} key={idx}
+              onClick={(): void => onClickDetail(event, event.num)}>
             <div className='title'>{event.name}</div>
             <div
               className='time'>시간: {event.time ? `${StringUtil.parseDateToMinute(event.time[0])} ~ ${StringUtil.parseDateToMinute(event.time[1])}` : ' -'}</div>
             <div className="memo">메모: {event.memo ? event.memo : ' -'}</div>
             <MemberShower eventType={event.type}/>
-            {event.num}
           </li>
         )) : <></>}
       </>

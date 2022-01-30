@@ -8,7 +8,7 @@ import {applyMiddleware, createStore} from 'redux';
 import {rootReducer} from '../../redux_module';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
-import {CalendarEventData} from '../../redux_module/CalendarEvent';
+import {CalendarEventData, CalendarEventType} from '../../redux_module/CalendarEvent';
 
 export namespace PopupUtil {
   /**
@@ -45,7 +45,8 @@ export namespace PopupUtil {
   // TODO 일정추가 팝업 만들기
   export function showEventAddPopup(onClickSubmitBtn: (date: string, data: CalendarEventData) => void,
                                     data: CalendarEventData | null = null,
-                                    date: string | null = null): void {
+                                    date: string | null = null,
+                                    onClickDeleteBtn?: (id: number, eventType: CalendarEventType) => void): void {
     ReactDOM.render(
       <Provider store={store}>
         <PopupBackground onBackgroundClick={closePopup}>
@@ -54,6 +55,7 @@ export namespace PopupUtil {
             onClickSubmitBtn={onClickSubmitBtn}
             data={data}
             date={date}
+            onClickDeleteBtn={onClickDeleteBtn ? onClickDeleteBtn : null}
           />
         </PopupBackground>
       </Provider>,

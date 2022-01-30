@@ -15,6 +15,7 @@ import moment from 'moment';
 interface EventAddPopupProps {
   onClickCloseBtn: (e: any) => void;
   onClickSubmitBtn: (date: string, data: CalendarEventData) => void;
+  onClickDeleteBtn: ((id: number, eventType: CalendarEventType) => void) | null;
   data: CalendarEventData | null;
   date: string | null;
 }
@@ -72,12 +73,20 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
         <MemoContent useMemo={(memo): any => setMemo(memo)} memo={memo}/>
       </ContentRowWrapper>
       <ContentRowWrapper leftImgSrc={CategoryImg} isDataValid={!!eventType}>
-        <EventTypeContent useEventType={(eventType): any => setEventType(eventType)} eventType={eventType}/>
+        <EventTypeContent useEventType={(eventType): any => setEventType(eventType)}
+                          eventType={eventType}
+                          readonly={!!props.data}/>
       </ContentRowWrapper>
-      <button className={`eventAddPopupBottomBtn ${isSubmitBtnAvailable() ? '' : 'disable'}`} id='submit'
-              disabled={!isSubmitBtnAvailable()} onClick={onClickSubmitBtn}>저장
-      </button>
-      <button className='eventAddPopupBottomBtn' id='close' onClick={props.onClickCloseBtn}>닫기</button>
+      <div className='bottomBtnWrapper'>
+        <button className={`bottomBtn ${isSubmitBtnAvailable() ? '' : 'disable'}`} id='submit'
+                disabled={!isSubmitBtnAvailable()}
+                onClick={onClickSubmitBtn}>저장
+        </button>
+        <button className='bottomBtn' id='close' onClick={props.onClickCloseBtn}>닫기</button>
+        {props.onClickDeleteBtn && <button className='bottomBtn' id='delete' onClick={(): void => {
+          if (props.onClickDeleteBtn) props.onClickDeleteBtn(props.data?.num as number, props.data?.type as CalendarEventType)
+        }}>삭제</button>}
+      </div>
     </div>
   )
 }
@@ -193,12 +202,14 @@ const MemoContent = ({useMemo, memo}: MmeoContentProps): ReactElement => {
 interface EventTypeContentProps {
   useEventType: (eventType: CalendarEventType) => any;
   eventType: CalendarEventType | null;
+  readonly?: boolean;
 }
 
-const EventTypeContent = ({useEventType, eventType}: EventTypeContentProps): ReactElement => {
+const EventTypeContent = ({useEventType, eventType, readonly = false}: EventTypeContentProps): ReactElement => {
   return (
     <>
-      <Radio.Group defaultValue= {eventType ? eventType : undefined} size="large" onChange={(e: any): void => useEventType(e.target.value)}>
+      <Radio.Group disabled={readonly} defaultValue={eventType ? eventType : undefined} size="large"
+                   onChange={(e: any): void => useEventType(e.target.value)}>
         <Radio.Button value={CalendarEventType.COUPLE}>커플일정</Radio.Button>
         <Radio.Button value={CalendarEventType.PERSONAL}>개인일정</Radio.Button>
       </Radio.Group>
