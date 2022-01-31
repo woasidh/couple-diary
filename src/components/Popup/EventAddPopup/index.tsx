@@ -41,6 +41,12 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
       memo: memo,
     }
     props.onClickSubmitBtn(date as string, eventData);
+    // todo 재확인 popup 만들기
+    closePopup();
+  }
+
+  const onClickDeleteBtn = (): void => {
+    if (props.onClickDeleteBtn) props.onClickDeleteBtn(props.data?.num as number, props.data?.type as CalendarEventType)
     closePopup();
   }
 
@@ -83,9 +89,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
                 onClick={onClickSubmitBtn}>저장
         </button>
         <button className='bottomBtn' id='close' onClick={props.onClickCloseBtn}>닫기</button>
-        {props.onClickDeleteBtn && <button className='bottomBtn' id='delete' onClick={(): void => {
-          if (props.onClickDeleteBtn) props.onClickDeleteBtn(props.data?.num as number, props.data?.type as CalendarEventType)
-        }}>삭제</button>}
+        {props.onClickDeleteBtn && <button className='bottomBtn' id='delete' onClick={onClickDeleteBtn}>삭제</button>}
       </div>
     </div>
   )

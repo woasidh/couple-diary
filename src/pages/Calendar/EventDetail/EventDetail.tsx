@@ -1,7 +1,12 @@
 import React, {ReactElement} from 'react';
 import './style.scss';
 import Label, {LabelSize, LabelType} from '../../../components/Label/Label';
-import {CalendarEventData, CalendarEventType, changeCalendarEvent} from '../../../redux_module/CalendarEvent';
+import {
+  CalendarEventData,
+  CalendarEventType,
+  changeCalendarEvent,
+  deleteCalendarEvent
+} from '../../../redux_module/CalendarEvent';
 import {StringUtil} from '../../../util/StringUtil';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux_module';
@@ -20,33 +25,38 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
   const date = StringUtil.dateToString(props.year, props.month + 1, props.day);
 
   const dispatch = useDispatch();
-
   const calendarEventMap = useSelector((state: RootState) => state.calendarEvent.eventMap);
+
+  // 이벤트 수정 api call하는 메소드
+  const callPatchEventApi = (newDate: string, newEvent: CalendarEventData): void => {
+    axios.patch(`/api/calendar/${newEvent.type.toLowerCase()}`, {
+      id: newEvent.num,
+      title: newEvent.name,
+      date: newDate,
+      startTime: newEvent.time ? newEvent.time[0] : null,
+      endTime: newEvent.time ? newEvent.time[1] : null,
+      memo: newEvent.memo
+    })
+    .then((res) => {
+      if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
+      dispatch(changeCalendarEvent(date, newDate, {...newEvent, num: newEvent.num}));
+    })
+    .catch(e => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()));
+  }
+
+  // 이벤트 삭제 api call하는 메소드
+  const callDeleteEventApi = (id: number, eventType: CalendarEventType): void => {
+    axios.delete(`/api/calendar/${eventType.toLowerCase()}/?id=${id}`)
+    .then(res => {
+      if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
+      dispatch(deleteCalendarEvent(id, eventType, date));
+    })
+    .catch(e => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()))
+  }
 
   const onClickDetail = (prevEvent: CalendarEventData, id: number | undefined): void => {
     if (!id) return;
-    PopupUtil.showEventAddPopup((newDate: string, newEvent: CalendarEventData) => {
-        axios.patch(`/api/calendar/${newEvent.type.toLowerCase()}`, {
-          id,
-          title: newEvent.name,
-          date: newDate,
-          startTime: newEvent.time ? newEvent.time[0] : null,
-          endTime: newEvent.time ? newEvent.time[1] : null,
-          memo: newEvent.memo
-        })
-        .then((res) => {
-          if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
-          dispatch(changeCalendarEvent(date, newDate, {...newEvent, num: id}));
-        })
-        .catch(e => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()));
-      },
-      prevEvent,
-      date,
-      (id: number, eventType) => {
-      axios.delete(`/api/calendar/${eventType.toLowerCase()}/?id=${id}`)
-        .then(res => console.log(res.data))
-        .catch(e => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()))
-      })
+    PopupUtil.showEventAddPopup(callPatchEventApi, prevEvent, date, callDeleteEventApi)
   }
 
   const renderEventItem = (): ReactElement => {
