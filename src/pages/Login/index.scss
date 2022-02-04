@@ -14,23 +14,26 @@
     @include flex_set_center;
 
     .login_wrap {
-      max-height: 100%;
       background-color: white;
-      width: 1400px;
-      height: 896px;
+      width: 30%;
       border-radius: 15px;
-      display: flex;
+      padding: 30px 20px;
       @include box_shadow_up;
+      @include flex_set_center;
 
       .loginform_container {
-        width: 40%;
         @include flex_set_column;
-        padding: 50px;
+        width: 70%;
+
+        .logo_header {
+          text-align: center;
+          font-size: 30px;
+          color: $light_gray;
+        }
 
         .content {
-          margin-top: 10px;
           @include flex_set_column;
-          width: 90%;
+          width: 100%;
           padding: 25px 0 35px 0;
           font-size: 18px;
 

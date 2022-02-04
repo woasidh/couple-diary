@@ -2,12 +2,9 @@ import React, {ReactElement, useState} from 'react';
 import './index.scss';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
-import LogoHeader from '../../components/LogoHeader/LogoHeader';
 import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
-import logoUrl from '../../resource/images/logo.png';
 import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import variables from '../../variables';
-import People from '../../resource/images/social_illust.jpg';
 import { useDispatch } from 'react-redux';
 import {loginSuccess} from '../../redux_module/User';
 import { PopupUtil } from '../../components/Util/PopupUtil';
@@ -129,11 +126,10 @@ const Index = (): ReactElement => {
       <div className="under_topbar">
         <div className="login_wrap">
           <div className="loginform_container">
-            <LogoHeader imageUrl={logoUrl} text="로그인"/>
+            <div className="logo_header">로그인</div>
             {renderContent()}
             {renderFooter()}
           </div>
-          <img src={People} alt="people_image"/>
         </div>
       </div>
     </div>
