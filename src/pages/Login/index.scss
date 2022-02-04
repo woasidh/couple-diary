@@ -15,19 +15,24 @@
 
     .login_wrap {
       background-color: white;
-      width: 30%;
+      width: 600px;
+      @include isMobile {
+        width: 300px;
+      }
+
       border-radius: 15px;
       padding: 30px 20px;
       @include box_shadow_up;
       @include flex_set_center;
 
       .loginform_container {
+        font-size: 100px;
         @include flex_set_column;
         width: 70%;
 
         .logo_header {
           text-align: center;
-          font-size: 30px;
+          font-size: 0.3em;
           color: $light_gray;
         }
 
