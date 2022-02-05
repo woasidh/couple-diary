@@ -17,22 +17,24 @@
       background-color: white;
       width: 600px;
       @include isMobile {
-        width: 300px;
+        width: 80%;
       }
 
       border-radius: 15px;
-      padding: 30px 20px;
+      padding: 20px;
       @include box_shadow_up;
       @include flex_set_center;
 
       .loginform_container {
-        font-size: 100px;
         @include flex_set_column;
         width: 70%;
+        @include isMobile {
+          width: 90%;
+        }
 
         .logo_header {
           text-align: center;
-          font-size: 0.3em;
+          font-size: 3rem;
           color: $light_gray;
         }
 
@@ -40,7 +42,10 @@
           @include flex_set_column;
           width: 100%;
           padding: 25px 0 35px 0;
-          font-size: 18px;
+          font-size: 1.8rem;
+          @include isMobile {
+            padding: 25px 0 15px 0;
+          }
 
           button {
             width: 100%;
@@ -50,13 +55,21 @@
             margin: 20px 0;
             color: white;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 1.8rem;
+            @include isMobile {
+              margin: 10px 0;
+              width: 80%;
+              height: 25px;
+            }
           }
 
           .login_keep {
             color: $light_gray;
             @include flex_set_center;
-            font-size: 16px;
+            font-size: 1.6rem;
+            //@include isMobile {
+            //  font-size: 13px;
+            //}
 
             input[type = "checkbox"] {
               display: none;
@@ -100,7 +113,11 @@
           .lost_pwd {
             color: $light_gray;
             margin-bottom: 15px;
-            font-size: 16px;
+            font-size: 1.6rem;
+            @include isMobile {
+              margin-bottom: 5px;
+              //font-size: 12px;
+            }
 
             &:hover {
               color: $primary_pink;
@@ -109,12 +126,17 @@
           }
 
           .signup {
-            font-size: 17px;
+            font-size: 1.7rem;
+            //@include isMobile {
+            //  font-size: 12px;
+            //}
 
             button {
               color: $primary_pink;
               font-weight: bold;
-              font-size: 17px;
+              //@include isMobile {
+              //  font-size: 12px;
+              //}
 
               &:hover {
                 text-decoration: underline;

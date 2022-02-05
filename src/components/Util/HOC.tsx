@@ -36,7 +36,7 @@ export namespace HOC {
       const dispatch = useDispatch();
 
       useEffect(() => {
-        axios.get('/api/users/login/check').then((res) => {
+        axios.get(process.env.REACT_APP_DB_HOST + '/api/users/login/check').then((res) => {
           if (!res.data.isLoggedIn) { // 로그인유저만 출입가능 - 로그인 안되어있을 떄 -> 로그인으로
             dispatch(logoutSuccess());
             if (option === AuthOption.AUTH_ONLY) {

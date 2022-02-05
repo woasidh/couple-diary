@@ -15,7 +15,7 @@
     height:20px;
     border: none;
     border-bottom: 1px solid black;
-    font-size: 18px;
+    font-size: 1.8rem;
 
     &:focus {
       border-color: $primary_pink;
@@ -24,6 +24,6 @@
 
   .input_result_info {
     color: #ff0000FE;
-    font-size: 15px;
+    font-size: 1.5rem;
   }
 }
