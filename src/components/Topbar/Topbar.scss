@@ -1,42 +1,117 @@
 @import 'src/variables.scss';
 
-header.topbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: $topbar_height;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px 0 40px;
-  z-index: 1;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  background-color: white;
+header.appHeader {
+  position: relative;
 
-  .left_section {
-    height: 100%;
-    @include flex_set_center;
-    img {
-      height: 70%;
+  .topbar {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: $topbar_height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px 0 40px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    @include isMobile {
+      height: $mobile_topbar_height;
+      padding: 0 10px;
     }
 
-    span {
-      color: $primary_pink;
-      margin-left: 15px;
+    .left_section {
+      height: 100%;
+      @include flex_set_center;
+
+      img {
+        height: 70%;
+        @include isMobile {
+          height: 50%;
+        }
+      }
+
+      span {
+        color: $primary_pink;
+        margin-left: 15px;
+      }
+    }
+
+    .right_section {
+      display: flex;
+      font-weight: normal;
+
+      &#PC {
+        font-size: 16px;
+        column-gap: 35px;
+
+        span {
+          cursor: pointer;
+          /* todo (done) a tag 색깔 바꾸기 */
+          a {
+            color: $light_gray;
+
+            &:hover {
+              color: $primary_pink;
+            }
+          }
+        }
+
+        @include isMobile {
+          display: none;
+        }
+      }
+
+      &#mobile {
+        display: none;
+        @include isMobile {
+          position: relative;
+          align-items: center;
+          height: 100%;
+          display: flex;
+
+          button {
+            height: 100%;
+
+            .menu_close {
+              height: 50%;
+            }
+          }
+        }
+      }
     }
   }
 
-  .right_section {
-    display: flex;
-    column-gap: 35px;
-    font-size: 16px;
-    font-weight: normal;
-    color: #939393;
+  .subMenu {
+    @include isMobile {
+      z-index: 1;
+      transform: translateY(-80px);
+      top: 50px;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      background-color: white;
+      border-radius: 5px;
+      transition: transform linear 0.2s;
 
-    span {
-      cursor: pointer;
-      &:hover {
-        color: $primary_pink;
+      &.open {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        transform: translateY(0);
+      }
+
+      a, span {
+        width: 120px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        color: $font_gray;
+        font-size: 1.8rem;
+        cursor: pointer;
+
+        &:hover {
+          color: $primary_pink;
+        }
       }
     }
   }

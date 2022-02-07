@@ -21,7 +21,8 @@ function App(): ReactElement {
       <Router>
       <Topbar />
         <Switch>
-          <Route exact path="/" component = {HOC.checkAuth(Login, AuthOption.NO_AUTH_ONLY)}/>
+          <Route exact path="/" component = {Login}/>
+          {/*<Route exact path="/" component = {HOC.checkAuth(Login, AuthOption.NO_AUTH_ONLY)}/>*/}
           <Route exact path="/workspace" component = {HOC.checkAuth(Workspace, AuthOption.AUTH_ONLY)}/>
           <Route exact path="/calendar" component = {HOC.checkAuth(Home, AuthOption.AUTH_ONLY)}/>
           <Route exact path="/signup"><Signup /></Route>
