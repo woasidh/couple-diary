@@ -16,8 +16,9 @@ import MenuOpen from '../../resource/images/menu_open.png';
 const gitHubURL = 'https://github.com/woasidh?tab=repositories';
 
 // todo react-responsive 사용하기
+// todo refactoring하기
 
-const Topbar = (): ReactElement => {
+const AppHeader = (): ReactElement => {
   const history = useHistory();
   const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.user);
@@ -115,4 +116,4 @@ const MobileHeader = (props: MobileMenuProps): ReactElement => {
   )
 }
 
-export default Topbar;
+export default AppHeader;

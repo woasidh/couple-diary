@@ -16,7 +16,7 @@ interface LoginSubmitForm {
   password: string
 }
 
-const Index = (): ReactElement => {
+const LoginPage = (): ReactElement => {
   const [submitContent, setSubmitContent] = useState<LoginSubmitForm>({
     email: '',
     password: '',
@@ -31,10 +31,7 @@ const Index = (): ReactElement => {
   const dispatch = useDispatch();
 
   function onEmailInputChange(email: string, isEmailValid: boolean): void {
-    setSubmitContent({
-      ...submitContent,
-      email,
-    });
+    setSubmitContent({...submitContent, email});
     setEmailInputStatus({
       isValid: isEmailValid,
       inputStateMsg: isEmailValid ? '유효한 이메일입니다' : '@를 포함한 이메일 형식으로 입력해주세요',
@@ -42,10 +39,7 @@ const Index = (): ReactElement => {
   }
 
   function onPasswordInputChange(password: string): void {
-    setSubmitContent({
-      ...submitContent,
-      password,
-    });
+    setSubmitContent({...submitContent, password});
     setPasswordInputStatus(PasswordStatus.UNKNOWN);
   }
 
@@ -122,18 +116,16 @@ const Index = (): ReactElement => {
   }
 
   return (
-    <div className="login_root">
-      <div className="under_topbar">
-        <div className="login_wrap">
-          <div className="loginform_container">
+    <div className="login_page">
+        <div className="loginFormContainer">
+          <div className="loginContentWrapper">
             <div className="logo_header">로그인</div>
             {renderContent()}
             {renderFooter()}
           </div>
         </div>
-      </div>
     </div>
   );
 };
 
-export default Index;
+export default LoginPage;
