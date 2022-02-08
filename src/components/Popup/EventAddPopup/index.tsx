@@ -11,6 +11,8 @@ import ReactDOM from 'react-dom';
 import ValidImg from '../../../resource/images/check.png';
 import InvalidImg from '../../../resource/images/delete.png';
 import moment from 'moment';
+import {useMediaQuery} from 'react-responsive';
+import '../../../index.scss'
 
 interface EventAddPopupProps {
   onClickCloseBtn: (e: any) => void;
@@ -106,6 +108,8 @@ interface ContentRowWrapperProps {
 
 const ContentRowWrapper = (props: ContentRowWrapperProps): ReactElement => {
 
+  const isMobile = useMediaQuery({query: '(max-width: 640px)'})
+
   const validDOMRef = useRef<HTMLImageElement | null>(null);
   const inValidDOMRef = useRef<HTMLImageElement | null>(null);
 
@@ -132,8 +136,8 @@ const ContentRowWrapper = (props: ContentRowWrapperProps): ReactElement => {
       <div className='eventContentImgHolder'><img src={props.leftImgSrc} width={20} alt='시간아이콘'/></div>}
       {props.children}
       <div className='dataStateWrapper'>
-        <img className='dataState' src={ValidImg} width={15} ref={validDOMRef}/>
-        <img className='dataState' src={InvalidImg} width={15} ref={inValidDOMRef}/>
+        <img className='dataState' src={ValidImg} width={isMobile ? 12 : 15} ref={validDOMRef}/>
+        <img className='dataState' src={InvalidImg} width={isMobile ? 12 : 15} ref={inValidDOMRef}/>
       </div>
     </div>
   );
@@ -145,6 +149,9 @@ interface DateContentProps {
 }
 
 const DateContent = ({useDate, date}: DateContentProps): ReactElement => {
+
+  const isMobile = useMediaQuery({query: '(max-width: 640px)'})
+
   return (
     <>
       <Space>
@@ -168,9 +175,15 @@ interface TimeContentProps {
 }
 
 const TimeContent = ({useTime, time}: TimeContentProps): ReactElement => {
+
+  const isMobile = useMediaQuery({
+    query: '(max-width: 640px)'
+  })
+
   return (
     <>
       <TimePicker.RangePicker
+        style = {{width: isMobile ? '240px' : '280x'}}
         format='HH:00:00'
         placeholder={['시작 시간', '종료 시간']}
         onChange={(_: any, timeArr: Array<string>): void => {
@@ -210,12 +223,19 @@ interface EventTypeContentProps {
 }
 
 const EventTypeContent = ({useEventType, eventType, readonly = false}: EventTypeContentProps): ReactElement => {
+
+  const isMobile = useMediaQuery({
+    query: '(max-width: 640px)'
+  })
+
   return (
     <>
-      <Radio.Group disabled={readonly} defaultValue={eventType ? eventType : undefined} size="large"
+      <Radio.Group disabled={readonly}
+                   defaultValue={eventType ? eventType : undefined}
+                   size="large"
                    onChange={(e: any): void => useEventType(e.target.value)}>
-        <Radio.Button value={CalendarEventType.COUPLE}>커플일정</Radio.Button>
-        <Radio.Button value={CalendarEventType.PERSONAL}>개인일정</Radio.Button>
+        <Radio.Button value={CalendarEventType.COUPLE} style = {{fontSize: isMobile ? '13px' : '16px'}}>커플일정</Radio.Button>
+        <Radio.Button value={CalendarEventType.PERSONAL} style = {{fontSize: isMobile ? '13px' : '16px'}}>개인일정</Radio.Button>
       </Radio.Group>
     </>
   );
