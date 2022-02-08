@@ -2,6 +2,9 @@
 
 .section_detail {
   flex: auto;
+  @include isMobile {
+    display: none;
+  }
 
   .showDate {
     width: 100%;

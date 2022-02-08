@@ -158,10 +158,8 @@ const Calendar = (props: CalendarProps): ReactElement => {
       </section>
       <section className="main_container">
         <div className="calendar">
-          <div className="weekRows">
-            {renderWeekdayRow()}
-            {renderWeekRows()}
-          </div>
+          {renderWeekdayRow()}
+          {renderWeekRows()}
         </div>
       </section>
     </section>

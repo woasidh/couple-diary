@@ -59,7 +59,7 @@ const Index = (): ReactElement => {
   }
 
   return (
-    <div className="home root_page">
+    <div className="CalendarContentsWrapper">
       <Member/>
       <Calendar
         year={year}

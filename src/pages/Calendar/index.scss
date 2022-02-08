@@ -1,8 +1,8 @@
 @import 'src/variables.scss';
 
-.home {
+.CalendarContentsWrapper {
   width: 100%;
-  @include exclude_topbar;
+  height: 100%;
   display: flex;
 
   header.main_header {

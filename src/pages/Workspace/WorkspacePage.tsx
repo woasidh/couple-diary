@@ -23,7 +23,7 @@ const Workspace = (): ReactElement => {
         </div>
       }
       {isCouple &&
-        <div className = "workspace_root">
+        <div className = "workspaceContentsWrapper">
           <div className="item_container">
             <a href = "/calendar" className = "item">캘린더</a>
             <a className = "item">메모</a>

@@ -116,7 +116,7 @@ const LoginPage = (): ReactElement => {
   }
 
   return (
-    <div className="login_page">
+    <div className="loginContentsWrapper">
         <div className="loginFormContainer">
           <div className="loginContentWrapper">
             <div className="logo_header">로그인</div>

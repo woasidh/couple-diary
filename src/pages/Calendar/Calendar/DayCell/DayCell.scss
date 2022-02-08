@@ -35,6 +35,9 @@
   .eventWrapper {
     flex: 7;
     .event_item {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 20px;
       background-color: #4395FF;
       border-radius: 5px;
       color: white;

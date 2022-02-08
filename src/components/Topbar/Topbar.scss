@@ -47,10 +47,13 @@ header.appHeader {
 
         span {
           cursor: pointer;
+          color: $light_gray;
+          &:hover {
+            color: $primary_pink;
+          }
           /* todo (done) a tag 색깔 바꾸기 */
           a {
             color: $light_gray;
-
             &:hover {
               color: $primary_pink;
             }

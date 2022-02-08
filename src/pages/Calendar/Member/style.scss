@@ -3,6 +3,9 @@
 .section_member {
   width: 70px;
   border-right: 1px solid #00000020;
+  @include isMobile {
+    display: none;
+  }
   .member_container {
     display: flex;
     flex-direction: column;

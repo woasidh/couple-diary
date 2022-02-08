@@ -8,7 +8,7 @@ import {
 import Home from './pages/Calendar/CalendarPage';
 import LoginPage from './pages/Login/loginPage';
 import Signup from './pages/Signup/Index';
-import Workspace from './pages/Workspace/Index';
+import Workspace from './pages/Workspace/WorkspacePage';
 import Fallback from './pages/Fallback/Index';
 import AppHeader from './components/Topbar/AppHeader';
 import Connect from './pages/Connect/Index';
