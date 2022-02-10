@@ -11,10 +11,13 @@ import ReactDOM from 'react-dom';
 import ValidImg from '../../../resource/images/check.png';
 import InvalidImg from '../../../resource/images/delete.png';
 import moment from 'moment';
+import {useMediaQuery} from 'react-responsive';
+import '../../../index.scss'
 
 interface EventAddPopupProps {
   onClickCloseBtn: (e: any) => void;
   onClickSubmitBtn: (date: string, data: CalendarEventData) => void;
+  onClickDeleteBtn: ((id: number, eventType: CalendarEventType) => void) | null;
   data: CalendarEventData | null;
   date: string | null;
 }
@@ -34,12 +37,19 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
   const onClickSubmitBtn = (_: any): void => {
     // todo type, name 필수처리 하기
     const eventData = {
+      num: props.data ? props.data.num : -1,
       type: eventType as CalendarEventType,
       name: title as string,
       time: time,
       memo: memo,
     }
     props.onClickSubmitBtn(date as string, eventData);
+    // todo 재확인 popup 만들기
+    closePopup();
+  }
+
+  const onClickDeleteBtn = (): void => {
+    if (props.onClickDeleteBtn) props.onClickDeleteBtn(props.data?.num as number, props.data?.type as CalendarEventType)
     closePopup();
   }
 
@@ -72,12 +82,18 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
         <MemoContent useMemo={(memo): any => setMemo(memo)} memo={memo}/>
       </ContentRowWrapper>
       <ContentRowWrapper leftImgSrc={CategoryImg} isDataValid={!!eventType}>
-        <EventTypeContent useEventType={(eventType): any => setEventType(eventType)} eventType={eventType}/>
+        <EventTypeContent useEventType={(eventType): any => setEventType(eventType)}
+                          eventType={eventType}
+                          readonly={!!props.data}/>
       </ContentRowWrapper>
-      <button className={`eventAddPopupBottomBtn ${isSubmitBtnAvailable() ? '' : 'disable'}`} id='submit'
-              disabled={!isSubmitBtnAvailable()} onClick={onClickSubmitBtn}>저장
-      </button>
-      <button className='eventAddPopupBottomBtn' id='close' onClick={props.onClickCloseBtn}>닫기</button>
+      <div className='bottomBtnWrapper'>
+        <button className={`bottomBtn ${isSubmitBtnAvailable() ? '' : 'disable'}`} id='submit'
+                disabled={!isSubmitBtnAvailable()}
+                onClick={onClickSubmitBtn}>저장
+        </button>
+        <button className='bottomBtn' id='close' onClick={props.onClickCloseBtn}>닫기</button>
+        {props.onClickDeleteBtn && <button className='bottomBtn' id='delete' onClick={onClickDeleteBtn}>삭제</button>}
+      </div>
     </div>
   )
 }
@@ -92,6 +108,7 @@ interface ContentRowWrapperProps {
 }
 
 const ContentRowWrapper = (props: ContentRowWrapperProps): ReactElement => {
+  const isMobile = useMediaQuery({query: '(max-width: 640px)'})
 
   const validDOMRef = useRef<HTMLImageElement | null>(null);
   const inValidDOMRef = useRef<HTMLImageElement | null>(null);
@@ -119,8 +136,8 @@ const ContentRowWrapper = (props: ContentRowWrapperProps): ReactElement => {
       <div className='eventContentImgHolder'><img src={props.leftImgSrc} width={20} alt='시간아이콘'/></div>}
       {props.children}
       <div className='dataStateWrapper'>
-        <img className='dataState' src={ValidImg} width={15} ref={validDOMRef}/>
-        <img className='dataState' src={InvalidImg} width={15} ref={inValidDOMRef}/>
+        <img className='dataState' src={ValidImg} width={isMobile ? 12 : 15} ref={validDOMRef}/>
+        <img className='dataState' src={InvalidImg} width={isMobile ? 12 : 15} ref={inValidDOMRef}/>
       </div>
     </div>
   );
@@ -132,6 +149,9 @@ interface DateContentProps {
 }
 
 const DateContent = ({useDate, date}: DateContentProps): ReactElement => {
+
+  const isMobile = useMediaQuery({query: '(max-width: 640px)'})
+
   return (
     <>
       <Space>
@@ -155,9 +175,15 @@ interface TimeContentProps {
 }
 
 const TimeContent = ({useTime, time}: TimeContentProps): ReactElement => {
+
+  const isMobile = useMediaQuery({
+    query: '(max-width: 640px)'
+  })
+
   return (
     <>
       <TimePicker.RangePicker
+        style = {{width: isMobile ? '240px' : '280x'}}
         format='HH:00:00'
         placeholder={['시작 시간', '종료 시간']}
         onChange={(_: any, timeArr: Array<string>): void => {
@@ -193,14 +219,23 @@ const MemoContent = ({useMemo, memo}: MmeoContentProps): ReactElement => {
 interface EventTypeContentProps {
   useEventType: (eventType: CalendarEventType) => any;
   eventType: CalendarEventType | null;
+  readonly?: boolean;
 }
 
-const EventTypeContent = ({useEventType, eventType}: EventTypeContentProps): ReactElement => {
+const EventTypeContent = ({useEventType, eventType, readonly = false}: EventTypeContentProps): ReactElement => {
+
+  const isMobile = useMediaQuery({
+    query: '(max-width: 640px)'
+  })
+
   return (
     <>
-      <Radio.Group defaultValue= {eventType ? eventType : undefined} size="large" onChange={(e: any): void => useEventType(e.target.value)}>
-        <Radio.Button value={CalendarEventType.COUPLE}>커플일정</Radio.Button>
-        <Radio.Button value={CalendarEventType.PERSONAL}>개인일정</Radio.Button>
+      <Radio.Group disabled={readonly}
+                   defaultValue={eventType ? eventType : undefined}
+                   size="large"
+                   onChange={(e: any): void => useEventType(e.target.value)}>
+        <Radio.Button value={CalendarEventType.COUPLE} style = {{fontSize: isMobile ? '13px' : '16px'}}>커플일정</Radio.Button>
+        <Radio.Button value={CalendarEventType.PERSONAL} style = {{fontSize: isMobile ? '13px' : '16px'}}>개인일정</Radio.Button>
       </Radio.Group>
     </>
   );

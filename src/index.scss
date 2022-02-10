@@ -6,6 +6,17 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+  @include isMobile {
+    font-size: 45%;
+  }
+}
+
+body, html {
+  width: 100%;
+}
+
 body, html, #root {
   height: 100%;
   margin : 0;

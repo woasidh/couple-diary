@@ -1,13 +1,10 @@
 @import 'src/variables.scss';
 
-.workspace_root {
-  @include exclude_topbar;
+.workspaceContentsWrapper {
   padding: 20px;
 
   .single_info_container {
-
     @include flex_set_column;
-
     img {
       width: 230px;
       margin-bottom: 20px;
@@ -31,9 +28,9 @@
   }
 
   .item_container {
-    @include flex_set_center;
-    width: fit-content;
-    column-gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 220px);
+    grid-gap: 10px;
 
     .item {
       width: 220px;

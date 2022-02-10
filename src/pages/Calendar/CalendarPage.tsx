@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {ReactElement, ReactNode, useEffect, useState} from 'react';
 import './index.scss';
 import Calendar from './Calendar/Calendar';
 import Member from './Member/Member';
@@ -7,6 +7,9 @@ import axios from 'axios';
 import {DataParsingUtil} from '../../util/DataParsingUtil';
 import {addCalendarEvent, CalendarEventType} from '../../redux_module/CalendarEvent';
 import {useDispatch} from 'react-redux';
+import ReactDOM from 'react-dom';
+import PopupBackground from '../../components/Popup';
+import {useMediaQuery} from 'react-responsive';
 
 const Index = (): ReactElement => {
   const dispatch = useDispatch();
@@ -19,6 +22,8 @@ const Index = (): ReactElement => {
   const [selectedYear, setSelectedYear] = useState(year);
   const [selectedMonth, setSelectedMonth] = useState(month);
   const [selectedDay, setSelectedDay] = useState(new Date().getDate());
+
+  const [isMobileEventDetailPopupOpen, setIsMobileEventDetailPopupOpen] = useState<boolean>(false);
 
   useEffect((): void => {
     axios.get('/api/calendar/personal').then((res) => {
@@ -56,22 +61,57 @@ const Index = (): ReactElement => {
     setSelectedYear(year);
     setSelectedMonth(month);
     setSelectedDay(date);
+    setIsMobileEventDetailPopupOpen(true);
   }
 
   return (
-    <div className="home root_page">
+    <div className="CalendarContentsWrapper">
       <Member/>
       <Calendar
         year={year}
         month={month}
-        onClickNextBtn = {addMonth}
-        onClickPrevBtn = {subtractMonth}
+        onClickNextBtn={addMonth}
+        onClickPrevBtn={subtractMonth}
         onClickCell={setSelectedDate}/>
-      <EventDetail
-        year={selectedYear}
-        month={selectedMonth}
-        day={selectedDay}/>
+      <MobileModal
+        isOpenModal={isMobileEventDetailPopupOpen}
+        onClickBackground={(): void => setIsMobileEventDetailPopupOpen(false)}
+      >
+        <EventDetail
+          year={selectedYear}
+          month={selectedMonth}
+          day={selectedDay}
+          openModal={isMobileEventDetailPopupOpen}/>
+      </MobileModal>
     </div>
   );
 };
+
+interface ModalProps {
+  children: ReactNode,
+  isOpenModal: boolean,
+  onClickBackground: () => void;
+}
+
+const MobileModal = (props: ModalProps): any => {
+  const isMobile = useMediaQuery({query: '(max-width: 640px)'});
+
+  const renderContent = (): any => {
+    if (isMobile) {
+      return (
+        ReactDOM.createPortal(
+          <PopupBackground onBackgroundClick={props.onClickBackground} isActivated={props.isOpenModal}>
+            {props.children}
+          </PopupBackground>
+          , document.querySelector('#mobile_modal') as Element)
+      )
+    } else return <>{props.children}</>
+  }
+
+  return (
+    <>
+      {renderContent()}
+    </>
+  )
+}
 export default Index;

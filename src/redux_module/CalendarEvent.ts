@@ -7,6 +7,7 @@
 
 const ADD_EVENT = 'calendarEvent/ADD_EVENT' as const;
 const CHANGE_EVENT = 'calendarEvent/CHANGE_EVENT' as const;
+const DELETE_EVENT = 'calendarEvent/DELETE_EVENT' as const;
 
 /**
  * action 생성함수
@@ -32,6 +33,17 @@ export const changeCalendarEvent = (prevDate: string, newDate: string, eventData
   }
 }
 
+export const deleteCalendarEvent = (id: number, eventType: CalendarEventType, date: string): any => {
+  return {
+    type: DELETE_EVENT,
+    payload: {
+      id,
+      eventType,
+      date
+    }
+  }
+}
+
 /**
  * reducer
  */
@@ -40,6 +52,7 @@ const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<str
   switch (action.type) {
     case ADD_EVENT: {
       const prevEvents = state.eventMap.get(action.payload.eventDate);
+      console.log()
       const newEvents = prevEvents ? prevEvents.concat([action.payload.eventData]) : [action.payload.eventData];
       return {
         ...state,
@@ -78,6 +91,18 @@ const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<str
             [action.payload.newDate as string, newDateEvents as Array<CalendarEventData>],
           ])
         }
+      }
+    }
+    case DELETE_EVENT: {
+      const prevEvents = state.eventMap.get(action.payload.date);
+      const newEvents = prevEvents?.filter((event) =>
+        !(event.num === action.payload.id && event.type === action.payload.eventType));
+      return {
+        ...state,
+        eventMap: new Map([
+          ...state.eventMap,
+          [action.payload.date as string, newEvents as Array<CalendarEventData>]
+        ])
       }
     }
     default:

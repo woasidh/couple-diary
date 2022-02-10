@@ -2,12 +2,9 @@ import React, {ReactElement, useState} from 'react';
 import './index.scss';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
-import LogoHeader from '../../components/LogoHeader/LogoHeader';
 import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
-import logoUrl from '../../resource/images/logo.png';
 import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import variables from '../../variables';
-import People from '../../resource/images/social_illust.jpg';
 import { useDispatch } from 'react-redux';
 import {loginSuccess} from '../../redux_module/User';
 import { PopupUtil } from '../../components/Util/PopupUtil';
@@ -19,7 +16,7 @@ interface LoginSubmitForm {
   password: string
 }
 
-const Index = (): ReactElement => {
+const LoginPage = (): ReactElement => {
   const [submitContent, setSubmitContent] = useState<LoginSubmitForm>({
     email: '',
     password: '',
@@ -34,10 +31,7 @@ const Index = (): ReactElement => {
   const dispatch = useDispatch();
 
   function onEmailInputChange(email: string, isEmailValid: boolean): void {
-    setSubmitContent({
-      ...submitContent,
-      email,
-    });
+    setSubmitContent({...submitContent, email});
     setEmailInputStatus({
       isValid: isEmailValid,
       inputStateMsg: isEmailValid ? '유효한 이메일입니다' : '@를 포함한 이메일 형식으로 입력해주세요',
@@ -45,15 +39,12 @@ const Index = (): ReactElement => {
   }
 
   function onPasswordInputChange(password: string): void {
-    setSubmitContent({
-      ...submitContent,
-      password,
-    });
+    setSubmitContent({...submitContent, password});
     setPasswordInputStatus(PasswordStatus.UNKNOWN);
   }
 
   function submitLoginForm(): void {
-    axios.post('/api/users/login', submitContent).then((res) => {
+    axios.post(process.env.REACT_APP_DB_HOST + '/api/users/login', submitContent).then((res) => {
       if (res.status !== 200) { // 서버 통신 잘 안되었을 때
         alert('api connection error');
       } else { // 서버 통신 잘되었을 때
@@ -125,19 +116,16 @@ const Index = (): ReactElement => {
   }
 
   return (
-    <div className="login_root">
-      <div className="under_topbar">
-        <div className="login_wrap">
-          <div className="loginform_container">
-            <LogoHeader imageUrl={logoUrl} text="로그인"/>
+    <div className="loginContentsWrapper">
+        <div className="loginFormContainer">
+          <div className="loginContentWrapper">
+            <div className="logo_header">로그인</div>
             {renderContent()}
             {renderFooter()}
           </div>
-          <img src={People} alt="people_image"/>
         </div>
-      </div>
     </div>
   );
 };
 
-export default Index;
+export default LoginPage;

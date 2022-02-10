@@ -14,7 +14,6 @@ interface PopupProps {
 } 
 
 const NotificationPopup = (props: PopupProps): ReactElement => {
-
     return (
         <div onClick = {(e): void =>{
             e.stopPropagation();

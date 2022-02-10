@@ -13,8 +13,7 @@ const Workspace = (): ReactElement => {
 
   return (
     <>
-      {
-        !isCouple &&
+      {!isCouple &&
         <div className="workspace_root class_flex_center">
           <div className="single_info_container">
             <img src={AgoSad} alt="ago_sad"/>
@@ -23,9 +22,8 @@ const Workspace = (): ReactElement => {
           </div>
         </div>
       }
-      {
-        isCouple &&
-        <div className = "workspace_root">
+      {isCouple &&
+        <div className = "workspaceContentsWrapper">
           <div className="item_container">
             <a href = "/calendar" className = "item">캘린더</a>
             <a className = "item">메모</a>

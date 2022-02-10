@@ -8,13 +8,20 @@ $padding_bottom: 80px;
   position: relative;
   padding-bottom: $padding_bottom;
   padding-top: 30px;
+  @include isMobile {
+    width: 350px;
+    padding-bottom: 70px;
+  }
 
   input[type = 'text']{
     &.titleInput {
       border: none;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       width: 400px;
-      font-size: 20px;
+      font-size: 2rem;
+      @include isMobile {
+        width: 240px;
+      }
       &:focus {
         border-bottom: 1px solid $primary_pink;
       }
@@ -32,6 +39,14 @@ $padding_bottom: 80px;
 
   .eventContentRow {
     margin-top: 20px;
+    @include isMobile {
+      margin-top: 10px;
+      .ant-picker-input {
+        input {
+          font-size: 12px;
+        }
+      }
+    }
     display: flex;
     align-items: center;
     .eventContentImgHolder {
@@ -42,6 +57,9 @@ $padding_bottom: 80px;
       border: 1px solid $line_gray;
       border-radius: 5px;
       width: 400px;
+      @include isMobile {
+        width: 240px;
+      }
       height: 100px;
       resize: none;
       &:focus {
@@ -51,24 +69,30 @@ $padding_bottom: 80px;
     }
   }
 
-  .eventAddPopupBottomBtn {
+  .bottomBtnWrapper {
     position: absolute;
-    width: 80px;
-    height : 40px;
-    border-radius: 5px;
     bottom: 10px;
-    &#submit {
-      right: 120px;
-      @include button_primary;
-      &.disable {
-        cursor: auto;
+    right: 20px;
+    display: flex;
+    column-gap: 20px;
+    .bottomBtn {
+      width: 80px;
+      height : 40px;
+      border-radius: 5px;
+      &#delete {
+        background-color: red;
+        color: white;
+      }
+      &#submit {
+        @include button_primary;
+        &.disable {
+          cursor: auto;
+          @include button_gray;
+        }
+      }
+      &#close {
         @include button_gray;
       }
-    }
-
-    &#close {
-      right: 20px;
-      @include button_gray;
     }
   }
 }

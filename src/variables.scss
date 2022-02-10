@@ -1,4 +1,23 @@
 /* css properties util */
+
+/* responsive design standard */
+
+// 태블릿은 1024px까지 (medium)
+@mixin isTablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+// 모바일은 425px까지 (small)
+@mixin isMobile {
+  @media (max-width: 640px) {
+    @content;
+  }
+}
+
+/* flex */
+
 @mixin flex_set_center {
   display: flex;
   justify-content: center;
@@ -72,6 +91,7 @@ $line_gray: rgba(0, 0, 0, 0.2);
 
 /* sizes */
 $topbar_height: 70px;
+$mobile_topbar_height: 50px;
 
 /* export */
 :export {

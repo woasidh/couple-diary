@@ -6,11 +6,18 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid #00000020;
+  @include isMobile {
+    width: 100%;
+  }
 
   section.function_menu {
     width: 100%;
     height: 90px;
     padding: 10px 30px;
+    @include isMobile {
+      padding: 10px;
+      height: 70px;
+    }
 
     .calendar_submenu {
       height: 100%;
@@ -29,17 +36,20 @@
           @include flex_set_center;
           background-color: #fafafa;
           border-radius: 10px;
+
           &.add_event {
             width: fit-content;
             padding: 0 10px;
             color: #96999E;
-            font-size: 15px;
+            font-size: 1.5rem;
+
             &:hover {
               color: white;
               background-color: $primary_pink;
               transition: all linear 0.1s;
             }
           }
+
           img {
             width: 40%;
           }
@@ -53,7 +63,7 @@
         height: 70%;
         @include flex_set_center;
         text-align: center;
-        font-size: 17px;
+        font-size: 1.7rem;
         box-shadow: 0 0 10px $primary_pink;
       }
     }
@@ -61,8 +71,11 @@
 
   section.main_container {
     width: 100%;
-    padding:  15px 30px;
+    padding: 15px 30px;
     flex: auto;
+    @include isMobile {
+      padding: 5px 10px;
+    }
 
     .calendar {
       width: 100%;
@@ -77,6 +90,7 @@
         height: 40px;
         border-bottom: 1px solid #00000020;
         display: flex;
+
         .weekDayCell {
           flex: auto;
           border-right: 1px solid #00000020;
@@ -84,28 +98,27 @@
           text-align: right;
           padding-right: 10px;
           font-weight: 500;
+
           &:nth-child(1) {
             color: red;
           }
+
           &:nth-child(7) {
             border-right: none;
           }
         }
       }
 
-      .weekRows {
-        flex: auto;
-        display: flex;
-        flex-direction: column;
+      .weekRow {
+        overflow-y: scroll;
+        flex: 1;
+        border-bottom: 1px solid #00000020;
 
-        .weekRow {
-          flex: 1;
-          border-bottom: 1px solid #00000020;
-          &:nth-child(7) {
-            border-bottom: none;
-          }
-          display: flex;
+        &:nth-child(7) {
+          border-bottom: none;
         }
+
+        display: flex;
       }
     }
   }

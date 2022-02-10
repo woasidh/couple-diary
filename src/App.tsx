@@ -6,11 +6,11 @@ import {
   Route,
 } from 'react-router-dom';
 import Home from './pages/Calendar/CalendarPage';
-import Login from './pages/Login/index';
+import LoginPage from './pages/Login/loginPage';
 import Signup from './pages/Signup/Index';
-import Workspace from './pages/Workspace/Index';
+import Workspace from './pages/Workspace/WorkspacePage';
 import Fallback from './pages/Fallback/Index';
-import Topbar from './components/Topbar/Topbar';
+import AppHeader from './components/Topbar/AppHeader';
 import Connect from './pages/Connect/Index';
 import { AuthOption, HOC } from './components/Util/HOC';
 import ReduxTest from './pages/Test/ReduxTest';
@@ -19,16 +19,19 @@ function App(): ReactElement {
   return (
     <>
       <Router>
-      <Topbar />
-        <Switch>
-          <Route exact path="/" component = {HOC.checkAuth(Login, AuthOption.NO_AUTH_ONLY)}/>
-          <Route exact path="/workspace" component = {HOC.checkAuth(Workspace, AuthOption.AUTH_ONLY)}/>
-          <Route exact path="/calendar" component = {HOC.checkAuth(Home, AuthOption.AUTH_ONLY)}/>
-          <Route exact path="/signup"><Signup /></Route>
-          <Route exact path="/connect" component = {HOC.checkAuth(Connect, AuthOption.AUTH_ONLY)}/>
-          <Route exact path="/test" component = {ReduxTest}/>
-          <Route path="*"><Fallback /></Route>
-        </Switch>
+      <AppHeader />
+        {/* header 아래 부분 appContent 하나로 통합 */}
+        <div className = 'appContent'>
+          <Switch>
+            <Route exact path="/" component = {HOC.checkAuth(LoginPage, AuthOption.NO_AUTH_ONLY)}/>
+            <Route exact path="/workspace" component = {HOC.checkAuth(Workspace, AuthOption.AUTH_ONLY)}/>
+            <Route exact path="/calendar" component = {HOC.checkAuth(Home, AuthOption.AUTH_ONLY)}/>
+            <Route exact path="/signup"><Signup /></Route>
+            <Route exact path="/connect" component = {HOC.checkAuth(Connect, AuthOption.AUTH_ONLY)}/>
+            <Route exact path="/test" component = {ReduxTest}/>
+            <Route path="*"><Fallback /></Route>
+          </Switch>
+        </div>
       </Router>
     </>
   );
