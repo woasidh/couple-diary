@@ -73,7 +73,7 @@ const Index = (): ReactElement => {
         onClickNextBtn={addMonth}
         onClickPrevBtn={subtractMonth}
         onClickCell={setSelectedDate}/>
-      <Modal
+      <MobileModal
         isOpenModal={isMobileEventDetailPopupOpen}
         onClickBackground={(): void => setIsMobileEventDetailPopupOpen(false)}
       >
@@ -82,7 +82,7 @@ const Index = (): ReactElement => {
           month={selectedMonth}
           day={selectedDay}
           openModal={isMobileEventDetailPopupOpen}/>
-      </Modal>
+      </MobileModal>
     </div>
   );
 };
@@ -93,7 +93,7 @@ interface ModalProps {
   onClickBackground: () => void;
 }
 
-const Modal = (props: ModalProps): any => {
+const MobileModal = (props: ModalProps): any => {
   const isMobile = useMediaQuery({query: '(max-width: 640px)'});
 
   const renderContent = (): any => {
@@ -103,7 +103,7 @@ const Modal = (props: ModalProps): any => {
           <PopupBackground onBackgroundClick={props.onClickBackground} isActivated={props.isOpenModal}>
             {props.children}
           </PopupBackground>
-          , document.querySelector('#popup') as Element)
+          , document.querySelector('#mobile_modal') as Element)
       )
     } else return <>{props.children}</>
   }

@@ -31,14 +31,15 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
 
   // 이벤트 수정 api call하는 메소드
   const callPatchEventApi = (newDate: string, newEvent: CalendarEventData): void => {
-    axios.patch(`/api/calendar/${newEvent.type.toLowerCase()}`, {
+    const data = {
       id: newEvent.num,
       title: newEvent.name,
       date: newDate,
       startTime: newEvent.time ? newEvent.time[0] : null,
       endTime: newEvent.time ? newEvent.time[1] : null,
       memo: newEvent.memo
-    })
+    }
+    axios.patch(`/api/calendar/${newEvent.type.toLowerCase()}`, data)
     .then((res) => {
       if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
       dispatch(changeCalendarEvent(date, newDate, {...newEvent, num: newEvent.num}));

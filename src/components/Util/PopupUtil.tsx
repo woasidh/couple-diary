@@ -6,6 +6,9 @@ import PopupBackground from '../Popup';
 import {CalendarEventData, CalendarEventType} from '../../redux_module/CalendarEvent';
 
 export namespace PopupUtil {
+  
+  // todo Popup 중복되었을 때 처리하기
+  
   /**
    * 팝업 타입에 따라 메소드 네이밍 다르게 함
    * 기본적으로 BackgroundPopup안에 타입에 따라 컴포넌트 다름

@@ -37,6 +37,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
   const onClickSubmitBtn = (_: any): void => {
     // todo type, name 필수처리 하기
     const eventData = {
+      num: props.data ? props.data.num : -1,
       type: eventType as CalendarEventType,
       name: title as string,
       time: time,
