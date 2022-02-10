@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react';
 import './style.scss';
+import './MobileEventDetail.scss';
 import Label, {LabelSize, LabelType} from '../../../components/Label/Label';
 import {
   CalendarEventData,
@@ -18,6 +19,7 @@ interface EventDetailProps {
   year: number;
   month: number;
   day: number;
+  openModal: boolean;
 }
 
 const EventDetail = (props: EventDetailProps): ReactElement => {
@@ -79,7 +81,7 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
   }
 
   return (
-    <section className="section_detail">
+    <section className = {`section_detail ${props.openModal ? 'open' : 'close'}`}>
       <div className='showDate'>{`${props.year}년 ${props.month + 1}월 ${props.day}일`}</div>
       <ul className='eventContainer'>
         {/* todo(done) 메소드 하나로 통합하기 */}

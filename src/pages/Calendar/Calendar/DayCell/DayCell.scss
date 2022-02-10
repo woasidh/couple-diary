@@ -18,13 +18,16 @@
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
+    span {
+      font-size: 1.2rem;
+    }
     .holidayCellLabel {
       height: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
       background-color: #FF4343;
       color: white;
-      font-size: 12px;
+      font-size: 1.2rem;
       width: 50%;
       text-align: center;
       border-radius: 5px;
@@ -46,7 +49,7 @@
       background-color: #4395FF;
       border-radius: 5px;
       color: white;
-      font-size: 12px;
+      font-size: 1.2rem;
       width: 100%;
       padding: 1px 3px;
       margin-bottom: 3px;

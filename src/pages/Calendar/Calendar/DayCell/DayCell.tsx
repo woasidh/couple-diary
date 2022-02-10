@@ -1,6 +1,8 @@
 import React, {ReactElement, useEffect, useRef, useState} from 'react';
 import {CalendarEventData, CalendarEventType} from '../../../../redux_module/CalendarEvent';
 import './DayCell.scss';
+import {PopupUtil} from '../../../../components/Util/PopupUtil';
+import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
 
 interface DayCellProps {
   day: number | null;
@@ -28,35 +30,27 @@ const DayCell = (props: DayCellProps): ReactElement => {
     }
   }, [props.event]);
 
-  const onCellClick = (_: any): void => {
-    if (props.day) {
-      props.onClick(props.day);
-    }
-  }
-
-  const renderItems = (): Array<ReactElement> | ReactElement => {
-    // if (props.event) {
-    //   return props.event.map((event, idx) =>
-    //     (<div
-    //       className="event_item"
-    //       key = {idx}
-    //     style = {{
-    //       backgroundColor: `${CalendarEventColorMap[event.type]}`
-    //     }}>
-    //       {event.name}</div>));
-    // } else return <></>;
-    return scheduleEvents.map((event, idx) =>
-      (<div
+  const renderItems = (): Array<ReactElement> | ReactElement => (
+    scheduleEvents.map((event, idx) => (
+      <div
         className="event_item"
         key={idx}
         style={{
           backgroundColor: `${CalendarEventColorMap[event.type]}`
         }}>
-        {event.name}</div>));
+        {event.name}
+      </div>))
+  )
+
+  const onClickCell = (): void => {
+    if (props.day) {
+      props.onClick(props.day);
+      // PopupUtil.showMobileEventDetailPopup();
+    }
   }
 
   return (
-    <div className="dayCell" onClick={onCellClick}>
+    <div className="dayCell" onClick={onClickCell}>
       <div className="dayWrapper">
         {holidayEvent ? <span className = 'holidayCellLabel'>{holidayEvent.name}</span> : <span></span>}
         <span>{props.day}</span>

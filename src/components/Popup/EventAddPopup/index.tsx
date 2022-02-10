@@ -107,7 +107,6 @@ interface ContentRowWrapperProps {
 }
 
 const ContentRowWrapper = (props: ContentRowWrapperProps): ReactElement => {
-
   const isMobile = useMediaQuery({query: '(max-width: 640px)'})
 
   const validDOMRef = useRef<HTMLImageElement | null>(null);

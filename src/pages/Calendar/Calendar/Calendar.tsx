@@ -120,25 +120,26 @@ const Calendar = (props: CalendarProps): ReactElement => {
       dispatch(addCalendarEvent(date, event));
     }
 
-    PopupUtil.showEventAddPopup((date: string, event: CalendarEventData): void => {
-      // api call
-      axios.post(`/api/calendar/${event.type.toLowerCase()}`, {
+    const addEventApiCall = (date: string, event: CalendarEventData): void => {
+      const eventData = {
         title: event.name,
         date: date,
         startTime: event.time ? event.time[0] : null,
         endTime: event.time ? event.time[1] : null,
         memo: event.memo
-      })
+      }
+
+      axios.post(`/api/calendar/${event.type.toLowerCase()}`, eventData)
       .then((res) => {
-        // api success -> redux state update
-        if (!res.data.success) {
-          PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
-        }
+        if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
         updateCalendarEventState(date, {...event, num: res.data.insertId});
-      }).catch(e => {
+      })
+      .catch(e => {
         PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
       })
-    });
+    }
+
+    PopupUtil.showEventAddPopup(addEventApiCall);
   }
 
   return (

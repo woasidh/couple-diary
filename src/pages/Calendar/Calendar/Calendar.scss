@@ -14,6 +14,10 @@
     width: 100%;
     height: 90px;
     padding: 10px 30px;
+    @include isMobile {
+      padding: 10px;
+      height: 70px;
+    }
 
     .calendar_submenu {
       height: 100%;
@@ -37,7 +41,7 @@
             width: fit-content;
             padding: 0 10px;
             color: #96999E;
-            font-size: 15px;
+            font-size: 1.5rem;
 
             &:hover {
               color: white;
@@ -59,7 +63,7 @@
         height: 70%;
         @include flex_set_center;
         text-align: center;
-        font-size: 17px;
+        font-size: 1.7rem;
         box-shadow: 0 0 10px $primary_pink;
       }
     }

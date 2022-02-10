@@ -3,11 +3,6 @@ import React from 'react'
 import NotificationPopup, {NotificationPopupType} from '../Popup/NotificationPopup';
 import EventAddPopup from '../Popup/EventAddPopup';
 import PopupBackground from '../Popup';
-import {Provider} from 'react-redux';
-import {applyMiddleware, createStore} from 'redux';
-import {rootReducer} from '../../redux_module';
-import {composeWithDevTools} from 'redux-devtools-extension';
-import ReduxThunk from 'redux-thunk';
 import {CalendarEventData, CalendarEventType} from '../../redux_module/CalendarEvent';
 
 export namespace PopupUtil {
@@ -17,28 +12,23 @@ export namespace PopupUtil {
    * 1. 알림팝업
    * 2. 일정추가 팝업
    */
-  const store = createStore(rootReducer, composeWithDevTools(
-    applyMiddleware(ReduxThunk)
-  ));
 
-  // 팝업 제거
+    // 팝업 제거
   const closePopup = (e: any): void => {
-    e.stopPropagation();
-    ReactDOM.unmountComponentAtNode(document.getElementById('popup') as HTMLElement);
-  }
+      e.stopPropagation();
+      ReactDOM.unmountComponentAtNode(document.getElementById('popup') as HTMLElement);
+    }
 
   // todo 중복코드 더 줄일 수 있을 거같은데
 
   export function showNotificationPopup(type: NotificationPopupType, popupMsg: string): void {
     ReactDOM.render(
-      <Provider store={store}>
-        <PopupBackground onBackgroundClick={closePopup}>
-          <NotificationPopup
-            onCloseBtnClick={closePopup}
-            type={type}
-            msg={popupMsg}/>
-        </PopupBackground>
-      </Provider>,
+      <PopupBackground onBackgroundClick={closePopup}>
+        <NotificationPopup
+          onCloseBtnClick={closePopup}
+          type={type}
+          msg={popupMsg}/>
+      </PopupBackground>,
       document.getElementById('popup'));
   }
 
@@ -48,17 +38,15 @@ export namespace PopupUtil {
                                     date: string | null = null,
                                     onClickDeleteBtn?: (id: number, eventType: CalendarEventType) => void): void {
     ReactDOM.render(
-      <Provider store={store}>
-        <PopupBackground onBackgroundClick={closePopup}>
-          <EventAddPopup
-            onClickCloseBtn={closePopup}
-            onClickSubmitBtn={onClickSubmitBtn}
-            data={data}
-            date={date}
-            onClickDeleteBtn={onClickDeleteBtn ? onClickDeleteBtn : null}
-          />
-        </PopupBackground>
-      </Provider>,
+      <PopupBackground onBackgroundClick={closePopup}>
+        <EventAddPopup
+          onClickCloseBtn={closePopup}
+          onClickSubmitBtn={onClickSubmitBtn}
+          data={data}
+          date={date}
+          onClickDeleteBtn={onClickDeleteBtn ? onClickDeleteBtn : null}
+        />
+      </PopupBackground>,
       document.getElementById('popup')
     );
   }
