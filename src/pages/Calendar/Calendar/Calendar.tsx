@@ -129,7 +129,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
         memo: event.memo
       }
 
-      axios.post(`/api/calendar/${event.type.toLowerCase()}`, eventData)
+      axios.post(process.env.REACT_APP_DB_HOST+`/api/calendar/${event.type.toLowerCase()}`, eventData, { withCredentials: true })
       .then((res) => {
         if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
         updateCalendarEventState(date, {...event, num: res.data.insertId});

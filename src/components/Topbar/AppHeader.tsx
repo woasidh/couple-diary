@@ -30,7 +30,7 @@ const AppHeader = (): ReactElement => {
   }
 
   const onClickLogoutBtn = (): void => {
-    axios.get('/api/users/logout').then(res => {
+    axios.get(process.env.REACT_APP_DB_HOST+'/api/users/logout', { withCredentials: true }).then(res => {
       if (res.status === 200 && res.data.success === true) {
         PopupUtil.showNotificationPopup(NotificationPopupType.NOTIFICATION, '로그아웃 되었습니다');
         dispatch(logoutSuccess());

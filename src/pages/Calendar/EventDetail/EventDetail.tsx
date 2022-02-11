@@ -39,7 +39,7 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
       endTime: newEvent.time ? newEvent.time[1] : null,
       memo: newEvent.memo
     }
-    axios.patch(`/api/calendar/${newEvent.type.toLowerCase()}`, data)
+    axios.patch(process.env.REACT_APP_DB_HOST+`/api/calendar/${newEvent.type.toLowerCase()}`, data, { withCredentials: true })
     .then((res) => {
       if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
       dispatch(changeCalendarEvent(date, newDate, {...newEvent, num: newEvent.num}));
@@ -49,7 +49,7 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
 
   // 이벤트 삭제 api call하는 메소드
   const callDeleteEventApi = (id: number, eventType: CalendarEventType): void => {
-    axios.delete(`/api/calendar/${eventType.toLowerCase()}/?id=${id}`)
+    axios.delete(process.env.REACT_APP_DB_HOST+`/api/calendar/${eventType.toLowerCase()}/?id=${id}`, { withCredentials: true })
     .then(res => {
       if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
       dispatch(deleteCalendarEvent(id, eventType, date));

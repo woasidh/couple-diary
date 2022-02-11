@@ -7,7 +7,7 @@
     position: absolute;
     bottom: -100%;
     background-color: white;
-    transition: all linear 0.1s;
+    transition: all linear 0.05s;
 
     &.open {
       bottom: 0;

@@ -26,7 +26,7 @@ const Index = (): ReactElement => {
   const [isMobileEventDetailPopupOpen, setIsMobileEventDetailPopupOpen] = useState<boolean>(false);
 
   useEffect((): void => {
-    axios.get('/api/calendar/personal').then((res) => {
+    axios.get(process.env.REACT_APP_DB_HOST+'/api/calendar/personal', { withCredentials: true }).then((res) => {
       res.data.events.forEach((event: any) => {
         const date = event.date.split('T')[0];
         const calendarEvent = DataParsingUtil.parseToCalendarEvent(event, CalendarEventType.PERSONAL);
@@ -34,7 +34,7 @@ const Index = (): ReactElement => {
       })
     })
 
-    axios.get('/api/calendar/couple').then((res) => {
+    axios.get(process.env.REACT_APP_DB_HOST+'/api/calendar/couple', { withCredentials: true }).then((res) => {
       res.data.events.forEach((event: any) => {
         const date = event.date.split('T')[0];
         const calendarEvent = DataParsingUtil.parseToCalendarEvent(event, CalendarEventType.COUPLE);
