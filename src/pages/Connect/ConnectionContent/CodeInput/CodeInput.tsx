@@ -25,7 +25,7 @@ const CodeInput = (): ReactElement => {
   }, [code]);
 
   function onClickSubmitBtn(): void {
-    axios.post('/api/connection/connect', {code}).then(res => {
+    axios.post(process.env.REACT_APP_DB_HOST+'/api/connection/connect', {code}, { withCredentials: true }).then(res => {
       if (res.status !== 200) {
         PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, res.data.toString());
       } else if (res.status === 200) {
