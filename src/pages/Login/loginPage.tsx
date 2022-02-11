@@ -44,7 +44,7 @@ const LoginPage = (): ReactElement => {
   }
 
   function submitLoginForm(): void {
-    axios.post(process.env.REACT_APP_DB_HOST + '/api/users/login', submitContent).then((res) => {
+    axios.post('http://13.125.91.144:5000/api/users/login', submitContent).then((res) => {
       if (res.status !== 200) { // 서버 통신 잘 안되었을 때
         alert('api connection error');
       } else { // 서버 통신 잘되었을 때
