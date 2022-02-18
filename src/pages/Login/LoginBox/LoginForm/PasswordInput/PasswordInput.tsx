@@ -6,10 +6,11 @@ export enum PasswordStatus {
 }
 
 interface PasswordInputProps {
-    type: string
-    text: string
-    inputStatus: PasswordStatus
-    onChangeContent: (e: string) => void
+    type: string;
+    label: string;
+    inputStatus: PasswordStatus;
+    onChangeContent: (e: string) => void;
+    value: string;
 }
 
 const PasswordInput = (props: PasswordInputProps): ReactElement => {
@@ -21,8 +22,8 @@ const PasswordInput = (props: PasswordInputProps): ReactElement => {
 
   return (
     <div className="login_input">
-      <label htmlFor = 'password_input' className="input_title">{props.text}</label>
-      <input onChange={onContentChange} type={props.type} id='password_input' />
+      <label htmlFor = 'password_input' className="input_title">{props.label}</label>
+      <input onChange={onContentChange} type={props.type} id='password_input' value={props.value} />
       <span className="input_result_info">{props.inputStatus === PasswordStatus.WRONG && '비밀번호가 일치하지 않습니다'}</span>
     </div>
   );
