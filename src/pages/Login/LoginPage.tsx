@@ -11,20 +11,22 @@ import { PopupUtil } from '../../components/Util/PopupUtil';
 import { NotificationPopupType } from '../../components/Popup/NotificationPopup';
 import {updateCoupleStatus} from '../../redux_module/Couple';
 
+const LoginPage = (): ReactElement => {
+  return (
+    <div className="loginContentsWrapper">
+      <LoginFormContainer/>
+    </div>
+  );
+};
+
 interface LoginSubmitForm {
   email: string
   password: string
 }
 
-const LoginPage = (): ReactElement => {
-  const [submitContent, setSubmitContent] = useState<LoginSubmitForm>({
-    email: '',
-    password: '',
-  });
-  const [emailInputStatus, setEmailInputStatus] = useState<EmailInputStatus>({
-    isValid: false,
-    inputStateMsg: '',
-  });
+const LoginFormContainer = (): ReactElement => {
+  const [submitContent, setSubmitContent] = useState<LoginSubmitForm>({email: '', password: ''});
+  const [emailInputStatus, setEmailInputStatus] = useState<EmailInputStatus>({isValid: false, inputStateMsg: ''});
   const [passwordInputStatus, setPasswordInputStatus] = useState<PasswordStatus>(PasswordStatus.UNKNOWN);
 
   const history = useHistory();
@@ -74,25 +76,12 @@ const LoginPage = (): ReactElement => {
   function renderContent(): ReactElement {
     return (
       <div className="content">
-        <EmailInput
-          inputStatus={emailInputStatus}
-          type="email"
-          text="이메일"
-          onChangeContent={onEmailInputChange}
-        />
-        <PasswordInput
-          inputStatus={passwordInputStatus}
-          type="password"
-          text="비밀번호"
-          onChangeContent={onPasswordInputChange}
-        />
-        <button
-          onClick={submitLoginForm}
-          disabled={!emailInputStatus.isValid}
+        <EmailInput inputStatus={emailInputStatus} type="email" text="이메일" onChangeContent={onEmailInputChange}/>
+        <PasswordInput inputStatus={passwordInputStatus} type="password" text="비밀번호" onChangeContent={onPasswordInputChange}/>
+        <button onClick={submitLoginForm} disabled={!emailInputStatus.isValid}
           style={{
             backgroundColor: emailInputStatus.isValid ? variables.colors.primaryPink : '#E6E6EA',
-          }}
-        >
+          }}>
           로그인
         </button>
         <div className="login_keep">
@@ -116,16 +105,15 @@ const LoginPage = (): ReactElement => {
   }
 
   return (
-    <div className="loginContentsWrapper">
-        <div className="loginFormContainer">
-          <div className="loginContentWrapper">
-            <div className="logo_header">로그인</div>
-            {renderContent()}
-            {renderFooter()}
-          </div>
-        </div>
+    <div className="loginFormContainer">
+      <div className="loginContentWrapper">
+        <div className="logo_header">로그인</div>
+        {renderContent()}
+        {renderFooter()}
+      </div>
     </div>
-  );
-};
+  )
+}
 
 export default LoginPage;
+export {LoginFormContainer};

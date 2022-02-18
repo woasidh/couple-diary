@@ -84,7 +84,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "GENERATE_SOURCEMAP=false node scripts/build.js",
-    "test": "node scripts/test.js",
+    "test": "jest",
+    "updateSnapshot" : "jest --updateSnapshot",
     "eslint": "eslint \"src/**/*.{tsx,ts,js}\""
   },
   "eslintConfig": {
@@ -163,6 +164,7 @@
     ]
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.7.2",
     "@types/jest": "^26.0.24",
     "@types/react-test-renderer": "^17.0.1",
     "eslint": "^7.2.0",
