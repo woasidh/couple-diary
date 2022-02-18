@@ -3,7 +3,7 @@ import React, {ReactElement, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
 import {NotificationPopupType} from '../Popup/NotificationPopup';
-import Login from '../../pages/Login/loginPage';
+import Login from '../../pages/Login/LoginPage';
 import {loginSuccess, logoutSuccess} from '../../redux_module/User';
 import {PopupUtil} from './PopupUtil';
 import {updateCoupleStatus} from '../../redux_module/Couple';

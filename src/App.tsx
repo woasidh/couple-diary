@@ -6,14 +6,13 @@ import {
   Route,
 } from 'react-router-dom';
 import Home from './pages/Calendar/CalendarPage';
-import LoginPage from './pages/Login/loginPage';
+import LoginPage from './pages/Login/LoginPage';
 import Signup from './pages/Signup/Index';
 import Workspace from './pages/Workspace/WorkspacePage';
 import Fallback from './pages/Fallback/Index';
 import AppHeader from './components/Topbar/AppHeader';
 import Connect from './pages/Connect/Index';
 import { AuthOption, HOC } from './components/Util/HOC';
-import ReduxTest from './pages/Test/ReduxTest';
 
 function App(): ReactElement {
   return (
@@ -28,7 +27,6 @@ function App(): ReactElement {
             <Route exact path="/calendar" component = {HOC.checkAuth(Home, AuthOption.AUTH_ONLY)}/>
             <Route exact path="/signup"><Signup /></Route>
             <Route exact path="/connect" component = {HOC.checkAuth(Connect, AuthOption.AUTH_ONLY)}/>
-            <Route exact path="/test" component = {ReduxTest}/>
             <Route path="*"><Fallback /></Route>
           </Switch>
         </div>
