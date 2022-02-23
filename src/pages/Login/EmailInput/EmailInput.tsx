@@ -23,9 +23,10 @@ const EmailInput = ({
   }
   return (
     <div className="login_input">
-      <span className="input_title">{text}</span>
-      <input onChange={onContentChange} type={type} />
+      <label htmlFor='email_input' className="input_title">{text}</label>
+      <input onChange={onContentChange} type={type} id='email_input'/>
       <span
+        data-testid = 'email_status'
         className="input_result_info"
         style={{
           color: inputStatus.isValid ? '#1dd38a' : '#FE4A49',

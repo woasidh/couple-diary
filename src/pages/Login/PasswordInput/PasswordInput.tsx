@@ -21,8 +21,8 @@ const PasswordInput = (props: PasswordInputProps): ReactElement => {
 
   return (
     <div className="login_input">
-      <span className="input_title">{props.text}</span>
-      <input onChange={onContentChange} type={props.type} />
+      <label htmlFor = 'password_input' className="input_title">{props.text}</label>
+      <input onChange={onContentChange} type={props.type} id='password_input' />
       <span className="input_result_info">{props.inputStatus === PasswordStatus.WRONG && '비밀번호가 일치하지 않습니다'}</span>
     </div>
   );
