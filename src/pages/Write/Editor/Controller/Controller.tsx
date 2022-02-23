@@ -9,69 +9,66 @@ import {ReactComponent as RoundedList} from '../../../../resource/images/rounded
 import {ReactComponent as CheckedList} from '../../../../resource/images/checkedList.svg';
 import ImageUpload from '../../../../resource/images/image.png';
 import './Controller.scss';
+import {AlignOrder, EditorConfigType, EditorState, Heading, ListType} from '../Editor';
 
-/**
- * types
- */
-
-enum Heading {
-  paragraph = 'paragraph',
-  h1 = 'header1',
-  h2 = 'header2',
-  h3 = 'header3'
+interface ControllerProps {
+  editorState: EditorState;
+  onChangeConfig: (configType: EditorConfigType, value: any) => void;
 }
 
-const Controller = (): ReactElement => {
-  const [heading, setHeading] = useState<Heading>(Heading.paragraph);
-  const [fontColor, setFontColor] = useState<string>('#000000');
+const Controller = (props: ControllerProps): ReactElement => {
 
-  const onChangeHeading = (e: any): void => {
-    setHeading(e.target.value);
+  const updateHeading = (e: any): void => {
+    props.onChangeConfig(EditorConfigType.heading, e.target.value);
   }
-
+  const updateFontEffect = (fontEffect: string): void => {
+    props.onChangeConfig(EditorConfigType.fontEffect, fontEffect);
+  }
+  const updateAlignOrder = (alignOrder: AlignOrder): void => {
+    props.onChangeConfig(EditorConfigType.align, alignOrder);
+  }
+  const updateListing = (listType: ListType): void => {
+    props.onChangeConfig(EditorConfigType.list, listType);
+  }
 
   return (
     <div className='controller_wrapper'>
       <section className='controllerItem' id='headings'>
-        <select id='headings' onChange={onChangeHeading}>
-          <option value='paragraph'>paragraph</option>
-          <option value='heading1'>heading1</option>
-          <option value='heading2'>heading2</option>
-          <option value='heading3'>heading3</option>
+        <select id='headings' onChange={updateHeading} value={props.editorState.heading}>
+          <option value={Heading.paragraph}>paragraph</option>
+          <option value={Heading.h1}>heading1</option>
+          <option value={Heading.h2}>heading2</option>
+          <option value={Heading.h3}>heading3</option>
         </select>
       </section>
       <section className='controllerItem' id='fontEffect'>
         <div className='fontEffectItem'>
-          <button className='bold'><img src={Bold}/></button>
+          <button className='bold' onClick={(): void => updateFontEffect('bold')}><img src={Bold}/></button>
         </div>
         <div className='fontEffectItem'>
-          <button className='italic'><img src={Italic}/></button>
+          <button className='italic' onClick={(): void => updateFontEffect('italic')}><img src={Italic}/></button>
         </div>
-        <ColorChip color={fontColor} onChange={(color: string): void => {
-          console.log(color);
-          setFontColor(color)
+        <ColorChip color={props.editorState.fontColor} onChange={(color: string): void => {
+          props.onChangeConfig(EditorConfigType.fontColor, color);
         }}/>
       </section>
       <section className='controllerItem' id='align'>
         <div className='alignItem'>
-          <button className='left'><img src={LeftAlign}/></button>
+          <button className='left' onClick = {(): void => updateAlignOrder(AlignOrder.left)}><img src={LeftAlign}/></button>
         </div>
         <div className='alignItem'>
-          <button className='center'><img src={CenterAlign}/></button>
+          <button className='center' onClick = {(): void => updateAlignOrder(AlignOrder.center)}><img src={CenterAlign}/></button>
         </div>
         <div className='alignItem'>
-          <button className='right'><img src={RightAlign}/></button>
+          <button className='right' onClick = {(): void => updateAlignOrder(AlignOrder.right)}><img src={RightAlign}/></button>
         </div>
       </section>
       <section className='controllerItem' id='list'>
         <div className='listItem'>
-          <button className='rounded'><RoundedList/></button>
+          <button className='rounded' onClick={(): void => updateListing(ListType.rounded)}><RoundedList/></button>
         </div>
         <div className='listItem'>
-          <button className='numbered'><NumberedList/></button>
-        </div>
-        <div className='listItem'>
-          <button className='checked'><CheckedList/></button>
+          <button className='numbered' onClick={(): void => updateListing(ListType.numbered)}><NumberedList/></button>
         </div>
       </section>
       <section className='controllerItem' id='image'>

@@ -8,8 +8,14 @@
   .textArea {
     position: absolute;
     width: 100%;
-    top: 80px;
+    top: 40px;
     bottom: 0;
     outline: none;
+
+    ol, ul {
+      li {
+        list-style-type: inherit;
+      }
+    }
   }
 }
