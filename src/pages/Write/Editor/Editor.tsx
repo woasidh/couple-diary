@@ -29,7 +29,8 @@ export enum EditorConfigType {
   fontColor,
   fontEffect,
   align,
-  list
+  list,
+  imageUpload
 }
 
 export interface EditorState {
@@ -52,14 +53,14 @@ const defaultEditorState = {
 
 const Editor = (): ReactElement => {
 
-  useEffect(() => {
-    // todo 선택한 곳에 따라 controller 보여주는 정보 다르게 하기
-    console.log(contentRef);
-    contentRef.current?.addEventListener('click', (e) => {
-      console.log(window.getSelection());
-      console.log(window.getSelection()?.anchorNode?.childNodes);
-    })
-  });
+  // useEffect(() => {
+  //   // todo 선택한 곳에 따라 controller 보여주는 정보 다르게 하기
+  //   console.log(contentRef);
+  //   contentRef.current?.addEventListener('click', (e) => {
+  //     console.log(window.getSelection());
+  //     console.log(window.getSelection()?.anchorNode?.childNodes);
+  //   })
+  // });
 
 
   const [editorState, setEditorState] = useState<EditorState>(defaultEditorState);
@@ -74,6 +75,7 @@ const Editor = (): ReactElement => {
   }
 
   const updateEditorState = (configType: EditorConfigType, value: any): void => {
+    console.log(configType, value);
     switch (configType) {
       case EditorConfigType.heading:
         updateHeading(value);
@@ -90,6 +92,8 @@ const Editor = (): ReactElement => {
       case EditorConfigType.list:
         updateListing(value);
         break;
+      case EditorConfigType.imageUpload:
+        uploadImages(value);
     }
     focusEditor();
   }
@@ -113,6 +117,15 @@ const Editor = (): ReactElement => {
     else if (alignOrder === AlignOrder.right) setEditorState({...editorState, align: AlignOrder.right});
     applyEditorCommand(alignOrder);
   }
+  const uploadImages = (imageUrls: Array<string>): void => {
+    focusEditor();
+    console.log(imageUrls);
+    for (const imageUrl of imageUrls) {
+      const imgElement = '<img src = "http://localhost:5000/' + imageUrl + '"/>'
+      applyEditorCommand('insertHTML', imgElement);
+    }
+  }
+
   const updateListing = (listType: ListType): void => {
     setEditorState({...editorState, listing: listType});
     applyEditorCommand(listType);
@@ -121,7 +134,8 @@ const Editor = (): ReactElement => {
   return (
     <div className='EditorWrapper'>
       <Controller editorState={editorState} onChangeConfig={updateEditorState}/>
-      <div className='textArea' contentEditable ref={contentRef}/>
+      <div className='textArea' contentEditable ref={contentRef}>
+      </div>
     </div>
   )
 }

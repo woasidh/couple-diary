@@ -1,4 +1,4 @@
-import {ReactElement, useState} from 'react';
+import {ReactElement, useEffect, useRef, useState} from 'react';
 import Bold from '../../../../resource/images/bold.png';
 import Italic from '../../../../resource/images/italic.png';
 import LeftAlign from '../../../../resource/images/left-align.png';
@@ -6,10 +6,11 @@ import CenterAlign from '../../../../resource/images/center-align.png';
 import RightAlign from '../../../../resource/images/right-align.png';
 import {ReactComponent as NumberedList} from '../../../../resource/images/numberedlist.svg';
 import {ReactComponent as RoundedList} from '../../../../resource/images/roundedlist.svg';
-import {ReactComponent as CheckedList} from '../../../../resource/images/checkedList.svg';
-import ImageUpload from '../../../../resource/images/image.png';
 import './Controller.scss';
 import {AlignOrder, EditorConfigType, EditorState, Heading, ListType} from '../Editor';
+import axios from 'axios';
+import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
+import {PopupUtil} from '../../../../components/Util/PopupUtil';
 
 interface ControllerProps {
   editorState: EditorState;
@@ -17,6 +18,30 @@ interface ControllerProps {
 }
 
 const Controller = (props: ControllerProps): ReactElement => {
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const getImagePathAfterUpload = async (fileList: FileList): Promise<Array<string>> => {
+      const formData = new FormData();
+      for (const file of fileList) formData.append('photo', file);
+      return axios.post(process.env.REACT_APP_DB_HOST + '/api/file/upload/images', formData,
+        {headers: {'Content-Type': 'multipart/form-data'}})
+      .then(res => {
+        if (res.data.success) return res.data.filePaths;
+        else PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
+      })
+      .catch((e) => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()));
+    }
+
+    fileInputRef.current?.addEventListener('change', async () => {
+      const fileList = fileInputRef.current?.files;
+      if (fileList) {
+        const imageUrls = await getImagePathAfterUpload(fileList);
+        props.onChangeConfig(EditorConfigType.imageUpload, imageUrls);
+      }
+    })
+  });
 
   const updateHeading = (e: any): void => {
     props.onChangeConfig(EditorConfigType.heading, e.target.value);
@@ -54,13 +79,16 @@ const Controller = (props: ControllerProps): ReactElement => {
       </section>
       <section className='controllerItem' id='align'>
         <div className='alignItem'>
-          <button className='left' onClick = {(): void => updateAlignOrder(AlignOrder.left)}><img src={LeftAlign}/></button>
+          <button className='left' onClick={(): void => updateAlignOrder(AlignOrder.left)}><img src={LeftAlign}/>
+          </button>
         </div>
         <div className='alignItem'>
-          <button className='center' onClick = {(): void => updateAlignOrder(AlignOrder.center)}><img src={CenterAlign}/></button>
+          <button className='center' onClick={(): void => updateAlignOrder(AlignOrder.center)}><img src={CenterAlign}/>
+          </button>
         </div>
         <div className='alignItem'>
-          <button className='right' onClick = {(): void => updateAlignOrder(AlignOrder.right)}><img src={RightAlign}/></button>
+          <button className='right' onClick={(): void => updateAlignOrder(AlignOrder.right)}><img src={RightAlign}/>
+          </button>
         </div>
       </section>
       <section className='controllerItem' id='list'>
@@ -73,7 +101,8 @@ const Controller = (props: ControllerProps): ReactElement => {
       </section>
       <section className='controllerItem' id='image'>
         <div className='imageItem'>
-          <button><img className='imageUpload' src={ImageUpload}/></button>
+          {/*<button><img className='imageUpload' src={ImageUpload}/></button>*/}
+          <input type="file" accept='image/*' multiple ref={fileInputRef}/>
         </div>
       </section>
     </div>
