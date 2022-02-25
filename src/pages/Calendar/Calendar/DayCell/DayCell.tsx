@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect, useRef, useState} from 'react';
-import {CalendarEventData, CalendarEventType} from '../../../../redux_module/CalendarEvent';
+import {CalendarEventData, CalendarEventType} from '../../../../reducers/CalendarEvent';
 import './DayCell.scss';
-import {PopupUtil} from '../../../../components/Util/PopupUtil';
+import {PopupUtil} from '../../../../shared/hoc/PopupUtil';
 import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
 
 interface DayCellProps {

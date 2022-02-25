@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react'
-import NotificationPopup, {NotificationPopupType} from '../Popup/NotificationPopup';
-import EventAddPopup from '../Popup/EventAddPopup';
-import PopupBackground from '../Popup';
-import {CalendarEventData, CalendarEventType} from '../../redux_module/CalendarEvent';
+import NotificationPopup, {NotificationPopupType} from '../../components/Popup/NotificationPopup';
+import EventAddPopup from '../../components/Popup/EventAddPopup';
+import PopupBackground from '../../components/Popup';
+import {CalendarEventData, CalendarEventType} from '../../reducers/CalendarEvent';
 
 export namespace PopupUtil {
   

@@ -45,7 +45,7 @@ export const deleteCalendarEvent = (id: number, eventType: CalendarEventType, da
 }
 
 /**
- * reducer
+ * reducers
  */
 
 const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<string, Array<CalendarEventData>>()}, action: CalendarEventAction): CalendarEventState => {

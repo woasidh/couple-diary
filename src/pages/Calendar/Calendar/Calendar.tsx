@@ -1,13 +1,13 @@
 import React, {ReactElement, useCallback, useEffect, useState} from 'react';
 import DayCell from './DayCell/DayCell';
-import {PopupUtil} from '../../../components/Util/PopupUtil';
+import {PopupUtil} from '../../../shared/hoc/PopupUtil';
 import Left from '../../../resource/images/left.png';
 import Right from '../../../resource/images/right.png';
 import sampleHolidayData from '../../../resource/data/SampleHolidayData';
 import {useDispatch, useSelector} from 'react-redux';
-import {addCalendarEvent, CalendarEventData, CalendarEventType} from '../../../redux_module/CalendarEvent';
-import {RootState} from '../../../redux_module';
-import {StringUtil} from '../../../util/StringUtil';
+import {addCalendarEvent, CalendarEventData, CalendarEventType} from '../../../reducers/CalendarEvent';
+import {RootState} from '../../../reducers';
+import {StringUtil} from '../../../shared/util/StringUtil';
 import axios from 'axios';
 import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 import './Calendar.scss';

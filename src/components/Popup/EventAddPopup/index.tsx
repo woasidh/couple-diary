@@ -6,7 +6,7 @@ import MemoImg from '../../../resource/images/notebook.png';
 import CalendarImg from '../../../resource/images/calendar.png';
 import CategoryImg from '../../../resource/images/category.png';
 import TitleImg from '../../../resource/images/title.png';
-import {CalendarEventData, CalendarEventType} from '../../../redux_module/CalendarEvent';
+import {CalendarEventData, CalendarEventType} from '../../../reducers/CalendarEvent';
 import ReactDOM from 'react-dom';
 import ValidImg from '../../../resource/images/check.png';
 import InvalidImg from '../../../resource/images/delete.png';

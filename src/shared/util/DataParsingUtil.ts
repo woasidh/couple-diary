@@ -1,4 +1,4 @@
-import {CalendarEventData, CalendarEventType} from '../redux_module/CalendarEvent';
+import {CalendarEventData, CalendarEventType} from '../../reducers/CalendarEvent';
 
 export namespace DataParsingUtil {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

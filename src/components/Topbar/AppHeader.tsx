@@ -2,13 +2,13 @@ import axios from 'axios';
 import React, {ReactElement, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {RootState} from '../../redux_module';
-import {logoutSuccess} from '../../redux_module/User';
+import {RootState} from '../../reducers';
+import {logoutSuccess} from '../../reducers/User';
 import Logo from '../../resource/images/logo.png';
-import {PopupUtil} from '../Util/PopupUtil';
+import {PopupUtil} from '../../shared/hoc/PopupUtil';
 import {NotificationPopupType} from '../Popup/NotificationPopup';
 import './Topbar.scss';
-import {removeCoupleData} from '../../redux_module/Couple';
+import {removeCoupleData} from '../../reducers/Couple';
 // todo img height 맞추기
 import MenuClose from '../../resource/images/menu_close.png';
 import MenuOpen from '../../resource/images/menu_open.png';

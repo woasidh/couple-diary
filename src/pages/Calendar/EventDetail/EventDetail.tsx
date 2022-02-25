@@ -7,11 +7,11 @@ import {
   CalendarEventType,
   changeCalendarEvent,
   deleteCalendarEvent
-} from '../../../redux_module/CalendarEvent';
-import {StringUtil} from '../../../util/StringUtil';
+} from '../../../reducers/CalendarEvent';
+import {StringUtil} from '../../../shared/util/StringUtil';
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../../redux_module';
-import {PopupUtil} from '../../../components/Util/PopupUtil';
+import {RootState} from '../../../reducers';
+import {PopupUtil} from '../../../shared/hoc/PopupUtil';
 import axios from 'axios';
 import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 

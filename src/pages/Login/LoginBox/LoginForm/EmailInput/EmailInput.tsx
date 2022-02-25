@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import './Input.scss';
-import {StringUtil} from '../../../util/StringUtil';
+import {StringUtil} from '../../../../../shared/util/StringUtil';
 
 export interface EmailInputStatus {
     isValid: boolean

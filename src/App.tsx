@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import './App.scss';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,7 +11,7 @@ import Workspace from './pages/Workspace/WorkspacePage';
 import Fallback from './pages/Fallback/Index';
 import AppHeader from './components/Topbar/AppHeader';
 import Connect from './pages/Connect/Index';
-import { AuthOption, HOC } from './components/Util/HOC';
+import { AuthOption, HOC } from './shared/hoc/HOC';
 
 function App(): ReactElement {
   return (
