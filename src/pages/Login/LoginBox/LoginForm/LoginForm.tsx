@@ -2,7 +2,10 @@ import React, {ReactElement, useState} from 'react';
 import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
 import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import {useHistory} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import axios from 'axios';
+import {loginSuccess} from '../../../../reducers/User';
+import {updateCoupleStatus} from '../../../../reducers/Couple';
 import {PopupUtil} from '../../../../shared/hoc/PopupUtil';
 import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
 import ConditionalButton from './ConditionalButton/ConditionalButton';
@@ -13,16 +16,13 @@ interface LoginSubmitForm {
   password: string
 }
 
-interface LoginFormProps {
-  onLoginSuccess: (apiData: any) => any;
-}
-
-const LoginForm = (props: LoginFormProps): ReactElement => {
-  const history = useHistory();
-
+const LoginForm = (): ReactElement => {
   const [submitContent, setSubmitContent] = useState<LoginSubmitForm>({email: '', password: ''});
   const [emailInputStatus, setEmailInputStatus] = useState<EmailInputStatus>({isValid: false, inputStateMsg: ''});
   const [passwordInputStatus, setPasswordInputStatus] = useState<PasswordStatus>(PasswordStatus.UNKNOWN);
+
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   function onEmailInputChange(email: string, isEmailValid: boolean): void {
     setSubmitContent({...submitContent, email});
@@ -55,7 +55,8 @@ const LoginForm = (props: LoginFormProps): ReactElement => {
         } else {
           // 로그인 성공
           // redux state 변경
-          props.onLoginSuccess(res.data);
+          dispatch(loginSuccess(res.data.userData));
+          dispatch(updateCoupleStatus(res.data.coupleData));
           history.push('/workspace');
         }
       }
