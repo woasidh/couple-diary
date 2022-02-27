@@ -14,30 +14,15 @@ interface CalendarProps {
   onClickPrevBtn: () => any;
   onClickAddEventBtn?: () => any;
   eventMap?: Map<string, Array<CalendarEventData>>
-  config?: CalendarConfig;
-}
-
-export enum Language {
-  en = 'EN',
-  ko = 'KO'
-}
-
-interface CalendarConfig {
-  lang?: Language;
 }
 
 const Calendar = (props: CalendarProps): ReactElement => {
   const startDay = new Date(props.year, props.month, 1).getDay();
   const totalDay = new Date(props.year, props.month + 1, 0).getDate();
 
-  const lang = props.config?.lang ? props.config.lang : Language.ko;
-
   //todo useCallback 왜 안되는지???
   const renderWeekdayRow = useCallback((): ReactElement => {
-    const weekdaysKo = ['일', '월', '화', '수', '목', '금', '토'];
-    const weekdaysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const weekdays = lang === Language.en ? weekdaysEn : weekdaysKo;
-
+    const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
     return (
       <div className="weekdayRow">
         {weekdays.map((weekday, index) => (

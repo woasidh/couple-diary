@@ -1,6 +1,6 @@
 import React, {ReactElement, ReactNode, useEffect, useState} from 'react';
 import './index.scss';
-import Calendar, {Language} from './Calendar/Calendar';
+import Calendar from './Calendar/Calendar';
 import Member from './Member/Member';
 import EventDetail from './EventDetail/EventDetail';
 import axios from 'axios';
@@ -153,9 +153,6 @@ const Index = (): ReactElement => {
     PopupUtil.showEventAddPopup(addEventApiCall);
   }
 
-  const calendarConfig = {
-  }
-
   return (
     <div className="CalendarContentsWrapper">
       <Member/>
@@ -166,8 +163,7 @@ const Index = (): ReactElement => {
         onClickPrevBtn={subtractMonth}
         onClickCell={setSelectedDate}
         eventMap={calendarEventMap}
-        onClickAddEventBtn = {showEventAddPopup}
-        config = {calendarConfig}/>
+        onClickAddEventBtn = {showEventAddPopup}/>
       <MobileModal
         isOpenModal={isMobileEventDetailPopupOpen}
         onClickBackground={(): void => setIsMobileEventDetailPopupOpen(false)}
