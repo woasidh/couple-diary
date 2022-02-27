@@ -66,7 +66,7 @@ const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<str
       if (action.payload.prevDate === action.payload.newDate) {
         let prevDateEvents = state.eventMap.get(action.payload.prevDate);
         prevDateEvents = prevDateEvents?.map((event) => {
-          if (event.num !== action.payload.eventData.num) return event;
+          if (event.id !== action.payload.eventData.num) return event;
           else return action.payload.eventData;
         })
         return {
@@ -79,7 +79,7 @@ const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<str
       } else {
         let prevDateEvents = state.eventMap.get(action.payload.prevDate);
         prevDateEvents = prevDateEvents?.filter((event) => (
-          event.num !== action.payload.eventData.num
+          event.id !== action.payload.eventData.num
         ));
         let newDateEvents = state.eventMap.get(action.payload.newDate) || [];
         newDateEvents = newDateEvents?.concat([action.payload.eventData]);
@@ -96,7 +96,7 @@ const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<str
     case DELETE_EVENT: {
       const prevEvents = state.eventMap.get(action.payload.date);
       const newEvents = prevEvents?.filter((event) =>
-        !(event.num === action.payload.id && event.type === action.payload.eventType));
+        !(event.id === action.payload.id && event.type === action.payload.eventType));
       return {
         ...state,
         eventMap: new Map([
@@ -131,7 +131,7 @@ export enum CalendarEventType {
 }
 
 export interface CalendarEventData {
-  num?: number
+  id?: number
   type: CalendarEventType;
   name: string;
   time: Array<string> | null; // 공휴일이면 null

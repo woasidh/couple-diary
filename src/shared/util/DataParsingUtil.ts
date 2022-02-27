@@ -6,6 +6,6 @@ export namespace DataParsingUtil {
     const time = apiData.startTime ? [apiData.startTime, apiData.endTime] : null;
     const name = apiData.title;
     const memo = apiData.memo;
-    return {num: apiData.id, type: eventType, name, time, memo};
+    return {id: apiData.id, type: eventType, name, time, memo};
   }
 }
