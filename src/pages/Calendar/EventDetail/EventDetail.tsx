@@ -32,7 +32,7 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
   // 이벤트 수정 api call하는 메소드
   const callPatchEventApi = (newDate: string, newEvent: CalendarEventData): void => {
     const data = {
-      id: newEvent.num,
+      id: newEvent.id,
       title: newEvent.name,
       date: newDate,
       startTime: newEvent.time ? newEvent.time[0] : null,
@@ -42,7 +42,7 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
     axios.patch(process.env.REACT_APP_DB_HOST+`/api/calendar/${newEvent.type.toLowerCase()}`, data, { withCredentials: true })
     .then((res) => {
       if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
-      dispatch(changeCalendarEvent(date, newDate, {...newEvent, num: newEvent.num}));
+      dispatch(changeCalendarEvent(date, newDate, {...newEvent, id: newEvent.id}));
     })
     .catch(e => PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString()));
   }
@@ -69,7 +69,7 @@ const EventDetail = (props: EventDetailProps): ReactElement => {
         {/* todo key로 idx 넘겼는데 안좋음 -> 고유 id로 해야되는데 holiday는 id없어서 처리해야 함 */}
         {events ? events.map((event, idx) => (
           <li className={`eventItem ${event.type === CalendarEventType.HOLIDAY ? '' : 'clickable'}`} key={idx}
-              onClick={(): void => onClickDetail(event, event.num)}>
+              onClick={(): void => onClickDetail(event, event.id)}>
             <div className='title'>{event.name}</div>
             <div
               className='time'>시간: {event.time ? `${StringUtil.parseDateToMinute(event.time[0])} ~ ${StringUtil.parseDateToMinute(event.time[1])}` : ' -'}</div>
