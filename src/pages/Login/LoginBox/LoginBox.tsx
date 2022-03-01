@@ -1,13 +1,13 @@
-import React, {ReactElement, useState} from 'react';
-import LoginForm from './LoginForm/LoginForm';
+import React, {ReactElement} from 'react';
 import LoginFooter from './LoginFooter/LoginFooter';
+import LoginFormContainer from './LoginForm/LoginFormContainer';
 
 const LoginBox = (): ReactElement => {
   return (
     <div className="login_box">
       <div className="login_content_wrapper">
         <div className="logo_header">로그인</div>
-        <LoginForm/>
+        <LoginFormContainer/>
         <LoginFooter/>
       </div>
     </div>
