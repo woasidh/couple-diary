@@ -52,7 +52,9 @@ const CalendarEventReducer = (state: CalendarEventState = {eventMap: new Map<str
   switch (action.type) {
     case ADD_EVENT: {
       const prevEvents = state.eventMap.get(action.payload.eventDate);
-      console.log()
+      if (prevEvents?.some((data) => data.id === action.payload.eventData.id)) {
+        return {...state};
+      }
       const newEvents = prevEvents ? prevEvents.concat([action.payload.eventData]) : [action.payload.eventData];
       return {
         ...state,
