@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import PopupBackground from '../../components/Popup';
 import {useMediaQuery} from 'react-responsive';
 import CalendarContainer from './Calendar/CalendarContainer';
+import EventDetailContainer from './EventDetail/EventDetailContainer';
 
 const Index = (): ReactElement => {
 
@@ -53,7 +54,7 @@ const Index = (): ReactElement => {
         isOpenModal={isMobileEventDetailPopupOpen}
         onClickBackground={(): void => setIsMobileEventDetailPopupOpen(false)}
       >
-        <EventDetail
+        <EventDetailContainer
           year={selectedYear}
           month={selectedMonth}
           day={selectedDay}
