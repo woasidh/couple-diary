@@ -9,15 +9,15 @@ import LoginPage from './pages/Login/LoginPage';
 import Signup from './pages/Signup/Index';
 import Workspace from './pages/Workspace/WorkspacePage';
 import Fallback from './pages/Fallback/Index';
-import AppHeader from './components/Topbar/AppHeader';
 import Connect from './pages/Connect/Index';
 import { AuthOption, HOC } from './shared/hoc/HOC';
+import AppHeaderContainer from './components/AppHeader/AppHeaderContainer';
 
 function App(): ReactElement {
   return (
     <>
       <Router>
-      <AppHeader />
+      <AppHeaderContainer />
         {/* header 아래 부분 appContent 하나로 통합 */}
         <div className = 'appContent'>
           <Switch>

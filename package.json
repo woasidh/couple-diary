@@ -85,8 +85,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "jest",
-    "updateSnapshot": "jest --updateSnapshot",
+    "test": "node scripts/test.js",
     "eslint": "eslint \"src/**/*.{tsx,ts,js}\""
   },
   "eslintConfig": {
@@ -165,7 +164,6 @@
     ]
   },
   "devDependencies": {
-    "@reduxjs/toolkit": "^1.7.2",
     "@types/jest": "^26.0.24",
     "@types/react-calendar": "^3.4.5",
     "@types/react-test-renderer": "^17.0.1",

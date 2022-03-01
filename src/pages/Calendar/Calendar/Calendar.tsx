@@ -1,4 +1,4 @@
-import React, {ReactElement, useCallback} from 'react';
+import React, {ReactElement, useCallback, useEffect} from 'react';
 import DayCell from './DayCell/DayCell';
 import Left from '../../../resource/images/left.png';
 import Right from '../../../resource/images/right.png';
@@ -10,7 +10,7 @@ interface CalendarProps {
   year: number
   month: number
   onClickCell: (date: number) => void;
-  onClickNextBtn?: () => any;
+  onClickNextBtn: () => any;
   onClickPrevBtn: () => any;
   onClickAddEventBtn?: () => any;
   eventMap?: Map<string, Array<CalendarEventData>>
@@ -27,6 +27,12 @@ interface CalendarConfig {
 }
 
 const Calendar = (props: CalendarProps): ReactElement => {
+
+  // useEffect(() => {
+  //   console.log(props.eventMap);
+  // });
+
+
   const startDay = new Date(props.year, props.month, 1).getDay();
   const totalDay = new Date(props.year, props.month + 1, 0).getDate();
 
