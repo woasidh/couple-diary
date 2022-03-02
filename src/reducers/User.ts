@@ -23,7 +23,7 @@ export const logoutSuccess = (): any => {
 }
 
 /**
- * reducer
+ * reducers
  */
 
 const userReducer  = (state: UserState | null = null, action: UserAction): UserState | null => {

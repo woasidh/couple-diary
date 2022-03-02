@@ -1,8 +1,8 @@
 import React, {
   useRef, useState, useEffect, ReactElement,
 } from 'react';
-import { ArrayUtil } from '../../../util/ArrayUtil';
-import { Point } from '../../../util/Point';
+import { ArrayUtil } from '../../../shared/util/ArrayUtil';
+import { Point } from '../../../shared/util/Point';
 import Heart from './Heart';
 import './RandomHeart.scss';
 

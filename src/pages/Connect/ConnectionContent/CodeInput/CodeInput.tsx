@@ -1,8 +1,8 @@
 import {ReactElement, useEffect, useRef, useState} from 'react';
-import {ArrayUtil} from '../../../../util/ArrayUtil';
-import {StringUtil} from '../../../../util/StringUtil';
+import {ArrayUtil} from '../../../../shared/util/ArrayUtil';
+import {StringUtil} from '../../../../shared/util/StringUtil';
 import axios from 'axios';
-import {PopupUtil} from '../../../../components/Util/PopupUtil';
+import {PopupUtil} from '../../../../shared/hoc/PopupUtil';
 import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
 import {useHistory} from 'react-router-dom';
 

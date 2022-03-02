@@ -1,83 +1,49 @@
-import React, {ReactElement, useCallback, useEffect, useState} from 'react';
+import React, {ReactElement, useCallback, useEffect} from 'react';
 import DayCell from './DayCell/DayCell';
-import {PopupUtil} from '../../../components/Util/PopupUtil';
 import Left from '../../../resource/images/left.png';
 import Right from '../../../resource/images/right.png';
-import sampleHolidayData from '../../../resource/data/SampleHolidayData';
-import {useDispatch, useSelector} from 'react-redux';
-import {addCalendarEvent, CalendarEventData, CalendarEventType} from '../../../redux_module/CalendarEvent';
-import {RootState} from '../../../redux_module';
-import {StringUtil} from '../../../util/StringUtil';
-import axios from 'axios';
-import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
+import {CalendarEventData} from '../../../reducers/CalendarEvent';
+import {StringUtil} from '../../../shared/util/StringUtil';
 import './Calendar.scss';
 
 interface CalendarProps {
   year: number
   month: number
   onClickCell: (date: number) => void;
-  onClickNextBtn: () => void;
-  onClickPrevBtn: () => void;
+  onClickNextBtn: () => any;
+  onClickPrevBtn: () => any;
+  onClickAddEventBtn?: () => any;
+  eventMap?: Map<string, Array<CalendarEventData>>
+  config?: CalendarConfig;
+}
+
+export enum Language {
+  en = 'EN',
+  ko = 'KO'
+}
+
+interface CalendarConfig {
+  lang?: Language;
 }
 
 const Calendar = (props: CalendarProps): ReactElement => {
-  const dispatch = useDispatch();
 
-  const calendarEventMap = useSelector((state: RootState) => state.calendarEvent.eventMap);
+  // useEffect(() => {
+  //   console.log(props.eventMap);
+  // });
+
 
   const startDay = new Date(props.year, props.month, 1).getDay();
   const totalDay = new Date(props.year, props.month + 1, 0).getDate();
 
-  const [holidayApiCallMap, setHolidayApiCallMap] = useState(new Map<number, boolean>());
-
-  useEffect(() => {
-    const isApiCalled = !!holidayApiCallMap.get(props.year);
-    if (!isApiCalled) {
-      // todo sample data -> api 호출로 변경하기
-      sampleHolidayData.forEach((data) => {
-        const calendarEvent: CalendarEventData = {
-          type: CalendarEventType.HOLIDAY,
-          name: data.dateName,
-          time: null,
-          memo: null
-        }
-        dispatch(addCalendarEvent(StringUtil.convertToDate(data.locdate.toString()), calendarEvent));
-      });
-      setHolidayApiCallMap(new Map([
-        ...holidayApiCallMap,
-        [props.year, true]
-      ]))
-    }
-
-    // todo 주석 풀고 api 호출하기
-    // axios.get(`/api/calendar/holiday?year=${props.year}`)
-    // .then(res => {
-    //   console.log(res.data.item);
-    //   if (res.data.item) {
-    //     setHolidayMap(new Map([
-    //       ...holidayMap,
-    //       ...parseHolidayAPI(res.data.item)
-    //     ]))
-    //   }
-    // })
-    // .catch(e => {
-    //   PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
-    // })
-  }, [props.year]);
-
-  // const parseHolidayAPI = (datas: Array<HolidayApiForm>): Map<string, CalendarEventData> => {
-  //   return new Map(datas.map(data => {
-  //     const calendarCellEvent: CalendarEventData = {
-  //       name: data.dateName,
-  //       type: CalendarEventType.HOLIDAY
-  //     }
-  //     return [data.locdate.toString(), calendarCellEvent];
-  //   }));
-  // }
+  const lang = props.config?.lang ? props.config.lang : Language.ko;
 
   //todo useCallback 왜 안되는지???
   const renderWeekdayRow = useCallback((): ReactElement => {
-    const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+    const weekdaysKo = ['일', '월', '화', '수', '목', '금', '토'];
+    const weekdaysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weekdays = lang === Language.en ? weekdaysEn : weekdaysKo;
+
     return (
       <div className="weekdayRow">
         {weekdays.map((weekday, index) => (
@@ -105,41 +71,13 @@ const Calendar = (props: CalendarProps): ReactElement => {
             return <DayCell
               day={isValidCell ? dayCount : null}
               key={idx}
-              event={isValidCell ? calendarEventMap.get(StringUtil.dateToString(props.year, props.month + 1, dayCount)) : null}
+              event={isValidCell ? props.eventMap?.get(StringUtil.dateToString(props.year, props.month + 1, dayCount)) : null}
               onClick={props.onClickCell}
             />;
           })}
         </div>
       ))
     );
-  }
-
-  const showEventAddPopup = (): void => {
-
-    const updateCalendarEventState = (date: string, event: CalendarEventData): void => {
-      dispatch(addCalendarEvent(date, event));
-    }
-
-    const addEventApiCall = (date: string, event: CalendarEventData): void => {
-      const eventData = {
-        title: event.name,
-        date: date,
-        startTime: event.time ? event.time[0] : null,
-        endTime: event.time ? event.time[1] : null,
-        memo: event.memo
-      }
-
-      axios.post(process.env.REACT_APP_DB_HOST+`/api/calendar/${event.type.toLowerCase()}`, eventData, { withCredentials: true })
-      .then((res) => {
-        if (!res.data.success) PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err);
-        updateCalendarEventState(date, {...event, num: res.data.insertId});
-      })
-      .catch(e => {
-        PopupUtil.showNotificationPopup(NotificationPopupType.API_ERROR, e.toString());
-      })
-    }
-
-    PopupUtil.showEventAddPopup(addEventApiCall);
   }
 
   return (
@@ -150,7 +88,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
             {/*TODO SVG로 바꿔보기*/}
             <button onClick={props.onClickPrevBtn}><img src={Left} alt="left"/></button>
             <button onClick={props.onClickNextBtn}><img src={Right} alt="right"/></button>
-            <button onClick={showEventAddPopup} className="add_event">
+            <button onClick={props.onClickAddEventBtn} className="add_event">
               일정 추가
             </button>
           </div>

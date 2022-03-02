@@ -6,7 +6,7 @@ import MemoImg from '../../../resource/images/notebook.png';
 import CalendarImg from '../../../resource/images/calendar.png';
 import CategoryImg from '../../../resource/images/category.png';
 import TitleImg from '../../../resource/images/title.png';
-import {CalendarEventData, CalendarEventType} from '../../../redux_module/CalendarEvent';
+import {CalendarEventData, CalendarEventType} from '../../../reducers/CalendarEvent';
 import ReactDOM from 'react-dom';
 import ValidImg from '../../../resource/images/check.png';
 import InvalidImg from '../../../resource/images/delete.png';
@@ -37,7 +37,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
   const onClickSubmitBtn = (_: any): void => {
     // todo type, name 필수처리 하기
     const eventData = {
-      num: props.data ? props.data.num : -1,
+      num: props.data ? props.data.id : -1,
       type: eventType as CalendarEventType,
       name: title as string,
       time: time,
@@ -49,7 +49,7 @@ const EventAddPopup = (props: EventAddPopupProps): ReactElement => {
   }
 
   const onClickDeleteBtn = (): void => {
-    if (props.onClickDeleteBtn) props.onClickDeleteBtn(props.data?.num as number, props.data?.type as CalendarEventType)
+    if (props.onClickDeleteBtn) props.onClickDeleteBtn(props.data?.id as number, props.data?.type as CalendarEventType)
     closePopup();
   }
 

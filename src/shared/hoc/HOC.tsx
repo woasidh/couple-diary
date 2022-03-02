@@ -2,11 +2,11 @@ import axios from 'axios';
 import React, {ReactElement, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
-import {NotificationPopupType} from '../Popup/NotificationPopup';
+import {NotificationPopupType} from '../../components/Popup/NotificationPopup';
 import Login from '../../pages/Login/LoginPage';
-import {loginSuccess, logoutSuccess} from '../../redux_module/User';
+import {loginSuccess, logoutSuccess} from '../../reducers/User';
 import {PopupUtil} from './PopupUtil';
-import {updateCoupleStatus} from '../../redux_module/Couple';
+import {updateCoupleStatus} from '../../reducers/Couple';
 
 export enum AuthOption {
   AUTH_ONLY,
@@ -14,7 +14,7 @@ export enum AuthOption {
 }
 
 export namespace HOC {
-  // TODO 로그인되었는지 확인하는 HOC 구현하기
+  // TODO 로그인되었는지 확인하는 hoc 구현하기
   export function checkAuth(
     Component: () => ReactElement,
     option: AuthOption): () => ReactElement {

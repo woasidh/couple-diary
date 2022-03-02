@@ -1,13 +1,13 @@
 @import 'src/variables.scss';
 
-.loginContentsWrapper {
+.login_page {
   width: 100%;
   height: 100%;
   font-weight: bold;
   background-image: url('../../resource/images/loginpage_background.png');
   @include background-cover;
   @include flex_set_center;
-    .loginFormContainer {
+    .login_box {
       background-color: white;
       width: 600px;
       @include isMobile {
@@ -19,7 +19,7 @@
       @include box_shadow_up;
       @include flex_set_center;
 
-      .loginContentWrapper {
+      .login_content_wrapper {
         @include flex_set_column;
         width: 70%;
         @include isMobile {
@@ -32,7 +32,7 @@
           color: $light_gray;
         }
 
-        .content {
+        .login_form {
           @include flex_set_column;
           width: 100%;
           padding: 25px 0 35px 0;
@@ -99,7 +99,7 @@
           }
         }
 
-        .footer {
+        .login_footer {
           @include flex_set_column;
           color: $light_gray;
           font-weight: bold;
