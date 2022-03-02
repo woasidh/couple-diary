@@ -86,7 +86,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "jest",
-    "updateSnapshot" : "jest --updateSnapshot",
+    "updateSnapshot": "jest --updateSnapshot",
     "eslint": "eslint \"src/**/*.{tsx,ts,js}\""
   },
   "eslintConfig": {
