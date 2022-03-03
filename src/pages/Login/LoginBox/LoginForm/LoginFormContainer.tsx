@@ -6,8 +6,6 @@ import {useDispatch} from 'react-redux';
 import {EmailInputStatus} from './EmailInput/EmailInput';
 import {PasswordStatus} from './PasswordInput/PasswordInput';
 import axios from 'axios';
-import {PopupUtil} from '../../../../shared/hoc/PopupUtil';
-import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
 import {useHistory} from 'react-router';
 
 export interface LoginSubmitForm {

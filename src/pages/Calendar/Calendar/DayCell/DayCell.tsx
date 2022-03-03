@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useRef, useState} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import {CalendarEventData, CalendarEventType} from '../../../../reducers/CalendarEvent';
 import './DayCell.scss';
 
@@ -47,7 +47,7 @@ const DayCell = (props: DayCellProps): ReactElement => {
   return (
     <div className="dayCell" onClick={onClickCell}>
       <div className="dayWrapper">
-        {holidayEvent ? <span className = 'holidayCellLabel'>{holidayEvent.name}</span> : <span></span>}
+        {holidayEvent ? <span className = 'holidayCellLabel'>{holidayEvent.name}</span> : <span/>}
         <span>{props.day}</span>
       </div>
       <div className="eventWrapper">

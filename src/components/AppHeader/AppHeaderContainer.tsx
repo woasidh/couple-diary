@@ -1,4 +1,4 @@
-import {ReactElement, ReactNode} from 'react';
+import {ReactElement} from 'react';
 import AppHeader from './AppHeader';
 import axios from 'axios';
 import {PopupUtil} from '../../shared/hoc/PopupUtil';

@@ -1,7 +1,6 @@
 import React, {ReactElement, ReactNode, useState} from 'react';
 import './CalendarPage.scss';
 import Member from './Member/Member';
-import EventDetail from './EventDetail/EventDetail';
 import ReactDOM from 'react-dom';
 import PopupBackground from '../../components/Popup';
 import {useMediaQuery} from 'react-responsive';

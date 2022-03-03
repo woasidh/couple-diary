@@ -7,7 +7,7 @@ const Workspace = (): ReactElement => {
   const history = useHistory();
   const isCouple = true;
 
-  function onClickConnectCouple(): void {
+  const onClickConnectCouple = (): void => {
     history.push('connect');
   }
 
@@ -25,8 +25,8 @@ const Workspace = (): ReactElement => {
       {isCouple &&
         <div className = "workspaceContentsWrapper">
           <div className="item_container">
-            <a href = "/calendar" className = "item">캘린더</a>
-            <a className = "item">메모</a>
+            <button className = "item" onClick = {(): void => history.push('/calendar')}>캘린더</button>
+            <button className = "item" onClick = {(): void => history.push('/write')}>데이트 기록 작성</button>
           </div>
         </div>
       }

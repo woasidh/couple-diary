@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement} from 'react';
 import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
 import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import ConditionalButton from './ConditionalButton/ConditionalButton';

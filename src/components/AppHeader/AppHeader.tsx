@@ -35,7 +35,7 @@ const AppHeader = (props: AppHeaderProps): ReactElement => {
         </div>
         <div className="right_section" id='mobile'>
           <button onClick={toggleMenu}>
-            <img className='menu_close' src={isMenuOpen ? MenuOpen : MenuClose}/>
+            <img className='menu_close' src={isMenuOpen ? MenuOpen : MenuClose} alt = 'mobile_submenu'/>
           </button>
         </div>
       </div>

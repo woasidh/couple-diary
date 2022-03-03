@@ -1,0 +1,87 @@
+@import 'src/variables';
+
+.controller_wrapper {
+  height: 40px;
+  width: 100%;
+  color: $font_gray;
+  border: 1px solid $line_gray;
+  display: flex;
+
+  .controllerItem {
+    border-right: 1px solid $line_gray;
+    width: fit-content;
+    height: 100%;
+    display: flex;
+
+    &#headings {
+      select[id='headings'] {
+        height: 100%;
+        width: 110px;
+        outline: none;
+        border: none;
+      }
+    }
+
+    &#fontEffect, &#align, &#list, &#image {
+      .fontEffectItem, .alignItem, .listItem, .imageItem {
+        width: 40px;
+        height: 100%;
+        @include flex_set_center;
+        button {
+          border-radius: 5px;
+          width: 30px;
+          height: 30px;
+          &.applied {
+            background-color: $background_gray;
+          }
+          &:hover { background-color: $background_gray; }
+          @include flex_set_center;
+          img {
+            width: 50%;
+            &.imageUpload {
+              width: 80%;
+            }
+          }
+          svg {width: 80%; }
+        }
+      }
+    }
+
+    .colorChipWrapper {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      @include flex_set_center;
+
+      .colorChip {
+        width: 23px;
+        height: 23px;
+        border-radius: 5px;
+        border: 1px solid $line_gray;
+      }
+
+      .colorMenu {
+        position: absolute;
+        left: 0;
+        top: 40px;
+        border: 1px solid $line_gray;
+        padding: 10px;
+        z-index: 2;
+
+        .providedColorWrapper {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          grid-template-rows: repeat(5, 1fr);
+          grid-gap: 10px;
+
+          button {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            border: 1px solid $line_gray;
+          }
+        }
+      }
+    }
+  }
+}

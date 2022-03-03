@@ -1,4 +1,4 @@
-import React, {ReactElement, useCallback, useEffect} from 'react';
+import React, {ReactElement, useCallback} from 'react';
 import DayCell from './DayCell/DayCell';
 import Left from '../../../resource/images/left.png';
 import Right from '../../../resource/images/right.png';
