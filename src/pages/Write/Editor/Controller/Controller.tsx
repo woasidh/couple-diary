@@ -10,7 +10,7 @@ import './Controller.scss';
 import {AlignOrder, EditorConfigType, EditorState, Heading, ListType} from '../Editor';
 import axios from 'axios';
 import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
-import {PopupUtil} from '../../../../components/Util/PopupUtil';
+import {PopupUtil} from '../../../../shared/hoc/PopupUtil';
 
 interface ControllerProps {
   editorState: EditorState;
