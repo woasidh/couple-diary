@@ -1,0 +1,7 @@
+@import 'src/variables';
+
+.signup_page {
+  width: 100%;
+  height: 100%;
+  @include flex_set_center;
+}

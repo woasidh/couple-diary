@@ -2,7 +2,6 @@ import React, {ReactElement} from 'react';
 import EmailInput, {EmailInputStatus} from './EmailInput/EmailInput';
 import PasswordInput, {PasswordStatus} from './PasswordInput/PasswordInput';
 import ConditionalButton from './ConditionalButton/ConditionalButton';
-import variables from '../../../../variables';
 import {LoginSubmitForm} from './LoginFormContainer';
 
 interface LoginFormProps {
@@ -20,21 +19,15 @@ const LoginForm = (props: LoginFormProps): ReactElement => {
     <div className="login_form">
       <EmailInput
         inputStatus={props.emailInputStatus}
-        type="email"
-        label="이메일"
         onChangeContent={props.onEmailInputChange}
         value={props.submitContent.email}/>
       <PasswordInput
         inputStatus={props.passwordInputStatus}
-        type="password"
-        label="비밀번호"
         onChangeContent={props.onPasswordInputChange}
         value={props.submitContent.password}/>
       <ConditionalButton
         onClick={props.onSubmit}
         isClickable={props.emailInputStatus.isValid}
-        onColor={variables.colors.primaryPink}
-        offColor={variables.colors.backgroundGray}
         content='로그인'/>
       <div className="login_keep">
         <input type="checkbox" id="keep_login"/>

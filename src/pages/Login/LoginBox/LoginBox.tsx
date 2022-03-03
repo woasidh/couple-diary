@@ -1,16 +1,14 @@
 import React, {ReactElement} from 'react';
 import LoginFooter from './LoginFooter/LoginFooter';
 import LoginFormContainer from './LoginForm/LoginFormContainer';
+import FormBox from '../FormBox/ForBox';
 
 const LoginBox = (): ReactElement => {
   return (
-    <div className="login_box">
-      <div className="login_content_wrapper">
-        <div className="logo_header">로그인</div>
-        <LoginFormContainer/>
-        <LoginFooter/>
-      </div>
-    </div>
+    <FormBox title='로그인'>
+      <LoginFormContainer/>
+      <LoginFooter/>
+    </FormBox>
   );
 }
 

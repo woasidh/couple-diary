@@ -8,8 +8,6 @@ export interface EmailInputStatus {
 }
 
 interface EmailInputProps {
-  type: string;
-  label: string;
   inputStatus: EmailInputStatus;
   onChangeContent: (e: string, isValidEmail: boolean) => void;
   value: string;
@@ -22,8 +20,8 @@ const EmailInput = (props: EmailInputProps): ReactElement => {
   }
   return (
     <div className="login_input">
-      <label htmlFor='email_input' className="input_title">{props.label}</label>
-      <input onChange={onContentChange} value={props.value} type={props.type} id='email_input'/>
+      <label htmlFor='email_input' className="input_title">이메일</label>
+      <input onChange={onContentChange} value={props.value} type='email' id='email_input'/>
       <span
         data-testid='email_status'
         className="input_result_info"

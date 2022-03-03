@@ -29,6 +29,9 @@ export const removeCoupleData = (): any => {
 const coupleReducer  = (state: CoupleState | null = null, action: CoupleAction): CoupleState | null => {
   switch(action.type) {
     case COUPLE_STATUS_UPDATE:
+      if (!action.payload?.isCouple) {
+        return state;
+      }
       return {
         ...state,
         isCouple: action.payload.isCouple,

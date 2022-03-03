@@ -1,4 +1,6 @@
 import React, {ReactElement} from 'react';
+import './ConditionalButto.scss';
+import variables from '../../../../../variables';
 
 /**
  * props에 따라 clickable / unclickable
@@ -8,17 +10,20 @@ import React, {ReactElement} from 'react';
 interface ConditionalButtonProps {
   onClick: () => any;
   isClickable: boolean;
-  onColor: string;
-  offColor: string;
   content: string;
 }
+
+const onColor = variables.colors.primaryPink;
+const offColor = variables.colors.backgroundGray;
 
 const ConditionalButton = (props: ConditionalButtonProps): ReactElement => {
   return (
     <>
-      <button onClick={props.onClick}
-              disabled={!props.isClickable}
-              style={{backgroundColor: props.isClickable ? props.onColor : props.offColor}}>
+      <button
+        className = 'condition_button'
+        onClick={props.onClick}
+        disabled={!props.isClickable}
+        style={{backgroundColor: props.isClickable ? onColor : offColor}}>
         {props.content}
       </button>
     </>

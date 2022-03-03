@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import Home from './pages/Calendar/CalendarPage';
 import LoginPage from './pages/Login/LoginPage';
-import Signup from './pages/Signup/Index';
+import Signup from './pages/Signup/SignupPage';
 import Workspace from './pages/Workspace/WorkspacePage';
 import Fallback from './pages/Fallback/Index';
 import Connect from './pages/Connect/Index';

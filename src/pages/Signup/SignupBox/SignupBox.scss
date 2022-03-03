@@ -1,0 +1,11 @@
+@import 'src/variables';
+
+.signup_form {
+  @include flex_set_column;
+  width: 100%;
+  padding: 25px 0 35px 0;
+  font-size: 1.8rem;
+  @include isMobile {
+    padding: 25px 0 15px 0;
+  }
+}

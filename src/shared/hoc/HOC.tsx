@@ -6,7 +6,7 @@ import {NotificationPopupType} from '../../components/Popup/NotificationPopup';
 import Login from '../../pages/Login/LoginPage';
 import {loginSuccess, logoutSuccess} from '../../reducers/User';
 import {PopupUtil} from './PopupUtil';
-import {updateCoupleStatus} from '../../reducers/Couple';
+import {removeCoupleData, updateCoupleStatus} from '../../reducers/Couple';
 
 export enum AuthOption {
   AUTH_ONLY,
@@ -38,8 +38,10 @@ export namespace HOC {
       useEffect(() => {
         // todo axios 모듈로 만들기
         axios.get(process.env.REACT_APP_DB_HOST+'/api/users/login/check', { withCredentials: true }).then((res) => {
+          console.log(res.data);
           if (!res.data.isLoggedIn) { // 로그인유저만 출입가능 - 로그인 안되어있을 떄 -> 로그인으로
             dispatch(logoutSuccess());
+            dispatch(removeCoupleData());
             if (option === AuthOption.AUTH_ONLY) {
               history.push('/');
             }
