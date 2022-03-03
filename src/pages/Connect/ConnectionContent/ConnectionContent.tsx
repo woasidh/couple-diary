@@ -1,11 +1,11 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import './ConnectionContent.scss';
 import AgoComehere from '../../../resource/images/ago_comehere.png';
-import {ArrayUtil} from '../../../util/ArrayUtil';
+import {ArrayUtil} from '../../../shared/util/ArrayUtil';
 import Counter from './Counter/Counter';
 import CodeInput from './CodeInput/CodeInput';
 import axios from 'axios';
-import {PopupUtil} from '../../../components/Util/PopupUtil';
+import {PopupUtil} from '../../../shared/hoc/PopupUtil';
 import {NotificationPopupType} from '../../../components/Popup/NotificationPopup';
 
 const ConnectionContent = (): ReactElement => {

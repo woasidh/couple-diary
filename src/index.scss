@@ -49,6 +49,17 @@ li {
   list-style-type: none;
 }
 
+.appContent {
+  font-family: 'Gamja Flower', cursive;
+  width: 100%;
+  top: $topbar_height;
+  bottom: 0;
+  position: absolute;
+  @include isMobile {
+    top: $mobile_topbar_height;
+  }
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

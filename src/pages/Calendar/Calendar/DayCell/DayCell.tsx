@@ -1,8 +1,6 @@
-import React, {ReactElement, useEffect, useRef, useState} from 'react';
-import {CalendarEventData, CalendarEventType} from '../../../../redux_module/CalendarEvent';
+import React, {ReactElement, useEffect, useState} from 'react';
+import {CalendarEventData, CalendarEventType} from '../../../../reducers/CalendarEvent';
 import './DayCell.scss';
-import {PopupUtil} from '../../../../components/Util/PopupUtil';
-import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
 
 interface DayCellProps {
   day: number | null;
@@ -11,8 +9,6 @@ interface DayCellProps {
 }
 
 const DayCell = (props: DayCellProps): ReactElement => {
-
-  const numRef = useRef<number>(1);
 
   const [holidayEvent, setHolidayEvent] = useState<CalendarEventData | null>(null);
   const [scheduleEvents, setScheduleEvents] = useState<Array<CalendarEventData>>([]);
@@ -45,14 +41,13 @@ const DayCell = (props: DayCellProps): ReactElement => {
   const onClickCell = (): void => {
     if (props.day) {
       props.onClick(props.day);
-      // PopupUtil.showMobileEventDetailPopup();
     }
   }
 
   return (
     <div className="dayCell" onClick={onClickCell}>
       <div className="dayWrapper">
-        {holidayEvent ? <span className = 'holidayCellLabel'>{holidayEvent.name}</span> : <span></span>}
+        {holidayEvent ? <span className = 'holidayCellLabel'>{holidayEvent.name}</span> : <span/>}
         <span>{props.day}</span>
       </div>
       <div className="eventWrapper">

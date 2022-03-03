@@ -23,7 +23,7 @@ export const removeCoupleData = (): any => {
 };
 
 /**
- * reducer
+ * reducers
  */
 
 const coupleReducer  = (state: CoupleState | null = null, action: CoupleAction): CoupleState | null => {
