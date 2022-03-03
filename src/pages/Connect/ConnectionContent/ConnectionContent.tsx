@@ -21,6 +21,7 @@ const ConnectionContent = (): ReactElement => {
       code: randomCode
     }, { withCredentials: true }).then(res => {
       if (res.data.success === false) {
+        console.log(res.data.err);
         PopupUtil.showNotificationPopup(NotificationPopupType.API_FAILURE, res.data.err.toString());
       } else {
         setMyCode(randomCode);

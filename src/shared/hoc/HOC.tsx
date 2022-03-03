@@ -10,7 +10,8 @@ import {removeCoupleData, updateCoupleStatus} from '../../reducers/Couple';
 
 export enum AuthOption {
   AUTH_ONLY,
-  NO_AUTH_ONLY
+  NO_AUTH_ONLY,
+  SOLO_ONLY
 }
 
 export namespace HOC {
@@ -38,7 +39,6 @@ export namespace HOC {
       useEffect(() => {
         // todo axios 모듈로 만들기
         axios.get(process.env.REACT_APP_DB_HOST+'/api/users/login/check', { withCredentials: true }).then((res) => {
-          console.log(res.data);
           if (!res.data.isLoggedIn) { // 로그인유저만 출입가능 - 로그인 안되어있을 떄 -> 로그인으로
             dispatch(logoutSuccess());
             dispatch(removeCoupleData());
@@ -46,10 +46,14 @@ export namespace HOC {
               history.push('/');
             }
           } else if (res.data.isLoggedIn) { // 로그인안된 유저만 출입가능 - 로그인 되어있을 때 -> workspace로 (현재는 loginPage만 적용)
+            console.log(res.data, option);
             dispatch(loginSuccess(res.data.userData));
             dispatch(updateCoupleStatus(res.data.coupleData));
             if (option === AuthOption.NO_AUTH_ONLY) {
               history.push('/workspace');
+            }
+            if (!!res.data.coupleData && option === AuthOption.SOLO_ONLY) {
+              history.push('/');
             }
           }
           // 나머지는 그대로
