@@ -21,15 +21,12 @@ export namespace HOC {
     option: AuthOption): () => ReactElement {
 
     return (): ReactElement => {
-
       // history.push 되고 나서 unmount된 컴포넌트 state 조절 못하니까 clean up
       useEffect(() => {
         return ((): void => {
           setIsLoading(false);
         })
       }, []);
-
-
       const [isLoading, setIsLoading] = useState<boolean>(true);
       const [isApiError, setIsApiError] = useState<boolean>(false);
 
@@ -38,6 +35,7 @@ export namespace HOC {
 
       useEffect(() => {
         // todo axios 모듈로 만들기
+        // todo Auth HOC 정리 필요...(너무 더러움)
         axios.get(process.env.REACT_APP_DB_HOST+'/api/users/login/check', { withCredentials: true }).then((res) => {
           if (!res.data.isLoggedIn) { // 로그인유저만 출입가능 - 로그인 안되어있을 떄 -> 로그인으로
             dispatch(logoutSuccess());

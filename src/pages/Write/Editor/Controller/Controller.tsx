@@ -7,14 +7,14 @@ import RightAlign from '../../../../resource/images/right-align.png';
 import {ReactComponent as NumberedList} from '../../../../resource/images/numberedlist.svg';
 import {ReactComponent as RoundedList} from '../../../../resource/images/roundedlist.svg';
 import './Controller.scss';
-import {AlignOrder, EditorConfigType, EditorState, Heading, ListType} from '../Editor';
+import {AlignOrder, EditorCommandType, EditorState, Heading, ListType} from '../Editor';
 import axios from 'axios';
 import {NotificationPopupType} from '../../../../components/Popup/NotificationPopup';
 import {PopupUtil} from '../../../../shared/hoc/PopupUtil';
 
 interface ControllerProps {
   editorState: EditorState;
-  onChangeConfig: (configType: EditorConfigType, value: any) => void;
+  onChangeConfig: (configType: EditorCommandType, value: any) => void;
 }
 
 const Controller = (props: ControllerProps): ReactElement => {
@@ -38,22 +38,22 @@ const Controller = (props: ControllerProps): ReactElement => {
       const fileList = fileInputRef.current?.files;
       if (fileList) {
         const imageUrls = await getImagePathAfterUpload(fileList);
-        props.onChangeConfig(EditorConfigType.imageUpload, imageUrls);
+        props.onChangeConfig(EditorCommandType.imageUpload, imageUrls);
       }
     })
   });
 
   const updateHeading = (e: any): void => {
-    props.onChangeConfig(EditorConfigType.heading, e.target.value);
+    props.onChangeConfig(EditorCommandType.heading, e.target.value);
   }
   const updateFontEffect = (fontEffect: string): void => {
-    props.onChangeConfig(EditorConfigType.fontEffect, fontEffect);
+    props.onChangeConfig(EditorCommandType.fontEffect, fontEffect);
   }
   const updateAlignOrder = (alignOrder: AlignOrder): void => {
-    props.onChangeConfig(EditorConfigType.align, alignOrder);
+    props.onChangeConfig(EditorCommandType.align, alignOrder);
   }
   const updateListing = (listType: ListType): void => {
-    props.onChangeConfig(EditorConfigType.list, listType);
+    props.onChangeConfig(EditorCommandType.list, listType);
   }
 
   return (
@@ -74,7 +74,7 @@ const Controller = (props: ControllerProps): ReactElement => {
           <button className='italic' onClick={(): void => updateFontEffect('italic')}><img src={Italic}/></button>
         </div>
         <ColorChip color={props.editorState.fontColor} onChange={(color: string): void => {
-          props.onChangeConfig(EditorConfigType.fontColor, color);
+          props.onChangeConfig(EditorCommandType.fontColor, color);
         }}/>
       </section>
       <section className='controllerItem' id='align'>

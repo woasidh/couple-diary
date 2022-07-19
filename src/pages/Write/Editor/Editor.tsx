@@ -24,7 +24,7 @@ export enum ListType {
   numbered = 'insertOrderedList',
 }
 
-export enum EditorConfigType {
+export enum EditorCommandType {
   heading,
   fontColor,
   fontEffect,
@@ -74,25 +74,24 @@ const Editor = (): ReactElement => {
     contentRef.current?.focus();
   }
 
-  const updateEditorState = (configType: EditorConfigType, value: any): void => {
-    console.log(configType, value);
+  const updateEditorState = (configType: EditorCommandType, value: any): void => {
     switch (configType) {
-      case EditorConfigType.heading:
+      case EditorCommandType.heading:
         updateHeading(value);
         break;
-      case EditorConfigType.fontEffect:
+      case EditorCommandType.fontEffect:
         updateFontEffect(value);
         break;
-      case EditorConfigType.fontColor:
+      case EditorCommandType.fontColor:
         updateFontColor(value);
         break;
-      case EditorConfigType.align:
+      case EditorCommandType.align:
         updateAlign(value);
         break;
-      case EditorConfigType.list:
+      case EditorCommandType.list:
         updateListing(value);
         break;
-      case EditorConfigType.imageUpload:
+      case EditorCommandType.imageUpload:
         uploadImages(value);
     }
     focusEditor();

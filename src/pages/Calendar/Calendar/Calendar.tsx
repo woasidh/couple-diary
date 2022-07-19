@@ -27,12 +27,6 @@ interface CalendarConfig {
 }
 
 const Calendar = (props: CalendarProps): ReactElement => {
-
-  // useEffect(() => {
-  //   console.log(props.eventMap);
-  // });
-
-
   const startDay = new Date(props.year, props.month, 1).getDay();
   const totalDay = new Date(props.year, props.month + 1, 0).getDate();
 

@@ -46,7 +46,7 @@ const LoginFormContainer = (): ReactElement => {
           } else if (data.errMsg === 'NO_MATCH_ID') { // ID가 없을 때
             setEmailInputStatus({
               isValid: false,
-              inputStateMsg: 'id가 존재하지 않습니다',
+              inputStateMsg: 'id가 존재하지 않습니다!',
             });
           }
         } else {
